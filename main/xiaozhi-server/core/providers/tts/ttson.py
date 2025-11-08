@@ -59,8 +59,8 @@ class TTSProvider(TTSProviderBase):
 
         resp = requests.request("POST", url, data=payload)
         if resp.status_code != 200:
-            logger.bind(tag=TAG).error(f"TTSON 请求失败: {resp.text}")
-            raise Exception(f"{__name__}: TTS请求失败")
+            logger.bind(tag=TAG).error(f"TTSON request failed: {resp.text}")
+            raise Exception(f"{__name__}: TTS request failed")
         resp_json = resp.json()
         try:
             result = (
@@ -85,4 +85,4 @@ class TTSProvider(TTSProviderBase):
 
         except Exception as e:
             print("error:", e)
-            raise Exception(f"{__name__}: TTS请求失败")
+            raise Exception(f"{__name__}: TTS request failed")

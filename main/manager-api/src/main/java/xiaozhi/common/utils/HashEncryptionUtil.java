@@ -6,38 +6,38 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 哈希加密算法的工具类
+ * hash_encryption_algorithm_tool_class
  * @author zjy
  */
 @Slf4j
 public class HashEncryptionUtil {
     /**
-     * 使用md5进行加密
-     * @param context 被加密的内容
-     * @return 哈希值
+     * encrypt_using_md5
+     * @param context encrypted_content
+     * @return hash_value
      */
     public static String Md5hexDigest(String context){
         return hexDigest(context,"MD5");
     }
 
     /**
-     * 指定哈希算法进行加密
-     * @param context 被加密的内容
-     * @param algorithm 哈希算法
-     * @return 哈希值
+     * specify_hash_algorithm_for_encryption
+     * @param context encrypted_content
+     * @param algorithm hash_algorithm
+     * @return hash_value
      */
    public static String hexDigest(String context,String algorithm ){
-       // 获取MD5算法实例
+       // get_md5_algorithm_example
        MessageDigest md = null;
        try {
            md = MessageDigest.getInstance(algorithm);
        } catch (NoSuchAlgorithmException e) {
-           log.error("加密失败的算法：{}",algorithm);
-           throw new RuntimeException("加密失败，"+ algorithm +"哈希算法系统不支持");
+           log.error("Algorithm for encryption failure: {}",algorithm);
+           throw new RuntimeException("Encryption failed,"+ algorithm +"Hash algorithm system does not support");
        }
-       // 计算智能体id的MD5值
+       // calculate_the_md5_value_of_the_agent_id
        byte[] messageDigest = md.digest(context.getBytes());
-       // 将字节数组转换为十六进制字符串
+       // convert_byte_array_to_hex_string
        StringBuilder hexString = new StringBuilder();
        for (byte b : messageDigest) {
            String hex = Integer.toHexString(0xFF & b);

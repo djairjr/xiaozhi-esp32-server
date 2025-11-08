@@ -1,31 +1,31 @@
 import { otaStatusStyle } from './document.js';
 import { log } from './utils/logger.js';
 
-// WebSocket 连接
+// WebSocket connect
 export async function webSocketConnect(otaUrl, config) {
 
     if (!validateConfig(config)) {
         return;
     }
 
-    // 发送OTA请求并获取返回的websocket信息
+    // send_an_ota_request_and_get_the_returned_websocket_information
     const otaResult = await sendOTA(otaUrl, config);
     if (!otaResult) {
         log('无法从OTA服务器获取信息', 'error');
         return;
     }
 
-    // 从OTA响应中提取websocket信息
+    // extract_websocket_information_from_ota_response
     const { websocket } = otaResult;
     if (!websocket || !websocket.url) {
         log('OTA响应中缺少websocket信息', 'error');
         return;
     }
 
-    // 使用OTA返回的websocket URL
+    // use_websocket_returned_by_ota URL
     let connUrl = new URL(websocket.url);
 
-    // 添加token参数（从OTA响应中获取）
+    // add_token_parameter（get_from_ota_response）
     if (websocket.token) {
         if (websocket.token.startsWith("Bearer ")) {
             connUrl.searchParams.append('authorization', websocket.token);
@@ -34,13 +34,13 @@ export async function webSocketConnect(otaUrl, config) {
         }
     }
 
-    // 添加认证参数（保持原有逻辑）
+    // add_authentication_parameters（keep_the_original_logic）
     connUrl.searchParams.append('device-id', config.deviceId);
     connUrl.searchParams.append('client-id', config.clientId);
 
     const wsurl = connUrl.toString()
 
-    log(`正在连接: ${wsurl}`, 'info');
+    log(`connecting: ${wsurl}`, 'info');
 
     if (wsurl) {
         document.getElementById('serverUrl').value = wsurl;
@@ -49,7 +49,7 @@ export async function webSocketConnect(otaUrl, config) {
     return new WebSocket(connUrl.toString());
 }
 
-// 验证配置
+// verify_configuration
 function validateConfig(config) {
     if (!config.deviceMac) {
         log('设备MAC地址不能为空', 'error');
@@ -62,19 +62,19 @@ function validateConfig(config) {
     return true;
 }
 
-// 判断wsUrl路径是否存在错误
+// determine_whether_there_is_an_error_in_the_wsurl_path
 function validateWsUrl(wsUrl) {
     if (wsUrl === '') return false;
-    // 检查URL格式
+    // check_url_format
     if (!wsUrl.startsWith('ws://') && !wsUrl.startsWith('wss://')) {
-        log('URL格式错误，必须以ws://或wss://开头', 'error');
+        log('URL格式错误，must_be_ws:// Or start with wss://', ​​'error');
         return false;
     }
     return true
 }
 
 
-// OTA发送请求，验证状态，并返回响应数据
+// OTA sends request, verification_status, and_return_response_data
 async function sendOTA(otaUrl, config) {
     try {
         const res = await fetch(otaUrl, {
@@ -116,9 +116,9 @@ async function sendOTA(otaUrl, config) {
 
         const result = await res.json();
         otaStatusStyle(true)
-        return result; // 返回完整的响应数据
+        return result; // return_complete_response_data
     } catch (err) {
         otaStatusStyle(false)
-        return null; // 失败返回null
+        return null; // returns_null_on_failure
     }
 }

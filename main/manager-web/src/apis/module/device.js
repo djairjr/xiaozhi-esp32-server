@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 已绑设备
+    // device_bound
     getAgentBindDevices(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/bind/${agentId}`)
@@ -18,7 +18,7 @@ export default {
                 });
             }).send();
     },
-    // 解绑设备
+    // unbind_device
     unbindDevice(device_id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/unbind`)
@@ -35,7 +35,7 @@ export default {
                 });
             }).send();
     },
-    // 绑定设备
+    // bind_device
     bindDevice(agentId, deviceCode, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/bind/${agentId}/${deviceCode}`)
@@ -68,7 +68,7 @@ export default {
                 })
             }).send()
     },
-    // 手动添加设备
+    // add_device_manually
     manualAddDevice(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/manual-add`)
@@ -85,12 +85,12 @@ export default {
                 });
             }).send();
     },
-    // 获取设备状态
+    // get_device_status
     getDeviceStatus(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/bind/${agentId}`)
             .method('POST')
-            .data({}) // 发送空对象作为请求体
+            .data({}) // send_an_empty_object_as_the_request_body
             .success((res) => {
                 RequestService.clearRequestTime();
                 callback(res);

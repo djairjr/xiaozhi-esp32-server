@@ -1,14 +1,14 @@
 const { defineConfig } = require('@vue/cli-service');
 const dotenv = require('dotenv');
-// TerserPlugin 用于压缩 JavaScript
+// TerserPlugin for_compression JavaScript
 const TerserPlugin = require('terser-webpack-plugin');
-// CompressionPlugin 开启 Gzip 压缩
+// CompressionPlugin turn_on Gzip compression
 const CompressionPlugin = require('compression-webpack-plugin')
-// BundleAnalyzerPlugin 用于分析打包后的文件
+// BundleAnalyzerPlugin used_to_analyze_packaged_files
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// WorkboxPlugin 用于生成Service Worker
+// WorkboxPlugin used_to_generate_service Worker
 const { InjectManifest } = require('workbox-webpack-plugin');
-// 引入 path 模块
+// introduce path module
 
 const path = require('path')
  
@@ -16,10 +16,10 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-// 确保加载 .env 文件
+// make_sure_to_load .env document
 dotenv.config();
 
-// 定义CDN资源列表，确保Service Worker也能访问
+// define_cdn_resource_list, ensure_service Worker can also access
 const cdnResources = {
   css: [
     'https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css',
@@ -35,13 +35,13 @@ const cdnResources = {
   ]
 };
 
-// 判断是否使用CDN
+// determine_whether_to_use_cdn
 const useCDN = process.env.VUE_APP_USE_CDN === 'true';
 
 module.exports = defineConfig({
-  productionSourceMap: process.env.NODE_ENV !=='production', // 生产环境不生成 source map
+  productionSourceMap: process.env.NODE_ENV !=='production', // the_production_environment_is_not_generated source map
   devServer: {
-    port: 8001, // 指定端口为 8001
+    port: 8001, // the_specified_port_is 8001
     proxy: {
       '/xiaozhi': {
         target: 'http://127.0.0.1:8002',
@@ -49,23 +49,23 @@ module.exports = defineConfig({
       }
     },
     client: {
-      overlay: false, // 不显示 webpack 错误覆盖层
+      overlay: false, // dont_show webpack error_overlay
     },
   },
   publicPath: process.env.VUE_APP_PUBLIC_PATH || "/",
   chainWebpack: config => {
 
-    // 修改 HTML 插件配置，动态插入 CDN 链接
+    // revise HTML plugin_configuration，dynamic_insertion CDN link
     config.plugin('html')
       .tap(args => {
-        // 根据配置决定是否使用CDN
+        // decide_whether_to_use_cdn_based_on_configuration
         if (process.env.NODE_ENV === 'production' && useCDN) {
           args[0].cdn = cdnResources;
         }
         return args;
       });
 
-    // 代码分割优化
+    // code_splitting_optimization
     config.optimization.splitChunks({
       chunks: 'all',
       minSize: 20000,
@@ -87,14 +87,14 @@ module.exports = defineConfig({
       }
     });
 
-    // 启用优化设置
+    // enable_optimization_settings
     config.optimization.usedExports(true);
     config.optimization.concatenateModules(true);
     config.optimization.minimize(true);
   },
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
-      // 开启多线程编译
+      // enable_multithreaded_compilation
       config.optimization = {
         minimize: true,
         minimizer: [
@@ -119,23 +119,23 @@ module.exports = defineConfig({
         })
       );
 
-      // 根据是否使用CDN来决定是否添加Service Worker
+      // decide_whether_to_add_service_based_on_whether_to_use_cdn Worker
       config.plugins.push(
         new InjectManifest({
           swSrc: path.resolve(__dirname, 'src/service-worker.js'),
           swDest: 'service-worker.js',
           exclude: [/\.map$/, /asset-manifest\.json$/],
           maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
-          // 自定义Service Worker注入点
+          // custom_service Worker injection point
           injectionPoint: 'self.__WB_MANIFEST',
-          // 添加额外信息传递给Service Worker
+          // add_additional_information_to_pass_to_service Worker
           additionalManifestEntries: useCDN ?
             [{ url: 'cdn-mode', revision: 'enabled' }] :
             [{ url: 'cdn-mode', revision: 'disabled' }]
         })
       );
 
-      // 如果使用CDN，则配置externals排除依赖包
+      // if_using_cdn，then_configure_externals_to_exclude_dependent_packages
       if (useCDN) {
         config.externals = {
           'vue': 'Vue',
@@ -146,32 +146,32 @@ module.exports = defineConfig({
           'opus-decoder': 'OpusDecoder'
         };
       } else {
-        // 确保不使用CDN时不设置externals，让webpack打包所有依赖
+        // make_sure_externals_is_not_set_when_not_using_a_cdn，let_webpack_package_all_dependencies
         config.externals = {};
       }
 
-      if (process.env.ANALYZE === 'true') {  // 通过环境变量控制
+      if (process.env.ANALYZE === 'true') {  // controlled_by_environment_variables
         config.plugins.push(
           new BundleAnalyzerPlugin({
-            analyzerMode: 'server',    // 开启本地服务器模式
-            openAnalyzer: true,        // 自动打开浏览器
-            analyzerPort: 8888         // 指定端口号
+            analyzerMode: 'server',    // enable_local_server_mode
+            openAnalyzer: true,        // automatically_open_browser
+            analyzerPort: 8888         // specify_port_number
           })
         );
       }
       config.cache = {
-        type: 'filesystem',  // 使用文件系统缓存
-        cacheDirectory: path.resolve(__dirname, '.webpack_cache'),  // 自定义缓存目录
-        allowCollectingMemory: true,  // 启用内存收集
-        compression: 'gzip',  // 启用gzip压缩缓存
-        maxAge: 5184000000, // 缓存有效期为 1个月
+        type: 'filesystem',  // use_file_system_caching
+        cacheDirectory: path.resolve(__dirname, '.webpack_cache'),  // custom_cache_directory
+        allowCollectingMemory: true,  // enable_memory_collection
+        compression: 'gzip',  // enable_gzip_compression_caching
+        maxAge: 5184000000, // the_cache_validity_period_is 1 month
         buildDependencies: {
-          config: [__filename]  // 每次配置文件修改时缓存失效
+          config: [__filename]  // the_cache_is_invalidated_every_time_the_configuration_file_is_modified
         }
       };
     }
   },
-  // 将CDN资源信息暴露给service-worker.js
+  // expose_cdn_resource_information_to_service-worker.js
   pwa: {
     workboxOptions: {
       skipWaiting: true,

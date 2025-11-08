@@ -1,153 +1,155 @@
 package xiaozhi.common.redis;
 
 /**
- * Redis Key 常量类
- * Copyright (c) 人人开源 All rights reserved.
+ * Redis Key constant_class
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public class RedisKeys {
     /**
-     * 系统参数Key
+     * system_parameterkey
      */
     public static String getSysParamsKey() {
         return "sys:params";
     }
 
     /**
-     * 验证码Key
+     * verification_codekey
      */
     public static String getCaptchaKey(String uuid) {
         return "sys:captcha:" + uuid;
     }
 
     /**
-     * 未注册设备验证码Key
+     * unregistered_device_verification_code_key
      */
     public static String getDeviceCaptchaKey(String captcha) {
         return "sys:device:captcha:" + captcha;
     }
 
     /**
-     * 用户id的Key
+     * key_of_user_id
      */
     public static String getUserIdKey(Long userid) {
         return "sys:username:id:" + userid;
     }
 
     /**
-     * 模型名称的Key
+     * key_of_model_name
      */
     public static String getModelNameById(String id) {
         return "model:name:" + id;
     }
 
     /**
-     * 模型配置的Key
+     * key_of_model_configuration
      */
     public static String getModelConfigById(String id) {
         return "model:data:" + id;
     }
 
     /**
-     * 获取音色名称缓存key
+     * get_the_timbre_name_cache_key
      */
     public static String getTimbreNameById(String id) {
         return "timbre:name:" + id;
     }
 
     /**
-     * 获取设备数量缓存key
+     * get_the_device_number_cache_key
      */
     public static String getAgentDeviceCountById(String id) {
         return "agent:device:count:" + id;
     }
 
     /**
-     * 获取智能体最后连接时间缓存key
+     * get_the_agents_last_connection_time_cache_key
      */
     public static String getAgentDeviceLastConnectedAtById(String id) {
         return "agent:device:lastConnected:" + id;
     }
 
     /**
-     * 获取系统配置缓存key
+     * get_the_system_configuration_cache_key
      */
     public static String getServerConfigKey() {
         return "server:config";
     }
 
     /**
-     * 获取音色详情缓存key
+     * get_the_timbre_details_cache_key
      */
     public static String getTimbreDetailsKey(String id) {
         return "timbre:details:" + id;
     }
 
     /**
-     * 获取版本号Key
+     * get_version_number_key
      */
     public static String getVersionKey() {
         return "sys:version";
     }
 
-    /**
-     * OTA固件ID的Key
-     */
+    /*
+*
+*Key of OTA firmware ID
+*/
     public static String getOtaIdKey(String uuid) {
         return "ota:id:" + uuid;
     }
 
-    /**
-     * OTA固件下载次数的Key
-     */
+    /*
+*
+*Key of OTA firmware download times
+*/
     public static String getOtaDownloadCountKey(String uuid) {
         return "ota:download:count:" + uuid;
     }
 
     /**
-     * 获取字典数据的缓存key
+     * get_the_cache_key_of_dictionary_data
      */
     public static String getDictDataByTypeKey(String dictType) {
         return "sys:dict:data:" + dictType;
     }
 
     /**
-     * 获取智能体音频ID的缓存key
+     * get_the_cache_key_of_the_agent_audio_id
      */
     public static String getAgentAudioIdKey(String uuid) {
         return "agent:audio:id:" + uuid;
     }
 
     /**
-     * 获取短信验证码的缓存key
+     * get_the_cache_key_of_sms_verification_code
      */
     public static String getSMSValidateCodeKey(String phone) {
         return "sms:Validate:Code:" + phone;
     }
 
     /**
-     * 获取短信验证码最后发送时间的缓存key
+     * get_the_cache_key_of_the_last_time_the_sms_verification_code_was_sent
      */
     public static String getSMSLastSendTimeKey(String phone) {
         return "sms:Validate:Code:" + phone + ":last_send_time";
     }
 
     /**
-     * 获取短信验证码今日发送次数的缓存key
+     * get_the_cache_key_of_the_number_of_sms_verification_codes_sent_today
      */
     public static String getSMSTodayCountKey(String phone) {
         return "sms:Validate:Code:" + phone + ":today_count";
     }
 
     /**
-     * 聊天记录UUID映射的Key
+     * key_of_chat_record_uuid_mapping
      */
     public static String getChatHistoryKey(String uuid) {
         return "agent:chat:history:" + uuid;
     }
 
     /**
-     * 获取音色克隆音频ID的缓存key
+     * get_the_cache_key_of_the_timbre_clone_audio_id
      */
     public static String getVoiceCloneAudioIdKey(String uuid) {
         return "voiceClone:audio:id:" + uuid;

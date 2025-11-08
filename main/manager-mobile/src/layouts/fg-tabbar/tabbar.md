@@ -1,17 +1,17 @@
-# tabbar 说明
+# tabbar description
 
-`tabbar` 分为 `4 种` 情况：
+`tabbar` is divided into `4` situations:
 
-- 0 `无 tabbar`，只有一个页面入口，底部无 `tabbar` 显示；常用语临时活动页。
-- 1 `原生 tabbar`，使用 `switchTab` 切换 tabbar，`tabbar` 页面有缓存。
-  - 优势：原生自带的 tabbar，最先渲染，有缓存。
-  - 劣势：只能使用 2 组图片来切换选中和非选中状态，修改颜色只能重新换图片（或者用 iconfont）。
-- 2 `有缓存自定义 tabbar`，使用 `switchTab` 切换 tabbar，`tabbar` 页面有缓存。使用了第三方 UI 库的 `tabbar` 组件，并隐藏了原生 `tabbar` 的显示。
-  - 优势：可以随意配置自己想要的 `svg icon`，切换字体颜色方便。有缓存。可以实现各种花里胡哨的动效等。
-  - 劣势：首次点击 tababr 会闪烁。
-- 3 `无缓存自定义 tabbar`，使用 `navigateTo` 切换 `tabbar`，`tabbar` 页面无缓存。使用了第三方 UI 库的 `tabbar` 组件。
-  - 优势：可以随意配置自己想要的 svg icon，切换字体颜色方便。可以实现各种花里胡哨的动效等。
-  - 劣势：首次点击 `tababr` 会闪烁，无缓存。
+- 0 `No tabbar`, only one page entry, no `tabbar` displayed at the bottom; temporary active page of common phrases.
+- 1 `Native tabbar`, use `switchTab` to switch tabbar, `tabbar` page is cached.
+- Advantages: The native tabbar is rendered first and cached.
+- Disadvantage: Only 2 sets of images can be used to switch the selected and unselected states. To modify the color, you can only change the image again (or use iconfont).
+- 2 `Customized tabbar` has cache, use `switchTab` to switch tabbar, `tabbar` page has cache. The `tabbar` component of a third-party UI library is used and the display of the native `tabbar` is hidden.
+- Advantages: You can configure the `svg icon` you want at will, and it is convenient to switch the font color. There is a cache. All kinds of fancy animations can be achieved.
+- Disadvantage: tababr will flicker when clicked for the first time.
+- 3 `No cache custom tabbar`, use `navigateTo` to switch `tabbar`, `tabbar` page has no cache. Uses the `tabbar` component of a third-party UI library.
+- Advantages: You can configure the svg icon you want at will, and it is easy to switch the font color. All kinds of fancy animations can be achieved.
+- Disadvantage: The first click of `tababr` will flicker and there is no cache.
 
 
-> 注意：花里胡哨的效果需要自己实现，本模版不提供。
+> Note: Fancy effects need to be realized by yourself, this template does not provide them.

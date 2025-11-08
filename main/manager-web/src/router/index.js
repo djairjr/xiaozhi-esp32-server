@@ -53,7 +53,7 @@ const routes = [
       return import('../views/retrievePassword.vue')
     }
   },
-  // 设备管理页面路由
+  // device_management_page_routing
   {
     path: '/device-management',
     name: 'DeviceManagement',
@@ -61,7 +61,7 @@ const routes = [
       return import('../views/DeviceManagement.vue')
     }
   },
-  // 添加用户管理路由
+  // add_user_management_route
   {
     path: '/user-management',
     name: 'UserManagement',
@@ -146,7 +146,7 @@ const routes = [
       return import('../views/ProviderManagement.vue')
     }
   },
-  // 添加默认角色管理路由
+  // add_default_role_management_route
   {
     path: '/agent-template-management',
     name: 'AgentTemplateManagement',
@@ -154,7 +154,7 @@ const routes = [
       return import('../views/AgentTemplateManagement.vue')
     }
   },
-  // 添加模板快速配置路由
+  // add_template_to_quickly_configure_routing
   {
     path: '/template-quick-config',
     name: 'TemplateQuickConfig',
@@ -168,31 +168,31 @@ const router = new VueRouter({
   routes
 })
 
-// 全局处理重复导航，改为刷新页面
+// global_handling_of_duplicate_navigation，refresh_the_page_instead
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => {
     if (err.name === 'NavigationDuplicated') {
-      // 如果是重复导航，刷新页面
+      // if_it_is_repeated_navigation，refresh_page
       window.location.reload()
     } else {
-      // 其他错误正常抛出
+      // other_errors_are_thrown_normally
       throw err
     }
   })
 }
 
-// 需要登录才能访问的路由
+// routes_that_require_login_to_access
 const protectedRoutes = ['home', 'RoleConfig', 'DeviceManagement', 'UserManagement', 'ModelConfig']
 
-// 路由守卫
+// route_guard
 router.beforeEach((to, from, next) => {
-  // 检查是否是需要保护的路由
+  // check_whether_it_is_a_route_that_needs_to_be_protected
   if (protectedRoutes.includes(to.name)) {
-    // 从localStorage获取token
+    // get_token_from_localstorage
     const token = localStorage.getItem('token')
     if (!token) {
-      // 未登录，跳转到登录页
+      // not_logged_in，jump_to_login_page
       next({ name: 'login', query: { redirect: to.fullPath } })
       return
     }

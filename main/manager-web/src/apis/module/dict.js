@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 获取字典类型列表
+    // get_a_list_of_dictionary_types
     getDictTypeList(params, callback) {
         const queryParams = new URLSearchParams({
             dictType: params.dictType || '',
@@ -27,7 +27,7 @@ export default {
             }).send()
     },
 
-    // 获取字典类型详情
+    // get_dictionary_type_details
     getDictTypeDetail(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/type/${id}`)
@@ -45,7 +45,7 @@ export default {
             }).send()
     },
 
-    // 新增字典类型
+    // add_new_dictionary_type
     addDictType(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/type/save`)
@@ -64,7 +64,7 @@ export default {
             }).send()
     },
 
-    // 更新字典类型
+    // update_dictionary_type
     updateDictType(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/type/update`)
@@ -83,7 +83,7 @@ export default {
             }).send()
     },
 
-    // 删除字典类型
+    // delete_dictionary_type
     deleteDictType(ids, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/type/delete`)
@@ -102,7 +102,7 @@ export default {
             }).send()
     },
 
-    // 获取字典数据列表
+    // get_dictionary_data_list
     getDictDataList(params, callback) {
         const queryParams = new URLSearchParams({
             dictTypeId: params.dictTypeId,
@@ -128,7 +128,7 @@ export default {
             }).send()
     },
 
-    // 获取字典数据详情
+    // get_dictionary_data_details
     getDictDataDetail(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/data/${id}`)
@@ -146,7 +146,7 @@ export default {
             }).send()
     },
 
-    // 新增字典数据
+    // add_dictionary_data
     addDictData(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/data/save`)
@@ -165,7 +165,7 @@ export default {
             }).send()
     },
 
-    // 更新字典数据
+    // update_dictionary_data
     updateDictData(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/data/update`)
@@ -184,7 +184,7 @@ export default {
             }).send()
     },
 
-    // 删除字典数据
+    // delete_dictionary_data
     deleteDictData(ids, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/dict/data/delete`)
@@ -203,7 +203,7 @@ export default {
             }).send()
     },
 
-    // 获取字典数据列表
+    // get_dictionary_data_list
     getDictDataByType(dictType) {
         return new Promise((resolve, reject) => {
             RequestService.sendRequest()

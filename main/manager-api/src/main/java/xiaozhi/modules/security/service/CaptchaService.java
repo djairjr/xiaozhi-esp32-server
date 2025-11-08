@@ -5,41 +5,41 @@ import java.io.IOException;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * 验证码
- * Copyright (c) 人人开源 All rights reserved.
+ * verification_code
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public interface CaptchaService {
 
     /**
-     * 图片验证码
+     * image_verification_code
      */
     void create(HttpServletResponse response, String uuid) throws IOException;
 
     /**
-     * 验证码效验
+     * verification_code_validation
      * 
      * @param uuid   uuid
-     * @param code   验证码
-     * @param delete 是否删除验证码
-     * @return true：成功 false：失败
+     * @param code   verification_code
+     * @param delete whether_to_delete_the_verification_code
+     * @return true：success false：fail
      */
     boolean validate(String uuid, String code, Boolean delete);
 
     /**
-     * 发送短信验证码
+     * send_sms_verification_code
      * 
-     * @param phone 手机
+     * @param phone cell_phone
      */
     void sendSMSValidateCode(String phone);
 
     /**
-     * 验证短信验证码
+     * verify_sms_verification_code
      * 
-     * @param phone  手机
-     * @param code   验证码
-     * @param delete 是否删除验证码
-     * @return true：成功 false：失败
+     * @param phone  cell_phone
+     * @param code   verification_code
+     * @param delete whether_to_delete_the_verification_code
+     * @return true：success false：fail
      */
     boolean validateSMSValidateCode(String phone, String code, Boolean delete);
 }

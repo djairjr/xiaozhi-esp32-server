@@ -9,21 +9,21 @@ declare module '*.vue' {
 }
 
 interface ImportMetaEnv {
-  /** 网站标题，应用名称 */
+  /** website_title，application_name */
   readonly VITE_APP_TITLE: string
-  /** 服务端口号 */
+  /** service_port_number */
   readonly VITE_SERVER_PORT: string
-  /** 后台接口地址 */
+  /** backend_interface_address */
   readonly VITE_SERVER_BASEURL: string
-  /** H5是否需要代理 */
+  /* *Does H5 require an agent? */
   readonly VITE_APP_PROXY: 'true' | 'false'
-  /** H5是否需要代理，需要的话有个前缀 */
-  readonly VITE_APP_PROXY_PREFIX: string // 一般是/api
-  /** 上传图片地址 */
+  /* * Whether H5 requires a proxy, have_a_prefix_if_necessary */
+  readonly VITE_APP_PROXY_PREFIX: string // usually/api
+  /** upload_image_address */
   readonly VITE_UPLOAD_BASEURL: string
-  /** 是否清除console */
+  /** whether_to_clear_the_console */
   readonly VITE_DELETE_CONSOLE: string
-  // 更多环境变量...
+  // more_environment_variables...
 }
 
 interface ImportMeta {

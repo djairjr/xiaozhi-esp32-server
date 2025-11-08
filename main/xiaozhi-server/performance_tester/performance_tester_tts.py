@@ -6,14 +6,14 @@ from typing import Dict
 import yaml
 from tabulate import tabulate
 
-# 确保从 core.utils.tts 导入 create_tts_instance
+# Make sure to import create_tts_instance from core.utils.tts
 from core.utils.tts import create_instance as create_tts_instance
 from config.settings import load_config
 
-# 设置全局日志级别为 WARNING
+# Set global log level to WARNING
 logging.basicConfig(level=logging.WARNING)
 
-description = "非流式语音合成性能测试"
+description = "Non-streaming speech synthesis performance test"
 
 
 class TTSPerformanceTester:
@@ -22,36 +22,36 @@ class TTSPerformanceTester:
         self.test_sentences = self.config.get("module_test", {}).get(
             "test_sentences",
             [
-                "永和九年，岁在癸丑，暮春之初；",
-                "夫人之相与，俯仰一世，或取诸怀抱，悟言一室之内；或因寄所托，放浪形骸之外。虽趣舍万殊，静躁不同，",
-                "每览昔人兴感之由，若合一契，未尝不临文嗟悼，不能喻之于怀。固知一死生为虚诞，齐彭殇为妄作。",
+                "In the ninth year of Yonghe, he was in Guichou, at the beginning of late spring;",
+                "The lady's relationship with her will last a lifetime, or she may be held in her arms and enlightened within a room; or she may wander away from home because of her entrustment. Although there are many different interests, calmness and restlessness are different,",
+                "Every time I look at the reasons for people's interest in the past, if they are combined into one, I will not fail to express my condolences in writing, which cannot be expressed in my heart. I know that death and rebirth are just illusions, and mourning for Qi Peng is an illusion.",
             ],
         )
         self.results = {}
 
     async def _test_tts(self, tts_name: str, config: Dict) -> Dict:
-        """测试单个TTS模块的性能"""
+        """Test the performance of a single TTS module"""
         try:
             token_fields = ["access_token", "api_key", "token"]
             if any(
                 field in config
-                and any(x in config[field] for x in ["你的", "placeholder"])
+                and any(x in config[field] for x in ["your", "placeholder"])
                 for field in token_fields
             ):
-                print(f"TTS {tts_name} 未配置access_token/api_key，已跳过")
+                print(f"TTS {tts_name} is not configured with access_token/api_key and has been skipped")
                 return {"name": tts_name, "errors": 1}
 
             module_type = config.get("type", tts_name)
             tts = create_tts_instance(module_type, config, delete_audio_file=True)
 
-            print(f"测试 TTS: {tts_name}")
+            print(f"Test TTS: {tts_name}")
 
-            # 连接测试
+            # Connection test
             tmp_file = tts.generate_filename()
-            await tts.text_to_speak("连接测试", tmp_file)
+            await tts.text_to_speak("Connection test", tmp_file)
 
             if not tmp_file or not os.path.exists(tmp_file):
-                print(f"{tts_name} 连接失败")
+                print(f"{tts_name} connection failed")
                 return {"name": tts_name, "errors": 1}
 
             total_time = 0
@@ -65,9 +65,9 @@ class TTSPerformanceTester:
                 total_time += duration
 
                 if tmp_file and os.path.exists(tmp_file):
-                    print(f"{tts_name} [{i}/{test_count}] 测试成功")
+                    print(f"{tts_name} [{i}/{test_count}] Test successful")
                 else:
-                    print(f"{tts_name} [{i}/{test_count}] 测试失败")
+                    print(f"{tts_name} [{i}/{test_count}] test failed")
                     return {"name": tts_name, "errors": 1}
 
             return {
@@ -77,30 +77,30 @@ class TTSPerformanceTester:
             }
 
         except Exception as e:
-            print(f"{tts_name} 测试失败: {str(e)}")
+            print(f"{tts_name} test failed: {str(e)}")
             return {"name": tts_name, "errors": 1}
 
     def _print_results(self):
-        """打印测试结果"""
+        """Print test results"""
         if not self.results:
-            print("没有有效的TTS测试结果")
+            print("No valid TTS test results")
             return
 
-        headers = ["TTS模块", "平均耗时(秒)", "测试句子数", "状态"]
+        headers = ["TTS module", "Average time taken (seconds)", "Number of test sentences", "state"]
         table_data = []
 
-        # 收集所有数据并分类
+        # Collect all data and categorize it
         valid_results = []
         error_results = []
 
         for name, data in self.results.items():
             if data["errors"] == 0:
-                # 正常结果
+                # normal result
                 avg_time = f"{data['avg_time']:.3f}"
                 test_count = len(self.test_sentences[:3])
-                status = "✅ 正常"
+                status = "✅Normal"
                 
-                # 保存用于排序的值
+                # Save the value used for sorting
                 valid_results.append({
                     "name": name,
                     "avg_time": avg_time,
@@ -109,20 +109,20 @@ class TTSPerformanceTester:
                     "sort_key": data['avg_time']
                 })
             else:
-                # 错误结果
+                # Wrong result
                 avg_time = "-"
                 test_count = "0/3"
                 
-                # 默认错误类型为网络错误
-                error_type = "网络错误"
+                # The default error type is network error
+                error_type = "network error"
                 status = f"❌ {error_type}"
                 
                 error_results.append([name, avg_time, test_count, status])
 
-        # 按平均耗时升序排序
+        # Sort by average time in ascending order
         valid_results.sort(key=lambda x: x["sort_key"])
 
-        # 将排序后的有效结果转换为表格数据
+        # Convert the sorted valid results into tabular data
         for result in valid_results:
             table_data.append([
                 result["name"],
@@ -131,10 +131,10 @@ class TTSPerformanceTester:
                 result["status"]
             ])
 
-        # 将错误结果添加到表格数据末尾
+        # Add error results to the end of table data
         table_data.extend(error_results)
 
-        print("\nTTS性能测试结果:")
+        print("\nTTS performance test results:")
         print(
             tabulate(
                 table_data,
@@ -143,36 +143,36 @@ class TTSPerformanceTester:
                 colalign=("left", "right", "right", "left"),
             )
         )
-        print("\n测试说明:")
-        print("- 超时控制: 单个请求最大等待时间为10秒")
-        print("- 错误处理: 无法连接和超时的列为网络错误")
-        print("- 排序规则: 按平均耗时从快到慢排序")
+        print("\nTest description:")
+        print("- Timeout control: The maximum waiting time for a single request is 10 seconds")
+        print("- Error handling: Unable to connect and timeout are listed as network errors")
+        print("- Sorting rules: Sort by average time consumption from fastest to slowest")
 
     async def run(self):
-        """执行测试"""
-        print("开始TTS性能测试...")
+        """Execute tests"""
+        print("Start TTS performance test...")
 
         if not self.config.get("TTS"):
-            print("配置文件中未找到TTS配置")
+            print("TTS configuration not found in configuration file")
             return
 
-        # 遍历所有TTS配置
+        # Traverse all TTS configurations
         tasks = []
         for tts_name, config in self.config.get("TTS", {}).items():
             tasks.append(self._test_tts(tts_name, config))
 
-        # 并发执行测试
+        # Execute tests concurrently
         results = await asyncio.gather(*tasks)
 
-        # 保存所有结果，包括错误
+        # Save all results, including errors
         for result in results:
             self.results[result["name"]] = result
 
-        # 打印结果
+        # Print results
         self._print_results()
 
 
-# 为了performance_tester.py的调用需求
+# For the calling requirements of performance_tester.py
 async def main():
     tester = TTSPerformanceTester()
     await tester.run()

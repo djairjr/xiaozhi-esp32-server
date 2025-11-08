@@ -76,7 +76,7 @@ class TTSProviderBase(ABC):
         )
 
     def handle_opus(self, opus_data: bytes):
-        logger.bind(tag=TAG).debug(f"推送数据到队列里面帧数～～ {len(opus_data)}")
+        logger.bind(tag=TAG).debug(f"The number of frames when pushing data to the queue~~ {len(opus_data)}")
         self.tts_audio_queue.put((SentenceType.MIDDLE, opus_data, None))
 
     def handle_audio_file(self, file_audio: bytes, text):
@@ -86,7 +86,7 @@ class TTSProviderBase(ABC):
         text = MarkdownCleaner.clean_markdown(text)
         max_repeat_time = 5
         if self.delete_audio_file:
-            # 需要删除文件的直接转为音频数据
+            # Files that need to be deleted are directly converted to audio data
             while max_repeat_time > 0:
                 try:
                     audio_bytes = asyncio.run(self.text_to_speak(text, None))
@@ -103,16 +103,16 @@ class TTSProviderBase(ABC):
                         max_repeat_time -= 1
                 except Exception as e:
                     logger.bind(tag=TAG).warning(
-                        f"语音生成失败{5 - max_repeat_time + 1}次: {text}，错误: {e}"
+                        f"Speech generation failed {5 - max_repeat_time + 1} times: {text}, error: {e}"
                     )
                     max_repeat_time -= 1
             if max_repeat_time > 0:
                 logger.bind(tag=TAG).info(
-                    f"语音生成成功: {text}，重试{5 - max_repeat_time}次"
+                    f"Speech generation successful: {text}, retry {5 - max_repeat_time} times"
                 )
             else:
                 logger.bind(tag=TAG).error(
-                    f"语音生成失败: {text}，请检查网络或服务是否正常"
+                    f"Voice generation failed: {text}, please check whether the network or service is normal"
                 )
             return None
         else:
@@ -123,20 +123,20 @@ class TTSProviderBase(ABC):
                         asyncio.run(self.text_to_speak(text, tmp_file))
                     except Exception as e:
                         logger.bind(tag=TAG).warning(
-                            f"语音生成失败{5 - max_repeat_time + 1}次: {text}，错误: {e}"
+                            f"Speech generation failed {5 - max_repeat_time + 1} times: {text}, error: {e}"
                         )
-                        # 未执行成功，删除文件
+                        # Execution not successful, file deleted
                         if os.path.exists(tmp_file):
                             os.remove(tmp_file)
                         max_repeat_time -= 1
 
                 if max_repeat_time > 0:
                     logger.bind(tag=TAG).info(
-                        f"语音生成成功: {text}:{tmp_file}，重试{5 - max_repeat_time}次"
+                        f"Voice generation successful: {text}:{tmp_file}, retry {5 - max_repeat_time} times"
                     )
                 else:
                     logger.bind(tag=TAG).error(
-                        f"语音生成失败: {text}，请检查网络或服务是否正常"
+                        f"Voice generation failed: {text}, please check whether the network or service is normal"
                     )
                     self.tts_audio_queue.put((SentenceType.FIRST, None, text))
                 self._process_audio_file_stream(tmp_file, callback=opus_handler)
@@ -148,7 +148,7 @@ class TTSProviderBase(ABC):
         text = MarkdownCleaner.clean_markdown(text)
         max_repeat_time = 5
         if self.delete_audio_file:
-            # 需要删除文件的直接转为音频数据
+            # Files that need to be deleted are directly converted to audio data
             while max_repeat_time > 0:
                 try:
                     audio_bytes = asyncio.run(self.text_to_speak(text, None))
@@ -165,16 +165,16 @@ class TTSProviderBase(ABC):
                         max_repeat_time -= 1
                 except Exception as e:
                     logger.bind(tag=TAG).warning(
-                        f"语音生成失败{5 - max_repeat_time + 1}次: {text}，错误: {e}"
+                        f"Speech generation failed {5 - max_repeat_time + 1} times: {text}, error: {e}"
                     )
                     max_repeat_time -= 1
             if max_repeat_time > 0:
                 logger.bind(tag=TAG).info(
-                    f"语音生成成功: {text}，重试{5 - max_repeat_time}次"
+                    f"Speech generation successful: {text}, retry {5 - max_repeat_time} times"
                 )
             else:
                 logger.bind(tag=TAG).error(
-                    f"语音生成失败: {text}，请检查网络或服务是否正常"
+                    f"Voice generation failed: {text}, please check whether the network or service is normal"
                 )
             return None
         else:
@@ -185,20 +185,20 @@ class TTSProviderBase(ABC):
                         asyncio.run(self.text_to_speak(text, tmp_file))
                     except Exception as e:
                         logger.bind(tag=TAG).warning(
-                            f"语音生成失败{5 - max_repeat_time + 1}次: {text}，错误: {e}"
+                            f"Speech generation failed {5 - max_repeat_time + 1} times: {text}, error: {e}"
                         )
-                        # 未执行成功，删除文件
+                        # Execution not successful, file deleted
                         if os.path.exists(tmp_file):
                             os.remove(tmp_file)
                         max_repeat_time -= 1
 
                 if max_repeat_time > 0:
                     logger.bind(tag=TAG).info(
-                        f"语音生成成功: {text}:{tmp_file}，重试{5 - max_repeat_time}次"
+                        f"Voice generation successful: {text}:{tmp_file}, retry {5 - max_repeat_time} times"
                     )
                 else:
                     logger.bind(tag=TAG).error(
-                        f"语音生成失败: {text}，请检查网络或服务是否正常"
+                        f"Voice generation failed: {text}, please check whether the network or service is normal"
                     )
 
                 return tmp_file
@@ -213,13 +213,13 @@ class TTSProviderBase(ABC):
     def audio_to_pcm_data_stream(
         self, audio_file_path, callback: Callable[[Any], Any] = None
     ):
-        """音频文件转换为PCM编码"""
+        """Convert audio files to PCM encoding"""
         return audio_to_data_stream(audio_file_path, is_opus=False, callback=callback)
 
     def audio_to_opus_data_stream(
         self, audio_file_path, callback: Callable[[Any], Any] = None
     ):
-        """音频文件转换为Opus编码"""
+        """Convert audio files to Opus encoding"""
         return audio_to_data_stream(audio_file_path, is_opus=True, callback=callback)
 
     def tts_one_sentence(
@@ -230,14 +230,14 @@ class TTSProviderBase(ABC):
         content_file=None,
         sentence_id=None,
     ):
-        """发送一句话"""
+        """send a message"""
         if not sentence_id:
             if conn.sentence_id:
                 sentence_id = conn.sentence_id
             else:
                 sentence_id = str(uuid.uuid4().hex)
                 conn.sentence_id = sentence_id
-        # 对于单句的文本，进行分段处理
+        # For single sentence text, perform segmentation processing
         segments = re.split(r"([。！？!?；;\n])", content_detail)
         for seg in segments:
             self.tts_text_queue.put(
@@ -252,20 +252,20 @@ class TTSProviderBase(ABC):
 
     async def open_audio_channels(self, conn):
         self.conn = conn
-        # tts 消化线程
+        # tts digestion thread
         self.tts_priority_thread = threading.Thread(
             target=self.tts_text_priority_thread, daemon=True
         )
         self.tts_priority_thread.start()
 
-        # 音频播放 消化线程
+        # Audio playback Digestion thread
         self.audio_play_priority_thread = threading.Thread(
             target=self._audio_play_priority_thread, daemon=True
         )
         self.audio_play_priority_thread.start()
 
-    # 这里默认是非流式的处理方式
-    # 流式处理方式请在子类中重写
+    # The default here is non-streaming processing.
+    # Please rewrite the streaming processing method in the subclass
     def tts_text_priority_thread(self):
         while not self.conn.stop_event.is_set():
             try:
@@ -273,10 +273,10 @@ class TTSProviderBase(ABC):
                 if message.sentence_type == SentenceType.FIRST:
                     self.conn.client_abort = False
                 if self.conn.client_abort:
-                    logger.bind(tag=TAG).info("收到打断信息，终止TTS文本处理线程")
+                    logger.bind(tag=TAG).info("Receive interrupt message, terminate TTS text processing thread")
                     continue
                 if message.sentence_type == SentenceType.FIRST:
-                    # 初始化参数
+                    # Initialization parameters
                     self.tts_stop_request = False
                     self.processed_chars = 0
                     self.tts_text_buff = []
@@ -304,12 +304,12 @@ class TTSProviderBase(ABC):
                 continue
             except Exception as e:
                 logger.bind(tag=TAG).error(
-                    f"处理TTS文本失败: {str(e)}, 类型: {type(e).__name__}, 堆栈: {traceback.format_exc()}"
+                    f"Failed to process TTS text: {str(e)}, type: {type(e).__name__}, stack: {traceback.format_exc()}"
                 )
                 continue
 
     def _audio_play_priority_thread(self):
-        # 需要上报的文本和音频列表
+        # List of texts and audios to be reported
         enqueue_text = None
         enqueue_audio = None
         while not self.conn.stop_event.is_set():
@@ -325,30 +325,30 @@ class TTSProviderBase(ABC):
                     continue
 
                 if self.conn.client_abort:
-                    logger.bind(tag=TAG).debug("收到打断信号，跳过当前音频数据")
+                    logger.bind(tag=TAG).debug("When an interrupt signal is received, the current audio data is skipped.")
                     enqueue_text, enqueue_audio = None, []
                     continue
 
-                # 收到下一个文本开始或会话结束时进行上报
+                # Escalate when the next text is received or when the session ends
                 if sentence_type is not SentenceType.MIDDLE:
-                    # 上报TTS数据
+                    # Report TTS data
                     if enqueue_text is not None and enqueue_audio is not None:
                         enqueue_tts_report(self.conn, enqueue_text, enqueue_audio)
                     enqueue_audio = []
                     enqueue_text = text
 
-                # 收集上报音频数据
+                # Collect and report audio data
                 if isinstance(audio_datas, bytes) and enqueue_audio is not None:
                     enqueue_audio.append(audio_datas)
 
-                # 发送音频
+                # Send audio
                 future = asyncio.run_coroutine_threadsafe(
                     sendAudioMessage(self.conn, sentence_type, audio_datas, text),
                     self.conn.loop,
                 )
                 future.result()
 
-                # 记录输出和报告
+                # Logging output and reporting
                 if self.conn.max_output_size > 0 and text:
                     add_device_output(self.conn.headers.get("device-id"), len(text))
 
@@ -362,17 +362,17 @@ class TTSProviderBase(ABC):
         pass
 
     async def close(self):
-        """资源清理方法"""
+        """Resource cleanup method"""
         if hasattr(self, "ws") and self.ws:
             await self.ws.close()
 
     def _get_segment_text(self):
-        # 合并当前全部文本并处理未分割部分
+        # Merge all current text and process undivided parts
         full_text = "".join(self.tts_text_buff)
-        current_text = full_text[self.processed_chars :]  # 从未处理的位置开始
+        current_text = full_text[self.processed_chars :]  # Start from an unprocessed position
         last_punct_pos = -1
 
-        # 根据是否是第一句话选择不同的标点符号集合
+        # Select different sets of punctuation marks based on whether it is the first sentence or not
         punctuations_to_use = (
             self.first_sentence_punctuations
             if self.is_first_sentence
@@ -391,16 +391,16 @@ class TTSProviderBase(ABC):
             segment_text = textUtils.get_string_no_punctuation_or_emoji(
                 segment_text_raw
             )
-            self.processed_chars += len(segment_text_raw)  # 更新已处理字符位置
+            self.processed_chars += len(segment_text_raw)  # Update processed character positions
 
-            # 如果是第一句话，在找到第一个逗号后，将标志设置为False
+            # If it's the first sentence, after finding the first comma, set the flag to False
             if self.is_first_sentence:
                 self.is_first_sentence = False
 
             return segment_text
         elif self.tts_stop_request and current_text:
             segment_text = current_text
-            self.is_first_sentence = True  # 重置标志
+            self.is_first_sentence = True  # reset flag
             return segment_text
         else:
             return None
@@ -408,12 +408,11 @@ class TTSProviderBase(ABC):
     def _process_audio_file_stream(
         self, tts_file, callback: Callable[[Any], Any]
     ) -> None:
-        """处理音频文件并转换为指定格式
+        """Process audio files and convert them to specified formats
 
         Args:
-            tts_file: 音频文件路径
-            callback: 文件处理函数
-        """
+            tts_file: audio file path
+            callback: file processing function"""
         if tts_file.endswith(".p3"):
             p3.decode_opus_from_file_stream(tts_file, callback=callback)
         elif self.conn.audio_format == "pcm":
@@ -438,11 +437,10 @@ class TTSProviderBase(ABC):
     def _process_remaining_text_stream(
         self, opus_handler: Callable[[bytes], None] = None
     ):
-        """处理剩余的文本并生成语音
+        """Process remaining text and generate speech
 
         Returns:
-            bool: 是否成功处理了文本
-        """
+            bool: whether the text was successfully processed"""
         full_text = "".join(self.tts_text_buff)
         remaining_text = full_text[self.processed_chars :]
         if remaining_text:

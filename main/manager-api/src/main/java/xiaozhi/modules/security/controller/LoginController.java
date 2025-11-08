@@ -43,13 +43,13 @@ import xiaozhi.modules.sys.service.SysUserService;
 import xiaozhi.modules.sys.vo.SysDictDataItem;
 
 /**
- * 登录控制层
+ * login_to_the_control_layer
  */
 @Slf4j
 @AllArgsConstructor
 @RestController
 @RequestMapping("/user")
-@Tag(name = "登录管理")
+@Tag(name = "Login management")
 public class LoginController {
     private final SysUserService sysUserService;
     private final SysUserTokenService sysUserTokenService;
@@ -58,18 +58,18 @@ public class LoginController {
     private final SysDictDataService sysDictDataService;
 
     @GetMapping("/captcha")
-    @Operation(summary = "验证码")
+    @Operation(summary = "Verification code")
     public void captcha(HttpServletResponse response, String uuid) throws IOException {
-        // uuid不能为空
+        // uuid cannot be empty
         AssertUtils.isBlank(uuid, ErrorCode.IDENTIFIER_NOT_NULL);
-        // 生成验证码
+        // generate_verification_code
         captchaService.create(response, uuid);
     }
 
     @PostMapping("/smsVerification")
-    @Operation(summary = "短信验证码")
+    @Operation(summary = "SMS verification code")
     public Result<Void> smsVerification(@RequestBody SmsVerificationDTO dto) {
-        // 验证图形验证码
+        // verify_graphic_verification_code
         boolean validate = captchaService.validate(dto.getCaptchaId(), dto.getCaptcha(), false);
         if (!validate) {
             throw new RenException(ErrorCode.SMS_CAPTCHA_ERROR);
@@ -80,29 +80,29 @@ public class LoginController {
         if (!isMobileRegister) {
             throw new RenException(ErrorCode.MOBILE_REGISTER_DISABLED);
         }
-        // 发送短信验证码
+        // send_sms_verification_code
         captchaService.sendSMSValidateCode(dto.getPhone());
         return new Result<>();
     }
 
     @PostMapping("/login")
-    @Operation(summary = "登录")
+    @Operation(summary = "Log in")
     public Result<TokenDTO> login(@RequestBody LoginDTO login) {
         String password = login.getPassword();
         
-        // 使用工具类解密并验证验证码
+        // use_tool_classes_to_decrypt_and_verify_verification_codes
         String actualPassword = Sm2DecryptUtil.decryptAndValidateCaptcha(
                 password, login.getCaptchaId(), captchaService, sysParamsService);
         
         login.setPassword(actualPassword);
         
-        // 按照用户名获取用户
+        // get_users_by_username
         SysUserDTO userDTO = sysUserService.getByUsername(login.getUsername());
-        // 判断用户是否存在
+        // determine_whether_the_user_exists
         if (userDTO == null) {
             throw new RenException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
-        // 判断密码是否正确，不一样则进入if
+        // determine_whether_the_password_is_correct，if_not_enter_if
         if (!PasswordUtils.matches(login.getPassword(), userDTO.getPassword())) {
             throw new RenException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
@@ -112,7 +112,7 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    @Operation(summary = "注册")
+    @Operation(summary = "register")
     public Result<Void> register(@RequestBody LoginDTO login) {
         if (!sysUserService.getAllowUserRegister()) {
             throw new RenException(ErrorCode.USER_REGISTER_DISABLED);
@@ -120,30 +120,30 @@ public class LoginController {
         
         String password = login.getPassword();
         
-        // 使用工具类解密并验证验证码
+        // use_tool_classes_to_decrypt_and_verify_verification_codes
         String actualPassword = Sm2DecryptUtil.decryptAndValidateCaptcha(
                 password, login.getCaptchaId(), captchaService, sysParamsService);
         
         login.setPassword(actualPassword);
         
-        // 是否开启手机注册
+        // whether_to_enable_mobile_phone_registration
         Boolean isMobileRegister = sysParamsService
                 .getValueObject(Constant.SysMSMParam.SERVER_ENABLE_MOBILE_REGISTER.getValue(), Boolean.class);
         boolean validate;
         if (isMobileRegister) {
-            // 验证用户是否是手机号码
+            // verify_whether_the_user_has_a_mobile_phone_number
             boolean validPhone = ValidatorUtils.isValidPhone(login.getUsername());
             if (!validPhone) {
                 throw new RenException(ErrorCode.USERNAME_NOT_PHONE);
             }
-            // 验证短信验证码是否正常
+            // verify_whether_the_sms_verification_code_is_normal
             validate = captchaService.validateSMSValidateCode(login.getUsername(), login.getMobileCaptcha(), false);
             if (!validate) {
                 throw new RenException(ErrorCode.SMS_CODE_ERROR);
             }
         }
 
-        // 按照用户名获取用户
+        // get_users_by_username
         SysUserDTO userDTO = sysUserService.getByUsername(login.getUsername());
         if (userDTO != null) {
             throw new RenException(ErrorCode.PHONE_ALREADY_REGISTERED);
@@ -156,7 +156,7 @@ public class LoginController {
     }
 
     @GetMapping("/info")
-    @Operation(summary = "用户信息获取")
+    @Operation(summary = "Obtain user information")
     public Result<UserDetail> info() {
         UserDetail user = SecurityUser.getUser();
         Result<UserDetail> result = new Result<>();
@@ -165,9 +165,9 @@ public class LoginController {
     }
 
     @PutMapping("/change-password")
-    @Operation(summary = "修改用户密码")
+    @Operation(summary = "Change user password")
     public Result<?> changePassword(@RequestBody PasswordDTO passwordDTO) {
-        // 判断非空
+        // judgment_is_not_empty
         ValidatorUtils.validateEntity(passwordDTO);
         Long userId = SecurityUser.getUserId();
         sysUserTokenService.changePassword(userId, passwordDTO);
@@ -175,37 +175,37 @@ public class LoginController {
     }
 
     @PutMapping("/retrieve-password")
-    @Operation(summary = "找回密码")
+    @Operation(summary = "Retrieve password")
     public Result<?> retrievePassword(@RequestBody RetrievePasswordDTO dto) {
-        // 是否开启手机注册
+        // whether_to_enable_mobile_phone_registration
         Boolean isMobileRegister = sysParamsService
                 .getValueObject(Constant.SysMSMParam.SERVER_ENABLE_MOBILE_REGISTER.getValue(), Boolean.class);
         if (!isMobileRegister) {
             throw new RenException(ErrorCode.RETRIEVE_PASSWORD_DISABLED);
         }
-        // 判断非空
+        // judgment_is_not_empty
         ValidatorUtils.validateEntity(dto);
-        // 验证用户是否是手机号码
+        // verify_whether_the_user_has_a_mobile_phone_number
         boolean validPhone = ValidatorUtils.isValidPhone(dto.getPhone());
         if (!validPhone) {
             throw new RenException(ErrorCode.PHONE_FORMAT_ERROR);
         }
 
-        // 按照用户名获取用户
+        // get_users_by_username
         SysUserDTO userDTO = sysUserService.getByUsername(dto.getPhone());
         if (userDTO == null) {
             throw new RenException(ErrorCode.PHONE_NOT_REGISTERED);
         }
-        // 验证短信验证码是否正常
+        // verify_whether_the_sms_verification_code_is_normal
         boolean validate = captchaService.validateSMSValidateCode(dto.getPhone(), dto.getCode(), false);
-        // 判断是否通过验证
+        // determine_whether_verification_is_passed
         if (!validate) {
             throw new RenException(ErrorCode.SMS_CODE_ERROR);
         }
 
         String password = dto.getPassword();
         
-        // 使用工具类解密并验证验证码
+        // use_tool_classes_to_decrypt_and_verify_verification_codes
         String actualPassword = Sm2DecryptUtil.decryptAndValidateCaptcha(
                 password, dto.getCaptchaId(), captchaService, sysParamsService);
         
@@ -216,7 +216,7 @@ public class LoginController {
     }
 
     @GetMapping("/pub-config")
-    @Operation(summary = "公共配置")
+    @Operation(summary = "public configuration")
     public Result<Map<String, Object>> pubConfig() {
         Map<String, Object> config = new HashMap<>();
         config.put("enableMobileRegister", sysParamsService
@@ -230,7 +230,7 @@ public class LoginController {
         config.put("beianGaNum", sysParamsService.getValue(Constant.SysBaseParam.BEIAN_GA_NUM.getValue(), true));
         config.put("name", sysParamsService.getValue(Constant.SysBaseParam.SERVER_NAME.getValue(), true));
         
-        // SM2公钥
+        // SM2 public key
         String publicKey = sysParamsService.getValue(Constant.SM2_PUBLIC_KEY, true);
         if (StringUtils.isBlank(publicKey)) {
             throw new RenException(ErrorCode.SM2_KEY_NOT_CONFIGURED);

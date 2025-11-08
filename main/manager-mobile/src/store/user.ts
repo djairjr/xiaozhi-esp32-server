@@ -5,7 +5,7 @@ import {
   getUserInfo as _getUserInfo,
 } from '@/api/auth'
 
-// 初始化状态
+// initialization_state
 const userInfoState: UserInfo & { avatar?: string, token?: string } = {
   id: 0,
   username: '',
@@ -21,12 +21,12 @@ const userInfoState: UserInfo & { avatar?: string, token?: string } = {
 export const useUserStore = defineStore(
   'user',
   () => {
-    // 定义用户信息
+    // define_user_information
     const userInfo = ref<UserInfo & { avatar?: string, token?: string }>({ ...userInfoState })
-    // 设置用户信息
+    // set_user_information
     const setUserInfo = (val: UserInfo & { avatar?: string, token?: string }) => {
       console.log('设置用户信息', val)
-      // 若头像为空 则使用默认头像
+      // if_the_avatar_is_empty then_use_the_default_avatar
       if (!val.avatar) {
         val.avatar = userInfoState.avatar
       }
@@ -40,14 +40,14 @@ export const useUserStore = defineStore(
       console.log('设置用户头像', avatar)
       console.log('userInfo', userInfo.value)
     }
-    // 删除用户信息
+    // delete_user_information
     const removeUserInfo = () => {
       userInfo.value = { ...userInfoState }
       uni.removeStorageSync('userInfo')
       uni.removeStorageSync('token')
     }
     /**
-     * 获取用户信息
+     * get_user_information
      */
     const getUserInfo = async () => {
       const userData = await _getUserInfo()
@@ -58,11 +58,11 @@ export const useUserStore = defineStore(
       }
       setUserInfo(userInfoWithExtras)
       uni.setStorageSync('userInfo', userInfoWithExtras)
-      // TODO 这里可以增加获取用户路由的方法 根据用户的角色动态生成路由
+      // TODO here_you_can_add_a_method_to_obtain_user_routes dynamically_generate_routes_based_on_user_roles
       return userInfoWithExtras
     }
     /**
-     * 退出登录 并 删除用户信息
+     * log_out and delete_user_information
      */
     const logout = async () => {
       removeUserInfo()

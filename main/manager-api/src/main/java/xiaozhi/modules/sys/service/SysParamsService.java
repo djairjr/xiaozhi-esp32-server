@@ -9,7 +9,7 @@ import xiaozhi.modules.sys.dto.SysParamsDTO;
 import xiaozhi.modules.sys.entity.SysParamsEntity;
 
 /**
- * 参数管理
+ * parameter_management
  */
 public interface SysParamsService extends BaseService<SysParamsEntity> {
 
@@ -26,31 +26,32 @@ public interface SysParamsService extends BaseService<SysParamsEntity> {
     void delete(String[] ids);
 
     /**
-     * 根据参数编码，获取参数的value值
+     * coding_according_to_parameters，get_the_value_of_the_parameter
      *
-     * @param paramCode 参数编码
-     * @param fromCache 是否从缓存中获取
+     * @param paramCode parameter_encoding
+     * @param fromCache whether_to_obtain_from_cache
      */
     String getValue(String paramCode, Boolean fromCache);
 
-    /**
-     * 根据参数编码，获取value的Object对象
+    /*
+*
+     * coding_according_to_parameters，get_the_object_object_of_value
      *
-     * @param paramCode 参数编码
-     * @param clazz     Object对象
-     */
+     * @param paramCode parameter_encoding
+* @param clazz Object object
+*/
     <T> T getValueObject(String paramCode, Class<T> clazz);
 
     /**
-     * 根据参数编码，更新value
+     * coding_according_to_parameters，update_value
      *
-     * @param paramCode  参数编码
-     * @param paramValue 参数值
+     * @param paramCode  parameter_encoding
+     * @param paramValue parameter_value
      */
     int updateValueByCode(String paramCode, String paramValue);
 
     /**
-     * 初始化服务器密钥
+     * initialize_server_key
      */
     void initServerSecret();
 }

@@ -1,6 +1,6 @@
 const HAVE_NO_RESULT = '暂无'
 export default {
-    HAVE_NO_RESULT, // 项目的配置信息
+    HAVE_NO_RESULT, // project_configuration_information
     PAGE: {
         LOGIN: '/login',
     },
@@ -15,7 +15,7 @@ export default {
     FONT_SIZE: {
         'big': 'big',
         'normal': 'normal',
-    }, // 获取map中的某key
+    }, // get_a_key_in_the_map
     get(map, key) {
         return map[key] || HAVE_NO_RESULT
     }

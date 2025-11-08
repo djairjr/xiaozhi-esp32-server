@@ -4,16 +4,16 @@ package xiaozhi.modules.sys.service;
 import java.util.function.Consumer;
 
 /**
- * 定义一个系统用户工具类，避免和用户模块循环依赖
- * 如用户和设备互相依赖，用户需要获取所有设备，设备又需要获取每个设备的用户名
+ * define_a_system_user_tool_class，avoid_circular_dependencies_with_user_modules
+ * if_users_and_devices_depend_on_each_other，user_needs_to_get_all_devices，the_device_in_turn_needs_to_obtain_the_username_of_each_device
  * @author zjy
  * @since 2025-4-2
  */
 public interface SysUserUtilService {
     /**
-     * 赋值用户名
-     * @param userId 用户id
-     * @param setter 赋值方法
+     * assign_username
+     * @param userId user_id
+     * @param setter assignment_method
      */
     void assignUsername( Long userId, Consumer<String> setter);
 }

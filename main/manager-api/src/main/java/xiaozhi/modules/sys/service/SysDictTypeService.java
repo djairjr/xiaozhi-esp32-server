@@ -10,51 +10,51 @@ import xiaozhi.modules.sys.entity.SysDictTypeEntity;
 import xiaozhi.modules.sys.vo.SysDictTypeVO;
 
 /**
- * 数据字典
+ * data_dictionary
  */
 public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
 
     /**
-     * 分页查询字典类型信息
+     * query_dictionary_type_information_by_page
      *
-     * @param params 查询参数，包含分页信息和查询条件
-     * @return 返回分页的字典类型数据
+     * @param params query_parameters，contains_paging_information_and_query_conditions
+     * @return returns_paginated_dictionary_type_data
      */
     PageData<SysDictTypeVO> page(Map<String, Object> params);
 
     /**
-     * 根据ID获取字典类型信息
+     * get_dictionary_type_information_based_on_id
      *
-     * @param id 字典类型ID
-     * @return 返回字典类型对象
+     * @param id dictionary_type_id
+     * @return returns_a_dictionary_type_object
      */
     SysDictTypeVO get(Long id);
 
     /**
-     * 保存字典类型信息
+     * save_dictionary_type_information
      *
-     * @param dto 字典类型数据传输对象
+     * @param dto dictionary_type_data_transfer_object
      */
     void save(SysDictTypeDTO dto);
 
     /**
-     * 更新字典类型信息
+     * update_dictionary_type_information
      *
-     * @param dto 字典类型数据传输对象
+     * @param dto dictionary_type_data_transfer_object
      */
     void update(SysDictTypeDTO dto);
 
     /**
-     * 删除字典类型信息
+     * delete_dictionary_type_information
      *
-     * @param ids 要删除的字典类型ID数组
+     * @param ids array_of_dictionary_type_ids_to_be_deleted
      */
     void delete(Long[] ids);
 
     /**
-     * 列出所有字典类型信息
+     * list_all_dictionary_type_information
      *
-     * @return 返回字典类型列表
+     * @return returns_a_list_of_dictionary_types
      */
     List<SysDictTypeVO> list(Map<String, Object> params);
 }

@@ -9,7 +9,7 @@ import { toast } from '@/utils/toast'
 import { ContentTypeEnum, ResultEnum, ShowMessage } from './enum'
 
 /**
- * 创建请求实例
+ * create_request_instance
  */
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<
   typeof VueHook,
@@ -24,7 +24,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
         // await authLogin();
       }
       catch (error) {
-        // 切换到登录页
+        // switch_to_login_page
         await uni.reLaunch({ url: '/pages/login/index' })
         throw error
       }
@@ -33,7 +33,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 })
 
 /**
- * alova 请求实例
+ * alova request_instance
  */
 const alovaInstance = createAlova({
   baseURL: getEnvBaseUrl(),
@@ -42,7 +42,7 @@ const alovaInstance = createAlova({
   statesHook: VueHook,
 
   beforeRequest: onAuthRequired((method) => {
-    // 设置默认 Content-Type
+    // set_default Content-Type
     method.config.headers = {
       'Content-Type': ContentTypeEnum.JSON,
       'Accept': 'application/json, text/plain, */*',
@@ -53,19 +53,19 @@ const alovaInstance = createAlova({
     const ignoreAuth = config.meta?.ignoreAuth
     console.log('ignoreAuth===>', ignoreAuth)
 
-    // 处理认证信息
+    // process_authentication_information
     if (!ignoreAuth) {
       const token = uni.getStorageSync('token')
       if (!token) {
-        // 跳转到登录页
+        // jump_to_login_page
         uni.reLaunch({ url: '/pages/login/index' })
         throw new Error('[请求错误]：未登录')
       }
-      // 添加 Authorization 头
+      // add_to Authorization head
       method.config.headers.Authorization = `Bearer ${token}`
     }
 
-    // 处理动态域名
+    // handling_dynamic_domain_names
     if (config.meta?.domain) {
       method.baseURL = config.meta.domain
       console.log('当前域名', method.baseURL)
@@ -83,12 +83,12 @@ const alovaInstance = createAlova({
 
     console.log(response)
 
-    // 处理特殊请求类型（上传/下载）
+    // handle_special_request_types（upload/download）
     if (requestType === 'upload' || requestType === 'download') {
       return response
     }
 
-    // 处理 HTTP 状态码错误
+    // deal_with HTTP status_code_error
     if (statusCode !== 200) {
       const errorMessage = ShowMessage(statusCode) || `HTTP请求错误[${statusCode}]`
       console.error('errorMessage===>', errorMessage)
@@ -96,23 +96,23 @@ const alovaInstance = createAlova({
       throw new Error(`${errorMessage}：${errMsg}`)
     }
 
-    // 处理业务逻辑错误
+    // handle_business_logic_errors
     const { code, msg, data } = rawData as IResponse
     if (code !== ResultEnum.Success) {
-      // 检查是否为token失效
+      // check_whether_the_token_is_invalid
       if (code === ResultEnum.Unauthorized) {
-        // 清除token并跳转到登录页
+        // clear_token_and_jump_to_login_page
         uni.removeStorageSync('token')
         uni.reLaunch({ url: '/pages/login/index' })
-        throw new Error(`请求错误[${code}]：${msg}`)
+        throw new Error(`request_error[${code}]：${msg}`)
       }
 
       if (config.meta?.toast !== false) {
         toast.warning(msg)
       }
-      throw new Error(`请求错误[${code}]：${msg}`)
+      throw new Error(`request_error[${code}]：${msg}`)
     }
-    // 处理成功响应，返回业务数据
+    // handle_successful_response，return_business_data
     return data
   }),
 })

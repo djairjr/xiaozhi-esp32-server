@@ -7,9 +7,9 @@ import xiaozhi.modules.agent.entity.AgentTemplateEntity;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AgentTemplateVO extends AgentTemplateEntity {
-    // 角色音色
+    // character_timbre
     private String ttsModelName;
 
-    // 角色模型
+    // role_model
     private String llmModelName;
 }

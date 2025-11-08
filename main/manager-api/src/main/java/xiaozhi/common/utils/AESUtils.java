@@ -11,16 +11,17 @@ public class AESUtils {
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/ECB/PKCS5Padding";
 
-    /**
-     * AES加密
+    /*
+*
+*AES encryption
      * 
-     * @param key       密钥（16位、24位或32位）
-     * @param plainText 待加密字符串
-     * @return 加密后的Base64字符串
-     */
+* @param key key (16-bit, 24-bit or 32-bit)
+     * @param plainText string_to_be_encrypted
+     * @return encrypted_base64_string
+*/
     public static String encrypt(String key, String plainText) {
         try {
-            // 确保密钥长度为16、24或32位
+            // make_sure_the_key_length_is_16, 24 or 32 bits
             byte[] keyBytes = padKey(key.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, ALGORITHM);
 
@@ -30,20 +31,21 @@ public class AESUtils {
             byte[] encryptedBytes = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
-            throw new RuntimeException("AES加密失败", e);
+            throw new RuntimeException("AES encryption failed", e);
         }
     }
 
-    /**
-     * AES解密
+    /*
+*
+*AES decryption
      * 
-     * @param key           密钥（16位、24位或32位）
-     * @param encryptedText 待解密的Base64字符串
-     * @return 解密后的字符串
-     */
+* @param key key (16-bit, 24-bit or 32-bit)
+     * @param encryptedText base64_string_to_be_decrypted
+     * @return decrypted_string
+*/
     public static String decrypt(String key, String encryptedText) {
         try {
-            // 确保密钥长度为16、24或32位
+            // make_sure_the_key_length_is_16, 24 or 32 bits
             byte[] keyBytes = padKey(key.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, ALGORITHM);
 
@@ -54,23 +56,24 @@ public class AESUtils {
             byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
             return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            throw new RuntimeException("AES解密失败", e);
+            throw new RuntimeException("AES decryption failed", e);
         }
     }
 
-    /**
-     * 填充密钥到指定长度（16、24或32位）
+    /*
+*
+* pad_key_to_specified_length (16, 24 or 32 bits)
      * 
-     * @param keyBytes 原始密钥字节数组
-     * @return 填充后的密钥字节数组
-     */
+     * @param keyBytes raw_key_byte_array
+     * @return padded_key_byte_array
+*/
     private static byte[] padKey(byte[] keyBytes) {
         int keyLength = keyBytes.length;
         if (keyLength == 16 || keyLength == 24 || keyLength == 32) {
             return keyBytes;
         }
 
-        // 如果密钥长度不足，用0填充；如果超过，截取前32位
+        // if_the_key_length_is_insufficient，fill_with_0；if_more_than，cut_off_the_first_32_digits
         byte[] paddedKey = new byte[32];
         System.arraycopy(keyBytes, 0, paddedKey, 0, Math.min(keyLength, 32));
         return paddedKey;

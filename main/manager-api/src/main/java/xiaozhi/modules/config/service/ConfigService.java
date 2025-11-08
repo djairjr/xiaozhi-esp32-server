@@ -4,19 +4,20 @@ import java.util.Map;
 
 public interface ConfigService {
     /**
-     * 获取服务器配置
+     * get_server_configuration
      * 
-     * @param isCache 是否缓存
-     * @return 配置信息
+     * @param isCache whether_to_cache
+     * @return configuration_information
      */
     Object getConfig(Boolean isCache);
 
-    /**
-     * 获取智能体模型配置
+    /*
+*
+* Get the agent model configuration
      * 
-     * @param macAddress     MAC地址
-     * @param selectedModule 客户端已实例化的模型
-     * @return 模型配置信息
-     */
+* @param macAddress MAC address
+     * @param selectedModule clientinstantiated_model
+     * @return model_configuration_information
+*/
     Map<String, Object> getAgentModels(String macAddress, Map<String, String> selectedModule);
 }

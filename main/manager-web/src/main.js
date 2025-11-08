@@ -9,17 +9,17 @@ import i18n from './i18n';
 import './styles/global.scss';
 import { register as registerServiceWorker } from './registerServiceWorker';
 
-// 创建事件总线，用于组件间通信
+// create_event_bus，for_communication_between_components
 Vue.prototype.$eventBus = new Vue();
 
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
-// 注册Service Worker
+// register_service Worker
 registerServiceWorker();
 
-// 创建Vue实例
+// create_a_vue_instance
 new Vue({
   router,
   store,

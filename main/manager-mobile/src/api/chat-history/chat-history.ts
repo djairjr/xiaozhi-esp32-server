@@ -6,9 +6,9 @@ import type {
 import { http } from '@/http/request/alova'
 
 /**
- * 获取聊天会话列表
- * @param agentId 智能体ID
- * @param params 分页参数
+ * get_chat_session_list
+ * @param agentId agent_id
+ * @param params paging_parameters
  */
 export function getChatSessions(agentId: string, params: GetSessionsParams) {
   return http.Get<ChatSessionsResponse>(`/agent/${agentId}/sessions`, {
@@ -24,9 +24,9 @@ export function getChatSessions(agentId: string, params: GetSessionsParams) {
 }
 
 /**
- * 获取聊天记录详情
- * @param agentId 智能体ID
- * @param sessionId 会话ID
+ * get_chat_history_details
+ * @param agentId agent_id
+ * @param sessionId session_id
  */
 export function getChatHistory(agentId: string, sessionId: string) {
   return http.Get<ChatMessage[]>(`/agent/${agentId}/chat-history/${sessionId}`, {
@@ -38,8 +38,8 @@ export function getChatHistory(agentId: string, sessionId: string) {
 }
 
 /**
- * 获取音频下载ID
- * @param audioId 音频ID
+ * get_audio_download_id
+ * @param audioId audio_id
  */
 export function getAudioId(audioId: string) {
   return http.Post<string>(`/agent/audio/${audioId}`, {}, {
@@ -51,10 +51,10 @@ export function getAudioId(audioId: string) {
 }
 
 /**
- * 获取音频播放地址
- * @param downloadId 下载ID
+ * get_the_audio_playback_address
+ * @param downloadId download_id
  */
 export function getAudioPlayUrl(downloadId: string) {
-  // 根据需求文档，这个是直接返回二进制的，所以我们直接构造URL
+  // according_to_the_requirements_document，this_returns_binary_directly，so_we_construct_the_url_directly
   return `/agent/play/${downloadId}`
 }

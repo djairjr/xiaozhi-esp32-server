@@ -3,7 +3,7 @@ import RequestService from '../httpRequest';
 
 
 export default {
-    // 获取智能体列表
+    // get_list_of_agents
     getAgentList(callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/list`)
@@ -18,7 +18,7 @@ export default {
                 });
             }).send();
     },
-    // 添加智能体
+    // add_agent
     addAgent(agentName, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent`)
@@ -34,7 +34,7 @@ export default {
                 });
             }).send();
     },
-    // 删除智能体
+    // delete_agent
     deleteAgent(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${agentId}`)
@@ -49,7 +49,7 @@ export default {
                 });
             }).send();
     },
-    // 获取智能体配置
+    // get_agent_configuration
     getDeviceConfig(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${agentId}`)
@@ -65,7 +65,7 @@ export default {
                 });
             }).send();
     },
-    // 配置智能体
+    // configure_the_agent
     updateAgentConfig(agentId, configData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${agentId}`)
@@ -81,8 +81,8 @@ export default {
                 });
             }).send();
     },
-    // 新增方法：获取智能体模板
-    getAgentTemplate(callback) {  // 移除templateName参数
+    // add_method：get_the_agent_template
+    getAgentTemplate(callback) {  // remove_templatename_parameter
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template`)
             .method('GET')
@@ -98,7 +98,7 @@ export default {
             }).send();
     },
 
-    // 新增：获取智能体模板分页列表
+    // new：get_the_paginated_list_of_agent_templates
     getAgentTemplatesPage(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template/page`)
@@ -115,7 +115,7 @@ export default {
                 });
             }).send();
     },
-    // 获取智能体会话列表
+    // get_the_list_of_agent_sessions
     getAgentSessions(agentId, params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${agentId}/sessions`)
@@ -131,7 +131,7 @@ export default {
                 });
             }).send();
     },
-    // 获取智能体聊天记录
+    // get_agent_chat_history
     getAgentChatHistory(agentId, sessionId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${agentId}/chat-history/${sessionId}`)
@@ -146,7 +146,7 @@ export default {
                 });
             }).send();
     },
-    // 获取音频下载ID
+    // get_audio_download_id
     getAudioId(audioId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/audio/${audioId}`)
@@ -161,7 +161,7 @@ export default {
                 });
             }).send();
     },
-    // 获取智能体的MCP接入点地址
+    // get_the_mcp_access_point_address_of_the_agent
     getAgentMcpAccessAddress(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/mcp/address/${agentId}`)
@@ -176,7 +176,7 @@ export default {
                 });
             }).send();
     },
-    // 获取智能体的MCP工具列表
+    // get_the_list_of_mcp_tools_for_the_agent
     getAgentMcpToolsList(agentId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/mcp/tools/${agentId}`)
@@ -191,7 +191,7 @@ export default {
                 });
             }).send();
     },
-    // 添加智能体的声纹
+    // add_the_agents_voiceprint
     addAgentVoicePrint(voicePrintData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/voice-print`)
@@ -207,7 +207,7 @@ export default {
                 });
             }).send();
     },
-    // 获取指定智能体声纹列表
+    // get_the_voiceprint_list_of_the_specified_agent
     getAgentVoicePrintList(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/voice-print/list/${id}`)
@@ -222,7 +222,7 @@ export default {
                 });
             }).send();
     },
-    // 删除智能体声纹
+    // delete_agent_voiceprint
     deleteAgentVoicePrint(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/voice-print/${id}`)
@@ -237,7 +237,7 @@ export default {
                 });
             }).send();
     },
-    // 更新智能体声纹
+    // update_agent_voiceprint
     updateAgentVoicePrint(voicePrintData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/voice-print`)
@@ -253,7 +253,7 @@ export default {
                 });
             }).send();
     },
-    // 获取指定智能体用户类型聊天记录
+    // get_the_chat_history_of_the_specified_agent_user_type
     getRecentlyFiftyByAgentId(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${id}/chat-history/user`)
@@ -268,7 +268,7 @@ export default {
                 });
             }).send();
     },
-    // 获取指定智能体用户类型聊天记录
+    // get_the_chat_history_of_the_specified_agent_user_type
     getContentByAudioId(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/${id}/chat-history/audio`)
@@ -283,8 +283,8 @@ export default {
                 });
             }).send();
     },
-    // 在文件末尾（在最后一个方法后，大括号前）添加以下方法：
-    // 新增智能体模板
+    // at_the_end_of_the_file（after_the_last_method，before_braces）add_the_following_method：
+    // add_new_agent_template
     addAgentTemplate(templateData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template`)
@@ -301,7 +301,7 @@ export default {
             }).send();
     },
 
-    // 更新智能体模板
+    // update_agent_template
     updateAgentTemplate(templateData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template`)
@@ -318,7 +318,7 @@ export default {
             }).send();
     },
 
-    // 删除智能体模板
+    // delete_agent_template
     deleteAgentTemplate(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template/${id}`)
@@ -334,12 +334,12 @@ export default {
             }).send();
     },
 
-    // 批量删除智能体模板
+    // delete_agent_templates_in_batches
     batchDeleteAgentTemplate(ids, callback) {
         RequestService.sendRequest()
-            .url(`${getServiceUrl()}/agent/template/batch-remove`) // 修改为新的URL
+            .url(`${getServiceUrl()}/agent/template/batch-remove`) // change_to_new_url
             .method('POST')
-            .data(Array.isArray(ids) ? ids : [ids]) // 确保是数组格式
+            .data(Array.isArray(ids) ? ids : [ids]) // make_sure_it_is_in_array_format
             .success((res) => {
                 RequestService.clearRequestTime();
                 callback(res);
@@ -350,7 +350,7 @@ export default {
                 });
             }).send();
     },
-    // 在getAgentTemplate方法后添加获取单个模板的方法
+    // add_a_method_to_get_a_single_template_after_the_getagenttemplate_method
     getAgentTemplateById(templateId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template/${templateId}`)
@@ -367,7 +367,7 @@ export default {
             }).send();
     },
 
-    // 获取聊天记录下载链接UUID
+    // get_chat_record_download_link_uuid
     getDownloadUrl(agentId, sessionId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/chat-history/getDownloadUrl/${agentId}/${sessionId}`)

@@ -1,38 +1,39 @@
 import { getEnvBaseUrl } from './index'
 import { toast } from './toast'
 
-/**
- * 文件上传钩子函数使用示例
+/*
+*
+ * file_upload_hook_function_usage_example
  * @example
  * const { loading, error, data, progress, run } = useUpload<IUploadResult>(
  *   uploadUrl,
  *   {},
  *   {
- *     maxSize: 5, // 最大5MB
- *     sourceType: ['album'], // 仅支持从相册选择
- *     onProgress: (p) => console.log(`上传进度：${p}%`),
- *     onSuccess: (res) => console.log('上传成功', res),
- *     onError: (err) => console.error('上传失败', err),
+ *     maxSize: 5, // maximum_5mb
+ *     sourceType: ['album'], // only_supports_selection_from_albums
+ *     onProgress: (p) => console.log(`upload_progress：${p}%`),
+* onSuccess: (res) => console.log('Upload successful', res),
+* onError: (err) => console.error('Upload failed', err),
  *   },
  * )
- */
+*/
 
 /**
- * 上传文件的URL配置
+ * url_configuration_for_uploading_files
  */
 export const uploadFileUrl = {
-  /** 用户头像上传地址（动态读取当前生效的 BaseURL） */
+  /** user_avatar_upload_address（dynamically_read_the_current_effective BaseURL） */
   get USER_AVATAR() {
     return `${getEnvBaseUrl()}/user/avatar`
   },
 }
 
 /**
- * 通用文件上传函数（支持直接传入文件路径）
- * @param url 上传地址
- * @param filePath 本地文件路径
- * @param formData 额外表单数据
- * @param options 上传选项
+ * universal_file_upload_function（supports_directly_passing_in_file_path）
+ * @param url upload_address
+ * @param filePath local_file_path
+ * @param formData additional_form_data
+ * @param options upload_options
  */
 export function useFileUpload<T = string>(url: string, filePath: string, formData: Record<string, any> = {}, options: Omit<UploadOptions, 'sourceType' | 'sizeType' | 'count'> = {}) {
   return useUpload<T>(
@@ -48,86 +49,86 @@ export function useFileUpload<T = string>(url: string, filePath: string, formDat
 }
 
 export interface UploadOptions {
-  /** 最大可选择的图片数量，默认为1 */
+  /** maximum_number_of_images_that_can_be_selected，default_is_1 */
   count?: number
-  /** 所选的图片的尺寸，original-原图，compressed-压缩图 */
+  /** the_size_of_the_selected_image，original-original_picture，compressed-compressed_image */
   sizeType?: Array<'original' | 'compressed'>
-  /** 选择图片的来源，album-相册，camera-相机 */
+  /** select_image_source，album-photo_album，camera-camera */
   sourceType?: Array<'album' | 'camera'>
-  /** 文件大小限制，单位：MB */
+  /** file_size_limit，unit：MB */
   maxSize?: number //
-  /** 上传进度回调函数 */
+  /** upload_progress_callback_function */
   onProgress?: (progress: number) => void
-  /** 上传成功回调函数 */
+  /** upload_success_callback_function */
   onSuccess?: (res: Record<string, any>) => void
-  /** 上传失败回调函数 */
+  /** upload_failure_callback_function */
   onError?: (err: Error | UniApp.GeneralCallbackResult) => void
-  /** 上传完成回调函数（无论成功失败） */
+  /** upload_completion_callback_function（regardless_of_success_or_failure） */
   onComplete?: () => void
 }
 
 /**
- * 文件上传钩子函数
- * @template T 上传成功后返回的数据类型
- * @param url 上传地址
- * @param formData 额外的表单数据
- * @param options 上传选项
- * @returns 上传状态和控制对象
+ * file_upload_hook_function
+ * @template T data_type_returned_after_successful_upload
+ * @param url upload_address
+ * @param formData additional_form_data
+ * @param options upload_options
+ * @returns upload_status_and_control_objects
  */
 export function useUpload<T = string>(url: string, formData: Record<string, any> = {}, options: UploadOptions = {},
-  /** 直接传入文件路径，跳过选择器 */
+  /** directly_pass_in_the_file_path，skip_selector */
   directFilePath?: string) {
-  /** 上传中状态 */
+  /** uploading_status */
   const loading = ref(false)
-  /** 上传错误状态 */
+  /** upload_error_status */
   const error = ref(false)
-  /** 上传成功后的响应数据 */
+  /** response_data_after_successful_upload */
   const data = ref<T>()
-  /** 上传进度（0-100） */
+  /** upload_progress（0-100） */
   const progress = ref(0)
 
-  /** 解构上传选项，设置默认值 */
+  /** deconstructing_upload_options，set_default_value */
   const {
-    /** 最大可选择的图片数量 */
+    /** maximum_number_of_images_that_can_be_selected */
     count = 1,
-    /** 所选的图片的尺寸 */
+    /** the_size_of_the_selected_image */
     sizeType = ['original', 'compressed'],
-    /** 选择图片的来源 */
+    /** select_image_source */
     sourceType = ['album', 'camera'],
-    /** 文件大小限制（MB） */
+    /** file_size_limit（MB） */
     maxSize = 10,
-    /** 进度回调 */
+    /** progress_callback */
     onProgress,
-    /** 成功回调 */
+    /** successful_callback */
     onSuccess,
-    /** 失败回调 */
+    /** failure_callback */
     onError,
-    /** 完成回调 */
+    /** completion_callback */
     onComplete,
   } = options
 
   /**
-   * 检查文件大小是否超过限制
-   * @param size 文件大小（字节）
-   * @returns 是否通过检查
+   * check_if_file_size_exceeds_limit
+   * @param size file_size（byte）
+   * @returns passed_the_inspection
    */
   const checkFileSize = (size: number) => {
     const sizeInMB = size / 1024 / 1024
     if (sizeInMB > maxSize) {
-      toast.warning(`文件大小不能超过${maxSize}MB`)
+      toast.warning(`file_size_cannot_exceed${maxSize}MB`)
       return false
     }
     return true
   }
   /**
-   * 触发文件选择和上传
-   * 根据平台使用不同的选择器：
-   * - 微信小程序使用 chooseMedia
-   * - 其他平台使用 chooseImage
+   * trigger_file_selection_and_upload
+   * use_different_selectors_depending_on_the_platform：
+   * - using_wechat_mini_program chooseMedia
+   * - use_on_other_platforms chooseImage
    */
   const run = () => {
     if (directFilePath) {
-      // 直接使用传入的文件路径
+      // use_the_passed_file_path_directly
       loading.value = true
       progress.value = 0
       uploadFile<T>({
@@ -147,18 +148,18 @@ export function useUpload<T = string>(url: string, formData: Record<string, any>
     }
 
     // #ifdef MP-WEIXIN
-    // 微信小程序环境下使用 chooseMedia API
+    // used_in_wechat_mini_program_environment chooseMedia API
     uni.chooseMedia({
       count,
-      mediaType: ['image'], // 仅支持图片类型
+      mediaType: ['image'], // only_supports_image_types
       sourceType,
       success: (res) => {
         const file = res.tempFiles[0]
-        // 检查文件大小是否符合限制
+        // check_if_the_file_size_meets_the_limit
         if (!checkFileSize(file.size))
           return
 
-        // 开始上传
+        // start_uploading
         loading.value = true
         progress.value = 0
         uploadFile<T>({
@@ -184,7 +185,7 @@ export function useUpload<T = string>(url: string, formData: Record<string, any>
     // #endif
 
     // #ifndef MP-WEIXIN
-    // 非微信小程序环境下使用 chooseImage API
+    // used_in_nonwechat_mini_program_environment chooseImage API
     uni.chooseImage({
       count,
       sizeType,
@@ -192,7 +193,7 @@ export function useUpload<T = string>(url: string, formData: Record<string, any>
       success: (res) => {
         console.log('选择图片成功:', res)
 
-        // 开始上传
+        // start_uploading
         loading.value = true
         progress.value = 0
         uploadFile<T>({
@@ -222,38 +223,38 @@ export function useUpload<T = string>(url: string, formData: Record<string, any>
 }
 
 /**
- * 文件上传选项接口
- * @template T 上传成功后返回的数据类型
+ * file_upload_options_interface
+ * @template T data_type_returned_after_successful_upload
  */
 interface UploadFileOptions<T> {
-  /** 上传地址 */
+  /** upload_address */
   url: string
-  /** 临时文件路径 */
+  /** temporary_file_path */
   tempFilePath: string
-  /** 额外的表单数据 */
+  /** additional_form_data */
   formData: Record<string, any>
-  /** 上传成功后的响应数据 */
+  /** response_data_after_successful_upload */
   data: Ref<T | undefined>
-  /** 上传错误状态 */
+  /** upload_error_status */
   error: Ref<boolean>
-  /** 上传中状态 */
+  /** uploading_status */
   loading: Ref<boolean>
-  /** 上传进度（0-100） */
+  /** upload_progress（0-100） */
   progress: Ref<number>
-  /** 上传进度回调 */
+  /** upload_progress_callback */
   onProgress?: (progress: number) => void
-  /** 上传成功回调 */
+  /** upload_success_callback */
   onSuccess?: (res: Record<string, any>) => void
-  /** 上传失败回调 */
+  /** upload_failure_callback */
   onError?: (err: Error | UniApp.GeneralCallbackResult) => void
-  /** 上传完成回调 */
+  /** upload_complete_callback */
   onComplete?: () => void
 }
 
 /**
- * 执行文件上传
- * @template T 上传成功后返回的数据类型
- * @param options 上传选项
+ * perform_file_upload
+ * @template T data_type_returned_after_successful_upload
+ * @param options upload_options
  */
 function uploadFile<T>({
   url,
@@ -269,56 +270,56 @@ function uploadFile<T>({
   onComplete,
 }: UploadFileOptions<T>) {
   try {
-    // 创建上传任务
+    // create_upload_task
     const uploadTask = uni.uploadFile({
       url,
       filePath: tempFilePath,
-      name: 'file', // 文件对应的 key
+      name: 'file', // file_corresponding_to key
       formData,
       header: {
-        // H5环境下不需要手动设置Content-Type，让浏览器自动处理multipart格式
+        // In H5 environment, there is no need to manually set Content-Type, let_the_browser_automatically_handle_multipart_formats
         // #ifndef H5
         'Content-Type': 'multipart/form-data',
         // #endif
       },
-      // 确保文件名称合法
+      // make_sure_the_file_name_is_legal
       success: (uploadFileRes) => {
         console.log('上传文件成功:', uploadFileRes)
         try {
-          // 解析响应数据
+          // parse_response_data
           const { data: _data } = JSON.parse(uploadFileRes.data)
-          // 上传成功
+          // upload_successful
           data.value = _data as T
           onSuccess?.(_data)
         }
         catch (err) {
-          // 响应解析错误
+          // response_parsing_error
           console.error('解析上传响应失败:', err)
           error.value = true
           onError?.(new Error('上传响应解析失败'))
         }
       },
       fail: (err) => {
-        // 上传请求失败
+        // upload_request_failed
         console.error('上传文件失败:', err)
         error.value = true
         onError?.(err)
       },
       complete: () => {
-        // 无论成功失败都执行
+        // execute_regardless_of_success_or_failure
         loading.value = false
         onComplete?.()
       },
     })
 
-    // 监听上传进度
+    // monitor_upload_progress
     uploadTask.onProgressUpdate((res) => {
       progress.value = res.progress
       onProgress?.(res.progress)
     })
   }
   catch (err) {
-    // 创建上传任务失败
+    // failed_to_create_upload_task
     console.error('创建上传任务失败:', err)
     error.value = true
     loading.value = false

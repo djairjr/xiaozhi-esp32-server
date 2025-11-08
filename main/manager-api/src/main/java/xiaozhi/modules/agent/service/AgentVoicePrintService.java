@@ -7,43 +7,43 @@ import xiaozhi.modules.agent.dto.AgentVoicePrintUpdateDTO;
 import xiaozhi.modules.agent.vo.AgentVoicePrintVO;
 
 /**
- * 智能体声纹处理service
+ * intelligent_voiceprint_processing_service
  *
  * @author zjy
  */
 public interface AgentVoicePrintService {
     /**
-     * 添加智能体新的声纹
+     * add_a_new_voiceprint_for_the_agent
      *
-     * @param dto 保存智能体声纹的数据
-     * @return T:成功 F：失败
+     * @param dto save_the_data_of_the_agents_voiceprint
+     * @return T:success F：fail
      */
     boolean insert(AgentVoicePrintSaveDTO dto);
 
     /**
-     * 删除智能体的指的声纹
+     * delete_the_voiceprint_of_the_agents_finger
      *
-     * @param userId       当前登录的用户id
-     * @param voicePrintId 声纹id
-     * @return 是否成功 T:成功 F：失败
+     * @param userId       the_currently_logged_in_user_id
+     * @param voicePrintId voiceprint_id
+     * @return is_it_successful T:success F：fail
      */
     boolean delete(Long userId, String voicePrintId);
 
     /**
-     * 获取指定智能体的所有声纹数据
+     * get_all_voiceprint_data_of_the_specified_agent
      *
-     * @param userId  当前登录的用户id
-     * @param agentId 智能体id
-     * @return 声纹数据集合
+     * @param userId  the_currently_logged_in_user_id
+     * @param agentId agent_id
+     * @return voiceprint_data_collection
      */
     List<AgentVoicePrintVO> list(Long userId, String agentId);
 
     /**
-     * 更新智能体的指的声纹数据
+     * update_the_agents_finger_voiceprint_data
      *
-     * @param userId 当前登录的用户id
-     * @param dto    修改的声纹的数据
-     * @return 是否成功 T:成功 F：失败
+     * @param userId the_currently_logged_in_user_id
+     * @param dto    modified_voiceprint_data
+     * @return is_it_successful T:success F：fail
      */
     boolean update(Long userId, AgentVoicePrintUpdateDTO dto);
 

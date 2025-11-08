@@ -1,12 +1,12 @@
-// 繁體中文語言包
+// traditional_chinese_language_pack
 export default {
   // TabBar
   'tabBar.home': '首頁',
   'tabBar.deviceConfig': '配網',
   'tabBar.settings': '系統',
-  // 設置頁面標題
+  // set_page_title
   'settings.title': '設置',
-  // 登錄頁面
+  // login_page
   'login.pageTitle': '登錄',
   'login.navigationTitle': '登錄',
   'login.fetchConfigError': '獲取配置失敗:',
@@ -31,7 +31,7 @@ export default {
   'login.captchaError': '圖形驗證碼錯誤',
   'login.forgotPassword': '忘記密碼',
 
-  // 忘記密碼頁面
+  // forgot_password_page
   'retrievePassword.title': '重置密碼',
   'retrievePassword.subtitle': '請輸入您的手機號碼以重置密碼',
   'retrievePassword.mobileRequired': '請輸入手機號碼',
@@ -56,7 +56,7 @@ export default {
   'retrievePassword.resetButton': '重置密碼',
   'retrievePassword.goToLogin': '返回登錄',
 
-  // 註冊頁面
+  // registration_page
   'register.pageTitle': '註冊',
   'register.createAccount': '創建賬戶',
   'register.enterUsername': '請輸入用戶名',
@@ -76,7 +76,7 @@ export default {
   'register.confirm': '確認',
   'register.captchaSendSuccess': '驗證碼發送成功',
 
-  // 首頁
+  // home_page
   'home.pageTitle': '首頁',
   'home.createAgent': '創建智能體',
   'home.agentName': '智能體',
@@ -91,7 +91,7 @@ export default {
   'home.delete': '刪除',
   'home.createFirstAgent': '點擊右下角 + 號創建您的第一個智能體',
   'home.dialogTitle': '創建智能體',
-  'home.inputPlaceholder': '例如：客服助手、語音助理、知識問答',
+  'home.inputPlaceholder': '例如：customer_service_assistant、voice_assistant、知識問答',
   'home.createError': '請輸入智能體暱稱',
   'home.createNow': '立即創建',
   'home.justNow': '剛剛',
@@ -99,7 +99,7 @@ export default {
   'home.hoursAgo': '小時前',
   'home.daysAgo': '天前',
 
-  // Agent頁面
+  // Agent page
   'agent.pageTitle': '智能體',
   'agent.roleConfig': '角色配置',
   'agent.deviceManagement': '設備管理',
@@ -112,7 +112,7 @@ export default {
   'agent.largeLanguageModel': '大語言模型',
   'agent.save': '保存',
   'agent.cancel': '取消',
-  // Agent編輯頁面
+  // Agent editing page
   'agent.basicInfo': '基礎資訊',
   'agent.agentName': '助手暱稱',
   'agent.inputAgentName': '請輸入助手暱稱',
@@ -141,7 +141,7 @@ export default {
   'agent.pleaseInputRoleDescription': '請輸入角色介紹',
   'agent.pleaseSelect': '請選擇',
 
-  // 聊天歷史頁面
+  // chat_history_page
   'chatHistory.getChatSessions': '獲取聊天會話列表',
   'chatHistory.noSelectedAgent': '沒有選中的智能體',
   'chatHistory.getChatSessionsFailed': '獲取聊天會話列表失敗:',
@@ -156,7 +156,7 @@ export default {
   'chatHistory.noMoreData': '沒有更多數據了',
   'chatHistory.noChatRecords': '暫無聊天記錄',
   'chatHistory.chatRecordsDescription': '與智能體的對話記錄會顯示在這裡',
-  // 聊天詳情頁面
+  // chat_details_page
   'chatHistory.pageTitle': '聊天詳情',
   'chatHistory.assistantName': '智能助手',
   'chatHistory.userName': '用戶',
@@ -167,7 +167,7 @@ export default {
   'chatHistory.audioPlayFailed': '音頻播放失敗',
   'chatHistory.playAudioFailed': '播放音頻失敗',
 
-  // 設備管理頁面
+  // device_management_page
   'device.pageTitle': '設備管理',
   'device.noDevices': '暫無設備',
   'device.macAddress': 'MAC地址',
@@ -201,7 +201,7 @@ export default {
   'device.lastConnection': '最近對話',
   'device.clickToBindFirstDevice': '點擊右下角 + 號綁定您的第一個設備',
 
-  // 通用
+  // universal
   'common.success': '成功',
   'common.fail': '失敗',
   'common.loading': '加載中...',
@@ -214,7 +214,7 @@ export default {
   'common.unknownError': '未知錯誤',
   'common.networkError': '網路錯誤',
 
-  // SM2加密相關錯誤消息
+  // SM2 encryption related error messages
   'sm2.publicKeyNotConfigured': 'SM2公鑰未配置，請聯繫管理員',
   'sm2.encryptionFailed': '密碼加密失敗',
   'sm2.keyGenerationFailed': '金鑰對生成失敗',
@@ -252,20 +252,20 @@ export default {
   'voiceprint.selectVector': '選擇聲紋向量',
   'voiceprint.voiceprintInterfaceNotConfigured': '聲紋接口未配置',
 
-  // 設置頁面
+  // settings_page
   'settings.pageTitle': '設置',
   'settings.navigationTitle': '設置',
   'settings.networkSettings': '網絡設置',
   'settings.serverApiUrl': '服務端接口地址',
-  'settings.validServerUrl': '請輸入有效的服務端地址（以 http 或 https 開頭，並以 /xiaozhi 結尾）',
+  'settings.validServerUrl': '請輸入有效的服務端地址（by http or https beginning，and_with /xiaozhi 結尾）',
   'settings.saveSettings': '保存設置',
   'settings.resetDefault': '恢復默認',
   'settings.restartApp': '重啟應用',
   'settings.restartNow': '立即重啟',
   'settings.restartLater': '稍後',
-  // 關於我們
+  // about_us
   'settings.aboutApp': '關於小智智控台',
-  'settings.aboutContent': '小智智控台\n\n基於 Vue.js 3 + uni-app 構建的跨平台移動端管理應用，為小智ESP32智能硬體提供設備管理、智能體配置等功能。\n\n© 2025 xiaozhi-esp32-server {version}',
+  'settings.aboutContent': '小智智控台\n\n基於 Vue.js 3 + uni-app crossplatform_mobile_management_application_built，provide_device_management_for_xiaozhi_esp32_smart_hardware、agent_configuration_and_other_functions。\n\n© 2025 xiaozhi-esp32-server {version}',
   'settings.restartSuccess': '已保存，可稍後手動重啟應用',
   'settings.serverUrlSavedAndCacheCleared': '服務端地址已保存，緩存已清除',
   'settings.resetToDefaultAndCacheCleared': '已恢復默認設置，緩存已清除',
@@ -283,14 +283,14 @@ export default {
   'settings.aboutUs': '關於我們',
   'settings.appVersion': '應用版本與團隊信息',
   'settings.confirmClear': '確認清除',
-  'settings.confirmClearMessage': '確定要清除所有緩存嗎？這將刪除所有數據包括登錄狀態，需要重新登錄。',
+  'settings.confirmClearMessage': '確定要清除所有緩存嗎？this_will_delete_all_data_including_login_status，需要重新登錄。',
   'settings.cacheCleared': '緩存清除成功，即將跳轉到登錄頁',
   'settings.languageSettings': '語言設置',
   'settings.language': '語言',
   'settings.selectLanguage': '選擇語言',
   'settings.languageChanged': '語言切換成功',
 
-  // 消息提示
+  // message_prompt
   'message.loginSuccess': '登錄成功！',
   'message.loginFail': '登錄失敗',
   'message.registerSuccess': '註冊成功',
@@ -310,7 +310,7 @@ export default {
   'message.passwordError': '帳號或密碼錯誤',
   'message.phoneRegistered': '此手機號已經註冊過',
 
-  // Agent工具頁面
+  // Agent tool page
   'agent.tools.pageTitle': 'Agent工具',
   'agent.tools.unselected': '未選',
   'agent.tools.selected': '已選',
@@ -337,7 +337,7 @@ export default {
   'agent.tools.mcpEndpoint': 'MCP接入點',
   'agent.tools.eachLineOneItem': '每行輸入一個項目',
 
-  // 設備配置頁面
+  // device_configuration_page
   'deviceConfig.pageTitle': '設備配置',
   'deviceConfig.wifiConfig': 'WiFi配網',
   'deviceConfig.ultrasonicConfig': '超聲波配網',
@@ -378,7 +378,7 @@ export default {
   'deviceConfig.ultrasonicConfigInstructions': '超聲波配網說明',
   'deviceConfig.ensureWifiNetworkSelectedAndPasswordEntered': '確保已選擇WiFi網絡並輸入密碼',
   'deviceConfig.clickGenerateAndPlaySoundWave': '點擊生成並播放聲波，系統會將配網信息編碼為音頻',
-  'deviceConfig.bringPhoneCloseToXiaozhiDevice': '將手機靠近xiaozhi設備（距離1-2米）',
+  'deviceConfig.bringPhoneCloseToXiaozhiDevice': '將手機靠近xiaozhi設備（distance_1-2米）',
   'deviceConfig.duringAudioPlaybackXiaozhiWillReceive': '音頻播放時，xiaozhi會接收並解碼配網信息',
   'deviceConfig.afterConfigSuccessDeviceWillConnect': '配網成功後設備會自動連接WiFi網絡',
   'deviceConfig.usesAfskModulation': '使用AFSK調制技術，通過1800Hz和1500Hz頻率傳輸數據',
@@ -401,7 +401,7 @@ export default {
   'deviceConfig.ultrasonicAudioPlaybackEnded': '超聲波音頻播放結束',
   'deviceConfig.audioPlaybackFailed': '音頻播放失敗',
   'deviceConfig.audioResourceBusy': '音頻資源繁忙，請稍後重試',
-  'deviceConfig.audioFormatNotSupported': '音頻格式不支援，可能是data URI問題',
+  'deviceConfig.audioFormatNotSupported': '音頻格式不支援，may_be_data URI問題',
   'deviceConfig.audioFileError': '音頻文件錯誤',
   'deviceConfig.cleaningUpAudioContext': '清理音頻上下文',
   'deviceConfig.cleaningUpAudioContextFailed': '清理音頻上下文失敗',

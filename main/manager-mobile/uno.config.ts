@@ -12,7 +12,7 @@ export default defineConfig({
   presets: [
     presetUni({
       attributify: {
-        // prefix: 'fg-', // 如果加前缀，则需要在代码里面使用 `fg-` 前缀，如：<div fg-border="1px solid #000"></div>
+        // prefix: 'fg-', // if_you_add_the_prefix，you_need_to_use_it_in_the_code `fg-` prefix，like：<div fg-border="1px solid #000"></div>
         prefixedOnly: true,
       },
     }),
@@ -24,14 +24,14 @@ export default defineConfig({
         'vertical-align': 'middle',
       },
     }),
-    // 支持css class属性化
+    // support_css class attribute
     presetAttributify(),
   ],
   transformers: [
-    // 启用指令功能：主要用于支持 @apply、@screen 和 theme() 等 CSS 指令
+    // enable_command_functionality：mainly_used_to_support @apply、@screen and theme() wait CSS instruction
     transformerDirectives(),
-    // 启用 () 分组功能
-    // 支持css class组合，eg: `<div class="hover:(bg-gray-400 font-medium) font-(light mono)">测试 unocss</div>`
+    // enable () grouping_function
+    // support_css class combination, eg: `<div class="hover:(bg-gray-400 font-medium) font-(light mono)">test unocss</div>`
     transformerVariantGroup(),
   ],
   shortcuts: [
@@ -53,11 +53,11 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      /** 主题色，用法如: text-primary */
+      /** theme_color，usage_such_as: text-primary */
       primary: 'var(--wot-color-theme,#0957DE)',
     },
     fontSize: {
-      /** 提供更小号的字体，用法如：text-2xs */
+      /** provide_smaller_font_sizes，usage_such_as：text-2xs */
       '2xs': ['20rpx', '28rpx'],
       '3xs': ['18rpx', '26rpx'],
     },

@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-  // 获取模型配置列表
+  // get_model_configuration_list
   getModelList(params, callback) {
     const queryParams = new URLSearchParams({
       modelType: params.modelType,
@@ -25,7 +25,7 @@ export default {
         })
       }).send()
   },
-  // 获取模型供应器列表
+  // get_a_list_of_model_providers
   getModelProviders(modelType, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/${modelType}/provideTypes`)
@@ -43,7 +43,7 @@ export default {
       }).send()
   },
 
-  // 新增模型配置
+  // add_new_model_configuration
   addModel(params, callback) {
     const { modelType, provideCode, formData } = params;
     const postData = {
@@ -74,7 +74,7 @@ export default {
         })
       }).send()
   },
-  // 删除模型配置
+  // delete_model_configuration
   deleteModel(id, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/${id}`)
@@ -91,7 +91,7 @@ export default {
         })
       }).send()
   },
-  // 获取模型名称列表
+  // get_a_list_of_model_names
   getModelNames(modelType, modelName, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/names`)
@@ -107,7 +107,7 @@ export default {
         });
       }).send();
   },
-  // 获取LLM模型名称列表
+  // get_a_list_of_llm_model_names
   getLlmModelCodeList(modelName, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/llm/names`)
@@ -123,7 +123,7 @@ export default {
         });
       }).send();
   },
-  // 获取模型音色列表
+  // get_model_tone_list
   getModelVoices(modelId, voiceName, callback) {
     const queryParams = new URLSearchParams({
       voiceName: voiceName || ''
@@ -141,7 +141,7 @@ export default {
         });
       }).send();
   },
-  // 获取单个模型配置
+  // get_a_single_model_configuration
   getModelConfig(id, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/${id}`)
@@ -158,7 +158,7 @@ export default {
         })
       }).send()
   },
-  // 启用/禁用模型状态
+  // enable/disable_model_state
   updateModelStatus(id, status, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/enable/${id}/${status}`)
@@ -175,7 +175,7 @@ export default {
         })
       }).send()
   },
-  // 更新模型配置
+  // update_model_configuration
   updateModel(params, callback) {
     const { modelType, provideCode, id, formData } = params;
     const payload = {
@@ -198,7 +198,7 @@ export default {
         });
       }).send();
   },
-  // 设置默认模型
+  // set_default_model
   setDefaultModel(id, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/default/${id}`)
@@ -217,12 +217,12 @@ export default {
   },
 
   /**
-   * 获取模型配置列表（支持查询参数）
-   * @param {Object} params - 查询参数对象，例如 { name: 'test', modelType: 1 }
-   * @param {Function} callback - 回调函数
+   * get_model_configuration_list（support_query_parameters）
+   * @param {Object} params - query_parameter_object，for_example { name: 'test', modelType: 1 }
+   * @param {Function} callback - callback_function
    */
   getModelProvidersPage(params, callback) {
-    // 构建查询参数
+    // build_query_parameters
     const queryParams = new URLSearchParams();
     if (params.name) queryParams.append('name', params.name);
     if (params.modelType !== undefined) queryParams.append('modelType', params.modelType);
@@ -245,9 +245,9 @@ export default {
   },
 
   /**
-   * 新增模型供应器配置
-   * @param {Object} params - 请求参数对象，例如 { modelType: '1', providerCode: '1', name: '1', fields: '1', sort: 1 }
-   * @param {Function} callback - 成功回调函数
+   * added_model_provider_configuration
+   * @param {Object} params - request_parameter_object，for_example { modelType: '1', providerCode: '1', name: '1', fields: '1', sort: 1 }
+   * @param {Function} callback - success_callback_function
    */
   addModelProvider(params, callback) {
     const postData = {
@@ -276,9 +276,9 @@ export default {
   },
 
   /**
-   * 更新模型供应器配置
-   * @param {Object} params - 请求参数对象，例如 { id: '111', modelType: '1', providerCode: '1', name: '1', fields: '1', sort: 1 }
-   * @param {Function} callback - 成功回调函数
+   * update_model_provider_configuration
+   * @param {Object} params - request_parameter_object，for_example { id: '111', modelType: '1', providerCode: '1', name: '1', fields: '1', sort: 1 }
+   * @param {Function} callback - success_callback_function
    */
   updateModelProvider(params, callback) {
     const putData = {
@@ -305,7 +305,7 @@ export default {
         });
       }).send();
   },
-  // 删除
+  // delete
   deleteModelProviderByIds(ids, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/provider/delete`)
@@ -322,7 +322,7 @@ export default {
         })
       }).send()
   },
-  // 获取插件列表
+  // get_plugin_list
   getPluginFunctionList(params, callback) {
     RequestService.sendRequest()
       .url(`${getServiceUrl()}/models/provider/plugin/names`)

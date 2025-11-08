@@ -32,8 +32,8 @@ import xiaozhi.common.service.BaseService;
 import xiaozhi.common.utils.ConvertUtils;
 
 /**
- * 基础服务类，所有Service都要继承
- * Copyright (c) 人人开源 All rights reserved.
+ * basic_service_class，all_services_must_inherit
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements BaseService<T> {
@@ -42,20 +42,20 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
     protected Log log = LogFactory.getLog(getClass());
 
     /**
-     * 获取分页对象
+     * get_pagination_object
      *
-     * @param params            分页查询参数
-     * @param defaultOrderField 默认排序字段
-     * @param isAsc             排序方式
+     * @param params            pagination_query_parameters
+     * @param defaultOrderField default_sort_field
+     * @param isAsc             sort_by
      * @see xiaozhi.common.constant.Constant
      *      params.put(Constant.PAGE, "1");
      *      params.put(Constant.LIMIT, "10");
-     *      params.put(Constant.ORDER_FIELD, "field"); // 单个字段
-     *      params.put(Constant.ORDER_FIELD, List.of("field1", "field2")); // 多个字段
+     *      params.put(Constant.ORDER_FIELD, "field"); // single_field
+     *      params.put(Constant.ORDER_FIELD, List.of("field1", "field2")); // multiple_fields
      *      params.put(Constant.ORDER, "asc");
      */
     protected IPage<T> getPage(Map<String, Object> params, String defaultOrderField, boolean isAsc) {
-        // 分页参数
+        // paging_parameters
         long curPage = 1;
         long limit = 10;
 
@@ -66,26 +66,26 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
             limit = Long.parseLong((String) params.get(Constant.LIMIT));
         }
 
-        // 分页对象
+        // pagination_object
         Page<T> page = new Page<>(curPage, limit);
 
-        // 分页参数
+        // paging_parameters
         params.put(Constant.PAGE, page);
 
-        // 排序字段
+        // sort_field
         Object orderField = params.get(Constant.ORDER_FIELD);
         String order = (String) params.get(Constant.ORDER);
 
         List<String> orderFields = new ArrayList<>();
 
-        // 处理排序字段
+        // handle_sort_fields
         if (orderField instanceof String) {
             orderFields.add((String) orderField);
         } else if (orderField instanceof List) {
             orderFields.addAll((List<String>) orderField);
         }
 
-        // 有排序字段则排序
+        // sort_if_there_is_a_sort_field
         if (CollectionUtils.isNotEmpty(orderFields)) {
             if (StringUtils.isNotBlank(order) && Constant.ASC.equalsIgnoreCase(order)) {
                 return page.addOrder(OrderItem.ascs(orderFields.toArray(new String[0])));
@@ -94,7 +94,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
             }
         }
 
-        // 没有排序字段，使用默认排序
+        // no_sort_field，use_default_sorting
         if (StringUtils.isNotBlank(defaultOrderField)) {
             if (isAsc) {
                 page.addOrder(OrderItem.asc(defaultOrderField));
@@ -129,13 +129,13 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
 
     /**
      * <p>
-     * 判断数据库操作是否成功
+     * determine_whether_the_database_operation_is_successful
      * </p>
      * <p>
-     * 注意！！ 该方法为 Integer 判断，不可传入 int 基本类型
+     * notice！！ the_method_is Integer judge，not_passable int basic_typec_type
      * </p>
      *
-     * @param result 数据库操作返回影响条数
+     * @param result database_operation_returns_the_number_of_affected_items
      * @return boolean
      */
     protected static boolean retBool(Integer result) {
@@ -168,7 +168,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
     }
 
     /**
-     * 批量插入
+     * batch_insert
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -178,7 +178,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
     }
 
     /**
-     * 执行批量操作
+     * perform_batch_operations
      */
     @SuppressWarnings("deprecation")
     protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {

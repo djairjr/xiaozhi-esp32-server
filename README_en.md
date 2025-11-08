@@ -40,7 +40,7 @@ Supports MCP endpoints and voiceprint recognition
 <p align="center">
 Spearheaded by Professor Siyuan Liu's Team (South China University of Technology)
 </br>
-刘思源教授团队主导研发（华南理工大学）
+Research and development led by Professor Liu Siyuan's team (South China University of Technology)
 </br>
 <img src="./docs/images/hnlg.jpg" alt="South China University of Technology" width="50%">
 </p>
@@ -58,35 +58,35 @@ Want to see the usage effects? Click the videos below 🎥
     <td>
         <a href="https://www.bilibili.com/video/BV1FMFyejExX" target="_blank">
          <picture>
-           <img alt="响应速度感受" src="docs/images/demo9.png" />
+<img alt="Response speed experience" src="docs/images/demo9.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1vchQzaEse" target="_blank">
          <picture>
-           <img alt="速度优化秘诀" src="docs/images/demo6.png" />
+<img alt="Secrets for Speed ​​Optimization" src="docs/images/demo6.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1C1tCzUEZh" target="_blank">
          <picture>
-           <img alt="复杂医疗场景" src="docs/images/demo1.png" />
+<img alt="Complex Medical Scenario" src="docs/images/demo1.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1zUW5zJEkq" target="_blank">
          <picture>
-           <img alt="MQTT指令下发" src="docs/images/demo4.png" />
+<img alt="MQTT command issuance" src="docs/images/demo4.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1Exu3zqEDe" target="_blank">
          <picture>
-           <img alt="声纹识别" src="docs/images/demo14.png" />
+<img alt="Voiceprint Recognition" src="docs/images/demo14.png" />
          </picture>
         </a>
     </td>
@@ -95,35 +95,35 @@ Want to see the usage effects? Click the videos below 🎥
     <td>
         <a href="https://www.bilibili.com/video/BV1pNXWYGEx1" target="_blank">
          <picture>
-           <img alt="控制家电开关" src="docs/images/demo5.png" />
+<img alt="Control home appliance switches" src="docs/images/demo5.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1ZQKUzYExM" target="_blank">
          <picture>
-           <img alt="MCP接入点" src="docs/images/demo13.png" />
+<img alt="MCP Access Point" src="docs/images/demo13.png" />
          </picture>
         </a>
     </td>
     <td>
       <a href="https://www.bilibili.com/video/BV1TJ7WzzEo6" target="_blank">
          <picture>
-           <img alt="多指令任务" src="docs/images/demo11.png" />
+<img alt="Multiple command tasks" src="docs/images/demo11.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1VC96Y5EMH" target="_blank">
          <picture>
-           <img alt="播放音乐" src="docs/images/demo7.png" />
+<img alt="Play music" src="docs/images/demo7.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1Z8XuYZEAS" target="_blank">
          <picture>
-           <img alt="天气插件" src="docs/images/demo8.png" />
+<img alt="Weather plug-in" src="docs/images/demo8.png" />
          </picture>
         </a>
     </td>
@@ -132,35 +132,35 @@ Want to see the usage effects? Click the videos below 🎥
     <td>
       <a href="https://www.bilibili.com/video/BV12J7WzBEaH" target="_blank">
          <picture>
-           <img alt="实时打断" src="docs/images/demo10.png" />
+<img alt="Real-time interruption" src="docs/images/demo10.png" />
          </picture>
         </a>
     </td>
     <td>
       <a href="https://www.bilibili.com/video/BV1Co76z7EvK" target="_blank">
          <picture>
-           <img alt="拍照识物品" src="docs/images/demo12.png" />
+<img alt="Take photos to identify items" src="docs/images/demo12.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV1CDKWemEU6" target="_blank">
          <picture>
-           <img alt="自定义音色" src="docs/images/demo2.png" />
+<img alt="Custom sound" src="docs/images/demo2.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV12yA2egEaC" target="_blank">
          <picture>
-           <img alt="使用粤语交流" src="docs/images/demo3.png" />
+<img alt="Communicate in Cantonese" src="docs/images/demo3.png" />
          </picture>
         </a>
     </td>
     <td>
         <a href="https://www.bilibili.com/video/BV17LXWYvENb" target="_blank">
          <picture>
-           <img alt="播报新闻" src="docs/images/demo0.png" />
+<img alt="Broadcast news" src="docs/images/demo0.png" />
          </picture>
         </a>
     </td>
@@ -234,7 +234,7 @@ This project provides the following testing tools to help you verify the system 
 ---
 ## Feature List ✨
 ### Implemented ✅
-![请参考-全模块安装架构图](docs/images/deploy2.png)
+![Please refer to the full module installation architecture diagram](docs/images/deploy2.png)
 | Feature Module | Description |
 |:---:|:---|
 | Core Architecture | Based on [MQTT+UDP gateway](https://github.com/xinnan-tech/xiaozhi-esp32-server/blob/main/docs/mqtt-gateway-integration.md), WebSocket and HTTP servers, provides complete console management and authentication system |

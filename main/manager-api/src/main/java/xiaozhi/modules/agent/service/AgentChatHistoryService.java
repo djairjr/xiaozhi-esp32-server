@@ -12,7 +12,7 @@ import xiaozhi.modules.agent.entity.AgentChatHistoryEntity;
 import xiaozhi.modules.agent.vo.AgentChatHistoryUserVO;
 
 /**
- * 智能体聊天记录表处理service
+ * agent_chat_record_table_processing_service
  *
  * @author Goody
  * @version 1.0, 2025/4/30
@@ -21,54 +21,54 @@ import xiaozhi.modules.agent.vo.AgentChatHistoryUserVO;
 public interface AgentChatHistoryService extends IService<AgentChatHistoryEntity> {
 
     /**
-     * 根据智能体ID获取会话列表
+     * get_session_list_based_on_agent_id
      *
-     * @param params 查询参数，包含agentId、page、limit
-     * @return 分页的会话列表
+     * @param params query_parameters，contains_agentid、page、limit
+     * @return paginated_conversation_list
      */
     PageData<AgentChatSessionDTO> getSessionListByAgentId(Map<String, Object> params);
 
     /**
-     * 根据会话ID获取聊天记录列表
+     * get_chat_history_list_based_on_session_id
      *
-     * @param agentId   智能体ID
-     * @param sessionId 会话ID
-     * @return 聊天记录列表
+     * @param agentId   agent_id
+     * @param sessionId session_id
+     * @return chat_history_list
      */
     List<AgentChatHistoryDTO> getChatHistoryBySessionId(String agentId, String sessionId);
 
     /**
-     * 根据智能体ID删除聊天记录
+     * delete_chat_history_based_on_agent_id
      *
-     * @param agentId     智能体ID
-     * @param deleteAudio 是否删除音频
-     * @param deleteText  是否删除文本
+     * @param agentId     agent_id
+     * @param deleteAudio whether_to_delete_audio
+     * @param deleteText  whether_to_delete_text
      */
     void deleteByAgentId(String agentId, Boolean deleteAudio, Boolean deleteText);
 
     /**
-     * 根据智能体ID获取最近50条用户的聊天记录数据（带音频数据）
+     * get_the_latest_50_user_chat_history_data_based_on_the_agent_id（with_audio_data）
      *
-     * @param agentId 智能体id
-     * @return 聊天记录列表（只有用户）
+     * @param agentId agent_id
+     * @return chat_history_list（only_users）
      */
     List<AgentChatHistoryUserVO> getRecentlyFiftyByAgentId(String agentId);
 
     /**
-     * 根据音频数据ID获取聊天内容
+     * get_chat_content_based_on_audio_data_id
      *
-     * @param audioId 音频id
-     * @return 聊天内容
+     * @param audioId audio_id
+     * @return chat_content
      */
     String getContentByAudioId(String audioId);
 
 
     /**
-     * 查询此音频id是否属于此智能体
+     * query_whether_this_audio_id_belongs_to_this_agent
      *
-     * @param audioId 音频id
-     * @param agentId 音频id
-     * @return T：属于 F：不属于
+     * @param audioId audio_id
+     * @param agentId audio_id
+     * @return T：belong F：does_not_belong
      */
     boolean isAudioOwnedByAgent(String audioId,String agentId);
 }

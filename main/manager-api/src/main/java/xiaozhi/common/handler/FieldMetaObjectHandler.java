@@ -12,8 +12,8 @@ import xiaozhi.common.user.UserDetail;
 import xiaozhi.modules.security.user.SecurityUser;
 
 /**
- * 公共字段，自动填充值
- * Copyright (c) 人人开源 All rights reserved.
+ * public_fields，autofill_value
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 @Component
@@ -30,28 +30,28 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
         UserDetail user = SecurityUser.getUser();
         Date date = new Date();
 
-        // 创建者
+        // creator
         strictInsertFill(metaObject, CREATOR, Long.class, user.getId());
-        // 创建时间
+        // creation_time
         strictInsertFill(metaObject, CREATE_DATE, Date.class, date);
 
-        // 更新者
+        // updater
         strictInsertFill(metaObject, UPDATER, Long.class, user.getId());
-        // 更新时间
+        // update_time
         strictInsertFill(metaObject, UPDATE_DATE, Date.class, date);
 
-        // 数据标识
+        // data_identification
         strictInsertFill(metaObject, DATA_OPERATION, String.class, Constant.DataOperation.INSERT.getValue());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        // 更新者
+        // updater
         strictUpdateFill(metaObject, UPDATER, Long.class, SecurityUser.getUserId());
-        // 更新时间
+        // update_time
         strictUpdateFill(metaObject, UPDATE_DATE, Date.class, new Date());
 
-        // 数据标识
+        // data_identification
         strictInsertFill(metaObject, DATA_OPERATION, String.class, Constant.DataOperation.UPDATE.getValue());
     }
 }

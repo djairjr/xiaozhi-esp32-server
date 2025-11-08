@@ -95,7 +95,7 @@ public class ModelProviderServiceImpl extends BaseServiceImpl<ModelProviderDao, 
     public static void main(String[] args) {
         String jsonString = "\"[]\"";
         JSONArray jsonArray = new JSONArray(jsonString);
-        System.out.println("字符串转 JSONArray: " + jsonArray.toString());
+        System.out.println("String to JSONArray:" + jsonArray.toString());
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ModelProviderServiceImpl extends BaseServiceImpl<ModelProviderDao, 
         modelProviderDTO.setUpdater(user.getId());
         modelProviderDTO.setCreateDate(new Date());
         modelProviderDTO.setUpdateDate(new Date());
-        // 去除Fields左右的双引号
+        // remove_the_double_quotes_around_fields
 
         modelProviderDTO.setFields(modelProviderDTO.getFields());
         ModelProviderEntity entity = ConvertUtils.sourceToTarget(modelProviderDTO, ModelProviderEntity.class);

@@ -3,7 +3,7 @@ import RequestService from '../httpRequest';
 
 
 export default {
-    // 用户列表
+    // user_list
     getUserList(params, callback) {
         const queryParams = new URLSearchParams({
             page: params.page,
@@ -25,7 +25,7 @@ export default {
                 })
             }).send()
     },
-    // 删除用户
+    // delete_user
     deleteUser(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/users/${id}`)
@@ -41,7 +41,7 @@ export default {
                 })
             }).send()
     },
-    // 重置用户密码
+    // reset_user_password
     resetUserPassword(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/users/${id}`)
@@ -57,7 +57,7 @@ export default {
                 })
             }).send()
     },
-    // 获取参数列表
+    // get_parameter_list
     getParamsList(params, callback) {
         const queryParams = new URLSearchParams({
             page: params.page,
@@ -79,7 +79,7 @@ export default {
                 })
             }).send()
     },
-    // 保存
+    // save
     addParam(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/params`)
@@ -96,7 +96,7 @@ export default {
                 })
             }).send()
     },
-    // 修改
+    // revise
     updateParam(data, callback, failCallback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/params`)
@@ -117,7 +117,7 @@ export default {
                 })
             }).send()
     },
-    // 删除
+    // delete
     deleteParam(ids, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/params/delete`)
@@ -134,7 +134,7 @@ export default {
                 })
             }).send()
     },
-    // 获取ws服务端列表
+    // get_ws_server_list
     getWsServerList(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/server/server-list`)
@@ -150,7 +150,7 @@ export default {
                 })
             }).send();
     },
-    // 发送ws服务器动作指令
+    // send_ws_server_action_command
     sendWsServerAction(data, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/admin/server/emit-action`)

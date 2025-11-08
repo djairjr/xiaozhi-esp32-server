@@ -11,35 +11,35 @@ import lombok.EqualsAndHashCode;
 import xiaozhi.common.entity.BaseEntity;
 
 /**
- * 系统用户
+ * system_user
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
 public class SysUserEntity extends BaseEntity {
     /**
-     * 用户名
+     * username
      */
     private String username;
     /**
-     * 密码
+     * password
      */
     private String password;
     /**
-     * 超级管理员 0：否 1：是
+     * super_administrator 0：no 1：yes
      */
     private Integer superAdmin;
     /**
-     * 状态 0：停用 1：正常
+     * state 0：deactivate 1：normal
      */
     private Integer status;
     /**
-     * 更新者
+     * updater
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updater;
     /**
-     * 更新时间
+     * update_time
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;

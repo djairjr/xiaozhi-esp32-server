@@ -1,17 +1,17 @@
 export enum ResultEnum {
-  Success = 0, // 成功
-  Error = 400, // 错误
-  Unauthorized = 401, // 未授权
-  Forbidden = 403, // 禁止访问（原为forbidden）
-  NotFound = 404, // 未找到（原为notFound）
-  MethodNotAllowed = 405, // 方法不允许（原为methodNotAllowed）
-  RequestTimeout = 408, // 请求超时（原为requestTimeout）
-  InternalServerError = 500, // 服务器错误（原为internalServerError）
-  NotImplemented = 501, // 未实现（原为notImplemented）
-  BadGateway = 502, // 网关错误（原为badGateway）
-  ServiceUnavailable = 503, // 服务不可用（原为serviceUnavailable）
-  GatewayTimeout = 504, // 网关超时（原为gatewayTimeout）
-  HttpVersionNotSupported = 505, // HTTP版本不支持（原为httpVersionNotSupported）
+  Success = 0, // success
+  Error = 400, // mistake
+  Unauthorized = 401, // unauthorized
+  Forbidden = 403, // forbidden_access（formerly_forbidden）
+  NotFound = 404, // not_found（was_notfound）
+  MethodNotAllowed = 405, // method_not_allowed（was_methodnotallowed）
+  RequestTimeout = 408, // request_timeout（originally_requesttimeout）
+  InternalServerError = 500, // server_error（was_internalservererror）
+  NotImplemented = 501, // not_implemented（was_notimplemented）
+  BadGateway = 502, // gateway_error（formerly_badgateway）
+  ServiceUnavailable = 503, // service_is_unavailable（was_serviceunavailable）
+  GatewayTimeout = 504, // gateway_timeout（originally_gatewaytimeout）
+  HttpVersionNotSupported = 505, // HTTP version is not supported (was_httpversionnotsupported)
 }
 export enum ContentTypeEnum {
   JSON = 'application/json;charset=UTF-8',
@@ -19,9 +19,9 @@ export enum ContentTypeEnum {
   FORM_DATA = 'multipart/form-data;charset=UTF-8',
 }
 /**
- * 根据状态码，生成对应的错误信息
- * @param {number|string} status 状态码
- * @returns {string} 错误信息
+ * according_to_status_code，generate_corresponding_error_message
+ * @param {number|string} status status_code
+ * @returns {string} error_message
  */
 export function ShowMessage(status: number | string): string {
   let message: string
@@ -30,7 +30,7 @@ export function ShowMessage(status: number | string): string {
       message = '请求错误(400)'
       break
     case 401:
-      message = '未授权，请重新登录(401)'
+      message = '未授权，please_log_in_again(401)'
       break
     case 403:
       message = '拒绝访问(403)'
@@ -60,7 +60,7 @@ export function ShowMessage(status: number | string): string {
       message = 'HTTP版本不受支持(505)'
       break
     default:
-      message = `连接出错(${status})!`
+      message = `connection_error(${status})!`
   }
-  return `${message}，请检查网络或联系管理员！`
+  return `${message}，please_check_the_network_or_contact_the_administrator！`
 }

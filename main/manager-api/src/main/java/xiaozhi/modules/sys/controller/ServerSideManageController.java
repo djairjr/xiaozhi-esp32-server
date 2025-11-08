@@ -33,22 +33,22 @@ import xiaozhi.modules.sys.service.SysParamsService;
 import xiaozhi.modules.sys.utils.WebSocketClientManager;
 
 /**
- * 服务端管理控制器
+ * server_management_controller
  */
 @RestController
 @RequestMapping("/admin/server")
-@Tag(name = "服务端管理")
+@Tag(name = "Server management")
 @AllArgsConstructor
 public class ServerSideManageController {
     private final SysParamsService sysParamsService;
     private static final ObjectMapper objectMapper;
     static {
         objectMapper = new ObjectMapper();
-        // 忽略json字符串中存在，但pojo中不存在对应字段的情况
+        // ignore_the_presence_in_json_string，but_the_corresponding_field_does_not_exist_in_the_pojo
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    @Operation(summary = "获取Ws服务端列表")
+    @Operation(summary = "Get Ws server list")
     @GetMapping("/server-list")
     @RequiresPermissions("sys:role:superAdmin")
     public Result<List<String>> getWsServerList() {
@@ -59,9 +59,9 @@ public class ServerSideManageController {
         return new Result<List<String>>().ok(Arrays.asList(wsText.split(";")));
     }
 
-    @Operation(summary = "通知python服务端更新配置")
+    @Operation(summary = "Notify the python server to update the configuration")
     @PostMapping("/emit-action")
-    @LogOperation("通知python服务端更新配置")
+    @LogOperation("Notify the python server to update the configuration")
     @RequiresPermissions("sys:role:superAdmin")
     public Result<Boolean> emitServerAction(@RequestBody @Valid EmitSeverActionDTO emitSeverActionDTO) {
         if (emitSeverActionDTO.getAction() == null) {
@@ -73,7 +73,7 @@ public class ServerSideManageController {
         }
         String targetWs = emitSeverActionDTO.getTargetWs();
         String[] wsList = wsText.split(";");
-        // 找到需要发起的
+        // find_what_needs_to_be_initiated
         if (StringUtils.isBlank(targetWs) || !Arrays.asList(wsList).contains(targetWs)) {
             throw new RenException(ErrorCode.TARGET_WEBSOCKET_NOT_EXIST);
         }
@@ -95,12 +95,12 @@ public class ServerSideManageController {
                 .uri(targetWsUri)
                 .headers(headers)
                 .build()) {
-            // 如果连接成功则发送一个json数据包并等待服务端响应
+            // if_the_connection_is_successful_send_a_json_data_packet_and_wait_for_the_server_to_respond
             client.sendJson(
                     ServerActionPayloadDTO.build(
                             actionEnum,
                             Map.of("secret", serverSK)));
-            // 等待服务端响应并持续监听信息
+            // wait_for_the_server_to_respond_and_continue_to_listen_for_information
             client.listener((jsonText) -> {
                 if (StringUtils.isBlank(jsonText)) {
                     return false;
@@ -114,7 +114,7 @@ public class ServerSideManageController {
                 }
             });
         } catch (Exception e) {
-            // 捕获全部错误，由全局异常处理器返回
+            // catch_all_errors，returned_by_global_exception_handler
             throw new RenException(ErrorCode.WEB_SOCKET_CONNECT_FAILED);
         }
         return true;

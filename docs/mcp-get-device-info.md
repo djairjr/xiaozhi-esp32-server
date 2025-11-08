@@ -1,40 +1,40 @@
-# MCP 方法如何获取设备信息
+#How does the MCP method obtain device information?
 
-本教程将指导你如何使用MCP方法获取设备信息。
+This tutorial will guide you on how to obtain device information using the MCP method.
 
-第一步：自定义你的`agent-base-prompt.txt`文件
+Step 1: Customize your `agent-base-prompt.txt` file
 
-把xiaozhi-server目录的`agent-base-prompt.txt`文件内容复制到你的`data`目录下，并重命名为`.agent-base-prompt.txt`。
+Copy the contents of the `agent-base-prompt.txt` file in the xiaozhi-server directory to your `data` directory, and rename it to `.agent-base-prompt.txt`.
 
-第二步：修改`data/.agent-base-prompt.txt`文件，找到`<context>`标签，在标签内容中添加以下代码内容：
+Step 2: Modify the `data/.agent-base-prompt.txt` file, find the `<context>` tag, and add the following code content in the tag content:
 ```
-- **设备ID：** {{device_id}}
+- **Device ID:** {{device_id}}
 ```
 
-添加完成后，你的`data/.agent-base-prompt.txt`文件的`<context>`标签内容大致如下：
+After the addition is completed, the content of the `<context>` tag in your `data/.agent-base-prompt.txt` file is roughly as follows:
 ```
 <context>
-【重要！以下信息已实时提供，无需调用工具查询，请直接使用：】
-- **设备ID：** {{device_id}}
-- **当前时间：** {{current_time}}
-- **今天日期：** {{today_date}} ({{today_weekday}})
-- **今天农历：** {{lunar_date}}
-- **用户所在城市：** {{local_address}}
-- **当地未来7天天气：** {{weather_info}}
+【important! The following information has been provided in real time. There is no need to call the tool to query, please use it directly:】
+- **Device ID:** {{device_id}}
+- **Current time:** {{current_time}}
+- **Today's date:** {{today_date}} ({{today_weekday}})
+- **Today’s lunar calendar:** {{lunar_date}}
+- **User's city:** {{local_address}}
+- **Local weather for the next 7 days:** {{weather_info}}
 </context>
 ```
 
-第三步：修改`data/.config.yaml`文件，找到`agent-base-prompt`配置，修改前内容如下：
+Step 3: Modify the `data/.config.yaml` file and find the `agent-base-prompt` configuration. The content before modification is as follows:
 ```
 prompt_template: agent-base-prompt.txt
 ```
-修改成
+Modify to
 ```
 prompt_template: data/.agent-base-prompt.txt
 ```
 
-第四步：重启你的xiaozhi-server服务。
+Step 4: Restart your xiaozhi-server service.
 
-第五步：在你的mcp方法增加名称为`device_id`,类型为`string`,描述为`设备ID`的参数。
+Step 5: Add a parameter named `device_id`, type `string`, and described as `device ID` in your mcp method.
 
-第六步：重新唤醒小智，让他调用mcp方法，查看你的mcp方法是否可以获取`设备ID`。
+Step 6: Reawaken Xiaozhi and let him call the mcp method to see if your mcp method can obtain the `device ID`.

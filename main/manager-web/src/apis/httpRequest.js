@@ -5,12 +5,13 @@ import { goToPage, isNotNull, showDanger, showWarning } from '../utils/index';
 import i18n from '../i18n/index';
 
 const fly = new Fly()
-// 设置超时
+// set_timeout
 fly.config.timeout = 30000
 
-/**
- * Request服务封装
- */
+/*
+*
+* Request service encapsulation
+*/
 export default {
     sendRequest,
     reAjaxFun,
@@ -26,13 +27,13 @@ function sendRequest() {
         _data: {},
         _header: { 'content-type': 'application/json; charset=utf-8' },
         _url: '',
-        _responseType: undefined, // 新增响应类型字段
+        _responseType: undefined, // added_response_type_field
         'send'() {
-            // 设置语言请求头
+            // set_language_request_header
             const currentLang = i18n.locale;
-            // 转换语言代码格式，将zh_CN转换为zh-CN
+            // convert_language_code_format，convert_zh_cn_to_zh-CN
             let acceptLanguage = currentLang.replace('_', '-');
-            // 为英语添加默认地区代码
+            // add_default_region_code_for_english
             if (acceptLanguage === 'en') {
                 acceptLanguage = 'en-US';
             }
@@ -42,7 +43,7 @@ function sendRequest() {
                 this._header.Authorization = 'Bearer ' + (JSON.parse(store.getters.getToken)).token
             }
 
-            // 打印请求信息
+            // print_request_information
             fly.request(this._url, this._data, {
                 method: this._method,
                 headers: this._header,
@@ -57,7 +58,7 @@ function sendRequest() {
                     this._sucCallback(res)
                 }
             }).catch((res) => {
-                // 打印失败响应
+                // print_failure_response
                 console.log('catch', res)
                 httpHandlerError(res, this._failCallback, this._networkFailCallback)
             })
@@ -101,7 +102,7 @@ function sendRequest() {
         'async'(flag) {
             this.async = flag
         },
-        // 新增类型设置方法
+        // added_type_setting_method
         'type'(responseType) {
             this._responseType = responseType;
             return this;
@@ -110,14 +111,14 @@ function sendRequest() {
 }
 
 /**
- * Info 请求完成后返回信息
- * failCallback 回调函数
- * networkFailCallback 回调函数
+ * Info return_information_after_request_is_completed
+ * failCallback callback_function
+ * networkFailCallback callback_function
  */
-// 在错误处理函数中添加日志
+// add_log_in_error_handling_function
 function httpHandlerError(info, failCallback, networkFailCallback) {
 
-    /** 请求成功，退出该函数 可以根据项目需求来判断是否请求成功。这里判断的是status为200的时候是成功 */
+    /** request_successful，exit_this_function you_can_determine_whether_the_request_is_successful_based_on_project_requirements。what_is_judged_here_is_that_when_the_status_is_200_it_is_successful */
     let networkError = false
     if (info.status === 200) {
         if (info.data.code === 'success' || info.data.code === 0 || info.data.code === undefined) {
@@ -127,7 +128,7 @@ function httpHandlerError(info, failCallback, networkFailCallback) {
             goToPage(Constant.PAGE.LOGIN, true);
             return true
         } else {
-            // 直接使用后端返回的国际化消息
+            // directly_use_internationalized_messages_returned_by_the_backend
             let errorMessage = info.data.msg;
             
             if (failCallback) {
@@ -141,7 +142,7 @@ function httpHandlerError(info, failCallback, networkFailCallback) {
     if (networkFailCallback) {
         networkFailCallback(info)
     } else {
-        showDanger(`网络请求出现了错误【${info.status}】`)
+        showDanger(`an_error_occurred_in_the_network_request【${info.status}】`)
     }
     return true
 }

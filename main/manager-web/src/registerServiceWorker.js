@@ -5,21 +5,21 @@ export const register = () => {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.BASE_URL}service-worker.js`;
       
-      console.info(`[小智服务] 正在尝试注册Service Worker，URL: ${swUrl}`);
+      console.info(`[xiaozhi_service] trying_to_register_service Worker，URL: ${swUrl}`);
       
-      // 先检查Service Worker是否已注册
+      // check_service_first Worker is registered
       navigator.serviceWorker.getRegistrations().then(registrations => {
         if (registrations.length > 0) {
-          console.info('[小智服务] 发现已有Service Worker注册，正在检查更新');
+          console.info('[小智服务] found_that_there_is_already_a_service Worker注册，正在检查更新');
         }
         
-        // 继续注册Service Worker
+        // continue_to_register_service Worker
         navigator.serviceWorker
           .register(swUrl)
           .then(registration => {
             console.info('[小智服务] Service Worker注册成功');
             
-            // 更新处理
+            // update_processing
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
               if (installingWorker == null) {
@@ -28,9 +28,9 @@ export const register = () => {
               installingWorker.onstatechange = () => {
                 if (installingWorker.state === 'installed') {
                   if (navigator.serviceWorker.controller) {
-                    // 内容已缓存更新，通知用户刷新
-                    console.log('[小智服务] 新内容可用，请刷新页面');
-                    // 可以在这里展示更新提示
+                    // content_has_been_cached_and_updated，notify_user_to_refresh
+                    console.log('[小智服务] new_content_available，请刷新页面');
+                    // update_tips_can_be_displayed_here
                     const updateNotification = document.createElement('div');
                     updateNotification.style.cssText = `
                       position: fixed;
@@ -45,7 +45,7 @@ export const register = () => {
                     `;
                     updateNotification.innerHTML = `
                       <div style="display: flex; align-items: center;">
-                        <span style="margin-right: 10px;">发现新版本，点击刷新应用</span>
+                        <span style="margin-right: 10px;">发现新版本，click_to_refresh_app</span>
                         <button style="background: white; color: #409EFF; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">刷新</button>
                       </div>
                     `;
@@ -54,12 +54,12 @@ export const register = () => {
                       window.location.reload();
                     });
                   } else {
-                    // 一切正常，Service Worker已成功安装
+                    // everything_is_fine, Service Worker installed successfully
                     console.log('[小智服务] 内容已缓存供离线使用');
                     
-                    // 可以在这里初始化缓存
+                    // the_cache_can_be_initialized_here
                     setTimeout(() => {
-                      // 预热CDN缓存
+                      // warm_up_cdn_cache
                       const cdnUrls = [
                         'https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css',
                         'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
@@ -71,10 +71,10 @@ export const register = () => {
                         'https://unpkg.com/opus-decoder@0.7.7/dist/opus-decoder.min.js'
                       ];
                       
-                      // 预热缓存
+                      // warm_cache
                       cdnUrls.forEach(url => {
                         fetch(url, { mode: 'no-cors' }).catch(err => {
-                          console.log(`预热缓存 ${url} 失败`, err);
+                          console.log(`warm_cache ${url} fail`, err);
                         });
                       });
                     }, 2000);
@@ -87,10 +87,10 @@ export const register = () => {
             console.error('Service Worker 注册失败:', error);
             
             if (error.name === 'TypeError' && error.message.includes('Failed to register a ServiceWorker')) {
-              console.warn('[小智服务] 注册Service Worker时出现网络错误，CDN资源可能无法缓存');
+              console.warn('[小智服务] register_service Worker时出现网络错误，CDN资源可能无法缓存');
               if (process.env.NODE_ENV === 'production') {
                 console.info(
-                  '可能原因：1. 服务器未配置正确的MIME类型 2. 服务器SSL证书问题 3. 服务器未返回service-worker.js文件'
+                  '可能原因：1. the_server_is_not_configured_with_the_correct_mime_type 2. server_ssl_certificate_issue 3. the_server_did_not_return_service-worker.js文件'
                 );
               }
             }

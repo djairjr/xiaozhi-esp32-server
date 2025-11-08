@@ -1,4 +1,4 @@
-"""服务端MCP管理器"""
+"""Server MCP Manager"""
 
 import asyncio
 import os
@@ -13,22 +13,22 @@ logger = setup_logging()
 
 
 class ServerMCPManager:
-    """管理多个服务端MCP服务的集中管理器"""
+    """Centralized manager for managing multiple server-side MCP services"""
 
     def __init__(self, conn) -> None:
-        """初始化MCP管理器"""
+        """Initialize MCP Manager"""
         self.conn = conn
         self.config_path = get_project_dir() + "data/.mcp_server_settings.json"
         if not os.path.exists(self.config_path):
             self.config_path = ""
             logger.bind(tag=TAG).warning(
-                f"请检查mcp服务配置文件：data/.mcp_server_settings.json"
+                f"Please check the mcp service configuration file: data/.mcp_server_settings.json"
             )
         self.clients: Dict[str, ServerMCPClient] = {}
         self.tools = []
 
     def load_config(self) -> Dict[str, Any]:
-        """加载MCP服务配置"""
+        """Load MCP service configuration"""
         if len(self.config_path) == 0:
             return {}
 
@@ -43,7 +43,7 @@ class ServerMCPManager:
             return {}
 
     async def initialize_servers(self) -> None:
-        """初始化所有MCP服务"""
+        """Initialize all MCP services"""
         config = self.load_config()
         for name, srv_config in config.items():
             if not srv_config.get("command") and not srv_config.get("url"):
@@ -53,8 +53,8 @@ class ServerMCPManager:
                 continue
 
             try:
-                # 初始化服务端MCP客户端
-                logger.bind(tag=TAG).info(f"初始化服务端MCP客户端: {name}")
+                # Initialize the server MCP client
+                logger.bind(tag=TAG).info(f"Initialize server MCP client: {name}")
                 client = ServerMCPClient(srv_config)
                 await client.initialize()
                 self.clients[name] = client
@@ -66,19 +66,19 @@ class ServerMCPManager:
                     f"Failed to initialize MCP server {name}: {e}"
                 )
 
-        # 输出当前支持的服务端MCP工具列表
+        # Output the list of currently supported server-side MCP tools
         if hasattr(self.conn, "func_handler") and self.conn.func_handler:
-            # 刷新工具缓存以确保服务端MCP工具被正确加载
+            # Refresh the tool cache to ensure that the server-side MCP tool is loaded correctly
             if hasattr(self.conn.func_handler, "tool_manager"):
                 self.conn.func_handler.tool_manager.refresh_tools()
             self.conn.func_handler.current_support_functions()
 
     def get_all_tools(self) -> List[Dict[str, Any]]:
-        """获取所有服务的工具function定义"""
+        """Get tool function definitions for all services"""
         return self.tools
 
     def is_mcp_tool(self, tool_name: str) -> bool:
-        """检查是否是MCP工具"""
+        """Check if it is an MCP tool"""
         for tool in self.tools:
             if (
                 tool.get("function") is not None
@@ -88,13 +88,13 @@ class ServerMCPManager:
         return False
 
     async def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Any:
-        """执行工具调用，失败时会尝试重新连接"""
-        logger.bind(tag=TAG).info(f"执行服务端MCP工具 {tool_name}，参数: {arguments}")
+        """Execute the tool call and try to reconnect if it fails"""
+        logger.bind(tag=TAG).info(f"Execute the server-side MCP tool {tool_name}, parameters: {arguments}")
 
-        max_retries = 3  # 最大重试次数
-        retry_interval = 2  # 重试间隔(秒)
+        max_retries = 3  # Maximum number of retries
+        retry_interval = 2  # Retry interval (seconds)
 
-        # 找到对应的客户端
+        # Find the corresponding client
         client_name = None
         target_client = None
         for name, client in self.clients.items():
@@ -104,30 +104,30 @@ class ServerMCPManager:
                 break
 
         if not target_client:
-            raise ValueError(f"工具 {tool_name} 在任意MCP服务中未找到")
+            raise ValueError(f"Tool {tool_name} not found in any MCP service")
 
-        # 带重试机制的工具调用
+        # Tool call with retry mechanism
         for attempt in range(max_retries):
             try:
                 return await target_client.call_tool(tool_name, arguments)
             except Exception as e:
-                # 最后一次尝试失败时直接抛出异常
+                # Throw an exception directly when the last attempt fails
                 if attempt == max_retries - 1:
                     raise
 
                 logger.bind(tag=TAG).warning(
-                    f"执行工具 {tool_name} 失败 (尝试 {attempt+1}/{max_retries}): {e}"
+                    f"Failed to execute tool {tool_name} (attempt {attempt+1}/{max_retries}): {e}"
                 )
 
-                # 尝试重新连接
+                # Try to reconnect
                 logger.bind(tag=TAG).info(
-                    f"重试前尝试重新连接 MCP 客户端 {client_name}"
+                    f"Try to reconnect to MCP client {client_name} before retrying"
                 )
                 try:
-                    # 关闭旧的连接
+                    # close old connection
                     await target_client.cleanup()
 
-                    # 重新初始化客户端
+                    # Reinitialize client
                     config = self.load_config()
                     if client_name in config:
                         client = ServerMCPClient(config[client_name])
@@ -135,7 +135,7 @@ class ServerMCPManager:
                         self.clients[client_name] = client
                         target_client = client
                         logger.bind(tag=TAG).info(
-                            f"成功重新连接 MCP 客户端: {client_name}"
+                            f"Successfully reconnected MCP client: {client_name}"
                         )
                     else:
                         logger.bind(tag=TAG).error(
@@ -146,16 +146,16 @@ class ServerMCPManager:
                         f"Failed to reconnect MCP client {client_name}: {reconnect_error}"
                     )
 
-                # 等待一段时间再重试
+                # Wait for some time and try again
                 await asyncio.sleep(retry_interval)
 
     async def cleanup_all(self) -> None:
-        """关闭所有 MCP客户端"""
+        """Close all MCP clients"""
         for name, client in list(self.clients.items()):
             try:
                 if hasattr(client, "cleanup"):
                     await asyncio.wait_for(client.cleanup(), timeout=20)
-                logger.bind(tag=TAG).info(f"服务端MCP客户端已关闭: {name}")
+                logger.bind(tag=TAG).info(f"Server MCP client has been closed: {name}")
             except (asyncio.TimeoutError, Exception) as e:
-                logger.bind(tag=TAG).error(f"关闭服务端MCP客户端 {name} 时出错: {e}")
+                logger.bind(tag=TAG).error(f"Error closing server MCP client {name}: {e}")
         self.clients.clear()

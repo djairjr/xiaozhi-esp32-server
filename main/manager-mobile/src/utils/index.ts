@@ -2,12 +2,12 @@ import { pages, subPackages } from '@/pages.json'
 import { isMpWeixin } from './platform'
 
 /**
- * 运行时服务端地址覆盖存储键
+ * runtime_server_address_overrides_storage_key
  */
 export const SERVER_BASE_URL_OVERRIDE_KEY = 'server_base_url_override'
 
 /**
- * 设置/清除/获取 运行时覆盖的服务端地址
+ * set_up/clear/get server_address_overridden_at_runtime
  */
 export function setServerBaseUrlOverride(url: string) {
   uni.setStorageSync(SERVER_BASE_URL_OVERRIDE_KEY, url)
@@ -23,18 +23,19 @@ export function getServerBaseUrlOverride(): string | null {
 }
 
 export function getLastPage() {
-  // getCurrentPages() 至少有1个元素，所以不再额外判断
+  // getCurrentPages() has_at_least_1_element，so_no_additional_judgment_will_be_made
   // const lastPage = getCurrentPages().at(-1)
-  // 上面那个在低版本安卓中打包会报错，所以改用下面这个【虽然我加了 src/interceptions/prototype.ts，但依然报错】
+  // the_above_one_will_report_an_error_when_packaged_in_a_lower_version_of_android，so_use_the_following_instead【although_i_added src/interceptions/prototype.ts，but_still_reporting_an_error】
   const pages = getCurrentPages()
   return pages[pages.length - 1]
 }
 
-/**
- * 获取当前页面路由的 path 路径和 redirectPath 路径
- * path 如 '/pages/login/index'
- * redirectPath 如 '/pages/demo/base/route-interceptor'
- */
+/*
+*
+ * get_the_route_of_the_current_page path path_and redirectPath path
+* path such as '/pages/login/index'
+* redirectPath such as '/pages/demo/base/route-interceptor'
+*/
 export function currRoute() {
   const lastPage = getLastPage()
   const currRoute = (lastPage as any).$page
@@ -42,10 +43,10 @@ export function currRoute() {
   // console.log('lastPage.$page.fullpath:', currRoute.fullPath)
   // console.log('lastPage.$page.options:', currRoute.options)
   // console.log('lastPage.options:', (lastPage as any).options)
-  // 经过多端测试，只有 fullPath 靠谱，其他都不靠谱
+  // after_multiterminal_testing，only fullPath reliable，others_are_unreliable
   const { fullPath } = currRoute as { fullPath: string }
   // console.log(fullPath)
-  // eg: /pages/login/index?redirect=%2Fpages%2Fdemo%2Fbase%2Froute-interceptor (小程序)
+  // eg: /pages/login/index?redirect=%2Fpages%2Fdemo%2Fbase%2Froute-interceptor (mini_program)
   // eg: /pages/login/index?redirect=%2Fpages%2Froute-interceptor%2Findex%3Fname%3Dfeige%26age%3D30(h5)
   return getUrlObj(fullPath)
 }
@@ -57,9 +58,9 @@ function ensureDecodeURIComponent(url: string) {
   return url
 }
 /**
- * 解析 url 得到 path 和 query
- * 比如输入url: /pages/login/index?redirect=%2Fpages%2Fdemo%2Fbase%2Froute-interceptor
- * 输出: {path: /pages/login/index, query: {redirect: /pages/demo/base/route-interceptor}}
+ * parse url get path and query
+ * for_example_enter_the_url: /pages/login/index?redirect=%2Fpages%2Fdemo%2Fbase%2Froute-interceptor
+ * output: {path: /pages/login/index, query: {redirect: /pages/demo/base/route-interceptor}}
  */
 export function getUrlObj(url: string) {
   const [path, queryStr] = url.split('?')
@@ -75,17 +76,17 @@ export function getUrlObj(url: string) {
   queryStr.split('&').forEach((item) => {
     const [key, value] = item.split('=')
     // console.log(key, value)
-    query[key] = ensureDecodeURIComponent(value) // 这里需要统一 decodeURIComponent 一下，可以兼容h5和微信y
+    query[key] = ensureDecodeURIComponent(value) // need_to_unify_here decodeURIComponent one_time，compatible_with_h5_and_wechat_y
   })
   return { path, query }
 }
 /**
- * 得到所有的需要登录的 pages，包括主包和分包的
- * 这里设计得通用一点，可以传递 key 作为判断依据，默认是 needLogin, 与 route-block 配对使用
- * 如果没有传 key，则表示所有的 pages，如果传递了 key, 则表示通过 key 过滤
+ * get_all_the_required_logins pages，including_main_package_and_subcontract
+ * designed_here_to_be_more_general，can_be_delivered key as_a_basis_for_judgment，the_default_is needLogin, and route-block use_in_pairs
+ * if_not_passed key，means_all pages，if_passed key, means_passing key filter
  */
 export function getAllPages(key = 'needLogin') {
-  // 这里处理主包
+  // the_main_package_is_processed_here
   const mainPages = pages
     .filter(page => !key || page[key])
     .map(page => ({
@@ -93,7 +94,7 @@ export function getAllPages(key = 'needLogin') {
       path: `/${page.path}`,
     }))
 
-  // 这里处理分包
+  // subcontracting_is_handled_here
   const subPages: any[] = []
   subPackages.forEach((subPageObj) => {
     // console.log(subPageObj)
@@ -114,35 +115,35 @@ export function getAllPages(key = 'needLogin') {
 }
 
 /**
- * 得到所有的需要登录的 pages，包括主包和分包的
- * 只得到 path 数组
+ * get_all_the_required_logins pages，including_main_package_and_subcontract
+ * only_get path array
  */
 export const getNeedLoginPages = (): string[] => getAllPages('needLogin').map(page => page.path)
 
 /**
- * 得到所有的需要登录的 pages，包括主包和分包的
- * 只得到 path 数组
+ * get_all_the_required_logins pages，including_main_package_and_subcontract
+ * only_get path array
  */
 export const needLoginPages: string[] = getAllPages('needLogin').map(page => page.path)
 
 /**
- * 根据微信小程序当前环境，判断应该获取的 baseUrl
+ * according_to_the_current_environment_of_wechat_applet，determine_what_should_be_obtained baseUrl
  */
 export function getEnvBaseUrl() {
-  // 若存在用户设置的覆盖地址，优先返回
+  // if_there_is_an_override_address_set_by_the_user，return_first
   const override = getServerBaseUrlOverride()
   if (override)
     return override
 
-  // 请求基准地址（默认来源于 env）
+  // request_base_address（the_default_source_is env）
   let baseUrl = import.meta.env.VITE_SERVER_BASEURL
 
-  // # 有些同学可能需要在微信小程序里面根据 develop、trial、release 分别设置上传地址，参考代码如下。
+  // # some_students_may_need_to_follow_the_instructions_in_the_wechat_applet develop、trial、release set_the_upload_address_separately，the_reference_code_is_as_follows。
   const VITE_SERVER_BASEURL__WEIXIN_DEVELOP = 'https://ukw0y1.laf.run'
   const VITE_SERVER_BASEURL__WEIXIN_TRIAL = 'https://ukw0y1.laf.run'
   const VITE_SERVER_BASEURL__WEIXIN_RELEASE = 'https://ukw0y1.laf.run'
 
-  // 微信小程序端环境区分
+  // wechat_applet_environment_distinction
   if (isMpWeixin) {
     const {
       miniProgram: { envVersion },
@@ -165,17 +166,17 @@ export function getEnvBaseUrl() {
 }
 
 /**
- * 根据微信小程序当前环境，判断应该获取的 UPLOAD_BASEURL
+ * according_to_the_current_environment_of_wechat_applet，determine_what_should_be_obtained UPLOAD_BASEURL
  */
 export function getEnvBaseUploadUrl() {
-  // 请求基准地址
+  // request_base_address
   let baseUploadUrl = import.meta.env.VITE_UPLOAD_BASEURL
 
   const VITE_UPLOAD_BASEURL__WEIXIN_DEVELOP = 'https://ukw0y1.laf.run/upload'
   const VITE_UPLOAD_BASEURL__WEIXIN_TRIAL = 'https://ukw0y1.laf.run/upload'
   const VITE_UPLOAD_BASEURL__WEIXIN_RELEASE = 'https://ukw0y1.laf.run/upload'
 
-  // 微信小程序端环境区分
+  // wechat_applet_environment_distinction
   if (isMpWeixin) {
     const {
       miniProgram: { envVersion },
@@ -200,28 +201,29 @@ export function getEnvBaseUploadUrl() {
 import smCrypto from 'sm-crypto'
 
 /**
- * 生成SM2密钥对（十六进制格式）
- * @returns {Object} 包含公钥和私钥的对象
+ * generate_sm2_key_pair（hexadecimal_format）
+ * @returns {Object} object_containing_public_and_private_keys
  */
 export function generateSm2KeyPairHex() {
-    // 使用sm-crypto库生成SM2密钥对
+    // use_sm-crypto library generates SM2 key pairs
     const sm2 = smCrypto.sm2;
     const keypair = sm2.generateKeyPairHex();
     
     return {
         publicKey: keypair.publicKey,
         privateKey: keypair.privateKey,
-        clientPublicKey: keypair.publicKey, // 客户端公钥
-        clientPrivateKey: keypair.privateKey // 客户端私钥
+        clientPublicKey: keypair.publicKey, // client_public_key
+        clientPrivateKey: keypair.privateKey // client_private_key
     };
 }
 
-/**
- * SM2公钥加密
- * @param {string} publicKey 公钥（十六进制格式）
- * @param {string} plainText 明文
- * @returns {string} 加密后的密文（十六进制格式）
- */
+/*
+*
+* SM2 public key encryption
+ * @param {string} publicKey public_key（hexadecimal_format）
+ * @param {string} plainText plain_text
+ * @returns {string} encrypted_ciphertext（hexadecimal_format）
+*/
 export function sm2Encrypt(publicKey: string, plainText: string): string {
     if (!publicKey) {
         throw new Error('公钥不能为null或undefined');
@@ -232,24 +234,25 @@ export function sm2Encrypt(publicKey: string, plainText: string): string {
     }
     
     const sm2 = smCrypto.sm2;
-    // SM2加密，添加04前缀表示未压缩公钥
+    // SM2 encryption, add_04_prefix_to_indicate_uncompressed_public_key
     const encrypted = sm2.doEncrypt(plainText, publicKey, 1);
-    // 转换为十六进制格式（与后端保持一致，添加04前缀）
+    // convert_to_hexadecimal_format（be_consistent_with_the_backend，add_04_prefix）
     const result = "04" + encrypted;
     
     return result;
 }
 
-/**
- * SM2私钥解密
- * @param {string} privateKey 私钥（十六进制格式）
- * @param {string} cipherText 密文（十六进制格式）
- * @returns {string} 解密后的明文
- */
+/*
+*
+* SM2 private key decryption
+ * @param {string} privateKey private_key（hexadecimal_format）
+ * @param {string} cipherText cipher_text（hexadecimal_format）
+ * @returns {string} decrypted_plaintext
+*/
 export function sm2Decrypt(privateKey: string, cipherText: string): string {
     const sm2 = smCrypto.sm2;
-    // 移除04前缀（与后端保持一致）
+    // remove_04_prefix（be_consistent_with_the_backend）
     const dataWithoutPrefix = cipherText.startsWith("04") ? cipherText.substring(2) : cipherText;
-    // SM2解密
+    // SM2 decryption
     return sm2.doDecrypt(dataWithoutPrefix, privateKey, 1);
 }

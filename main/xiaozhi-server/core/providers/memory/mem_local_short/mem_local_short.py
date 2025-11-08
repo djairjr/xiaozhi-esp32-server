@@ -8,41 +8,44 @@ from config.manage_api_client import save_mem_local_short
 from core.utils.util import check_model_key
 
 
-short_term_memory_prompt = """
-# 时空记忆编织者
+short_term_memory_prompt = """#spacetimememoryweaver
 
-## 核心使命
-构建可生长的动态记忆网络，在有限空间内保留关键信息的同时，智能维护信息演变轨迹
-根据对话记录，总结user的重要信息，以便在未来的对话中提供更个性化的服务
+## Core Mission
+Construct a growable dynamic memory network to retain key information in a limited space while intelligently maintaining the information evolution trajectory.
+Based on the conversation record, summarize the user's important information to provide more personalized services in future conversations.
 
-## 记忆法则
-### 1. 三维度记忆评估（每次更新必执行）
-| 维度       | 评估标准                  | 权重分 |
-|------------|---------------------------|--------|
-| 时效性     | 信息新鲜度（按对话轮次） | 40%    |
-| 情感强度   | 含💖标记/重复提及次数     | 35%    |
+## Memory Rules
+### 1. Three-dimensional memory evaluation (must be executed for each update)
+| Dimensions | Evaluation criteria | Weight points |
+|---------------------|--------------------------|--------|
+| Timeliness | Information freshness (by conversation round) | 40% |
+| Emotional intensity | Contains 💖 tags/Number of repeated mentions | 35% |
+| Association density | Number of connections to other information | 25% |
+
+### 2. Dynamic update mechanism
+**Example of name change processing:**
+Original memory:"次数     | 35%    |
 | 关联密度   | 与其他信息的连接数量      | 25%    |
 
-### 2. 动态更新机制
+# ## 2. Dynamic update mechanism
 **名字变更处理示例：**
-原始记忆："曾用名": ["张三"], "现用名": "张三丰"
-触发条件：当检测到「我叫X」「称呼我Y」等命名信号时
-操作流程：
-1. 将旧名移入"曾用名"列表
-2. 记录命名时间轴："2024-02-15 14:32:启用张三丰"
-3. 在记忆立方追加：「从张三到张三丰的身份蜕变」
+原始记忆："曾用名": ["张三"], "现用名": "张三丰"Trigger condition: When naming signals such as "My name is X" and "Call me Y" are detected
+Operation process:
+1. Move the old name into"曾用名"list
+2. Record the named timeline:"2024-02-15 14:32:启用张三丰"3. Added to the Memory Cube: "Identity Transformation from Zhang San to Zhang Sanfeng"
 
-### 3. 空间优化策略
-- **信息压缩术**：用符号体系提升密度
+### 3. Space optimization strategy
+- **Information Compression**: Use symbology to increase density
+  - ✅"压缩术**：用符号体系提升密度
   - ✅"张三丰[北/软工/🐱]"
-  - ❌"北京软件工程师，养猫"
-- **淘汰预警**：当总字数≥900时触发
-  1. 删除权重分<60且3轮未提及的信息
-  2. 合并相似条目（保留时间戳最近的）
+  - ❌"北京软件工程师，养猫"- **Elimination Warning**: Triggered when the total number of words is ≥900
+  1. Delete information with a weight score <60 and not mentioned in 3 rounds
+  2. Merge similar entries (keep the one with the latest timestamp)
 
-## 记忆结构
-输出格式必须为可解析的json字符串，不需要解释、注释和说明，保存记忆时仅从对话提取信息，不要混入示例内容
+## Memory structure
+The output format must be a parsable json string without explanations, comments, and descriptions. When saving the memory, only extract information from the conversation and do not mix in sample content.
 ```json
+{"```json
 {
   "时空档案": {
     "身份图谱": {
@@ -74,22 +77,20 @@ short_term_memory_prompt = """
 ```
 """
 
-short_term_memory_prompt_only_content = """
-你是一个经验丰富的记忆总结者，擅长将对话内容进行总结摘要，遵循以下规则：
-1、总结user的重要信息，以便在未来的对话中提供更个性化的服务
-2、不要重复总结，不要遗忘之前记忆，除非原来的记忆超过了1800字内，否则不要遗忘、不要压缩用户的历史记忆
-3、用户操控的设备音量、播放音乐、天气、退出、不想对话等和用户本身无关的内容，这些信息不需要加入到总结中
-4、聊天内容中的今天的日期时间、今天的天气情况与用户事件无关的数据，这些信息如果当成记忆存储会影响后序对话，这些信息不需要加入到总结中
-5、不要把设备操控的成果结果和失败结果加入到总结中，也不要把用户的一些废话加入到总结中
-6、不要为了总结而总结，如果用户的聊天没有意义，请返回原来的历史记录也是可以的
-7、只需要返回总结摘要，严格控制在1800字内
-8、不要包含代码、xml，不需要解释、注释和说明，保存记忆时仅从对话提取信息，不要混入示例内容
-"""
+short_term_memory_prompt_only_content = """You are an experienced memory summarizer and are good at summarizing and summarizing conversation content. Follow the following rules:
+1. Summarize the user’s important information to provide more personalized services in future conversations.
+2. Do not repeat the summary and do not forget the previous memory. Unless the original memory exceeds 1800 words, do not forget or compress the user’s historical memory.
+3. The volume of the device controlled by the user, playing music, weather, exiting, not wanting to talk, and other content that has nothing to do with the user himself. This information does not need to be added to the summary.
+4. Today’s date and time, today’s weather conditions in the chat content are data that have nothing to do with user events. If this information is stored as memory, it will affect subsequent conversations. This information does not need to be added to the summary.
+5. Do not add the results and failure results of device control to the summary, and do not add some nonsense from users to the summary.
+6. Don’t summarize for the sake of summarizing. If the user’s chat is meaningless, it’s okay to return to the original history.
+7. You only need to return the summary and strictly control it within 1800 words.
+8. Do not include code or xml. No explanations, comments or descriptions are required. When saving the memory, only extract information from the dialogue and do not mix in sample content."""
 
 
 def extract_json_data(json_code):
     start = json_code.find("```json")
-    # 从start开始找到下一个```结束
+    # Find the next ``` end starting from start
     end = json_code.find("```", start + 1)
     # print("start:", start, "end:", end)
     if start == -1 or end == -1:
@@ -122,7 +123,7 @@ class MemoryProvider(MemoryProviderBase):
         self.load_memory(summary_memory)
 
     def load_memory(self, summary_memory):
-        # api获取到总结记忆后直接返回
+        # The api returns directly after obtaining the summary memory
         if summary_memory or not self.save_to_file:
             self.short_memory = summary_memory
             return
@@ -144,11 +145,11 @@ class MemoryProvider(MemoryProviderBase):
             yaml.dump(all_memory, f, allow_unicode=True)
 
     async def save_memory(self, msgs):
-        # 打印使用的模型信息
+        # Print model information used
         model_info = getattr(self.llm, "model_name", str(self.llm.__class__.__name__))
-        logger.bind(tag=TAG).debug(f"使用记忆保存模型: {model_info}")
+        logger.bind(tag=TAG).debug(f"Save model using memory: {model_info}")
         api_key = getattr(self.llm, "api_key", None)
-        memory_key_msg = check_model_key("记忆总结专用LLM", api_key)
+        memory_key_msg = check_model_key("Memory summary dedicated LLM", api_key)
         if memory_key_msg:
             logger.bind(tag=TAG).error(memory_key_msg)
         if self.llm is None:
@@ -165,12 +166,12 @@ class MemoryProvider(MemoryProviderBase):
             elif msg.role == "assistant":
                 msgStr += f"Assistant: {msg.content}\n"
         if self.short_memory and len(self.short_memory) > 0:
-            msgStr += "历史记忆：\n"
+            msgStr += "Historical memory:\n"
             msgStr += self.short_memory
 
-        # 当前时间
+        # current time
         time_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        msgStr += f"当前时间：{time_str}"
+        msgStr += f"Current time: {time_str}"
 
         if self.save_to_file:
             result = self.llm.response_no_stream(
@@ -181,7 +182,7 @@ class MemoryProvider(MemoryProviderBase):
             )
             json_str = extract_json_data(result)
             try:
-                json.loads(json_str)  # 检查json格式是否正确
+                json.loads(json_str)  # Check whether json format is correct
                 self.short_memory = json_str
                 self.save_memory_to_file()
             except Exception as e:

@@ -1,11 +1,13 @@
-/**
- * 缓存查看工具 - 用于检查CDN资源是否已被Service Worker缓存
- */
+/*
+*
+* cache_viewing_tool - used_to_check_whether_cdn_resources_have_been_serviced Worker cache
+*/
 
-/**
- * 获取所有Service Worker缓存的名称
- * @returns {Promise<string[]>} 缓存名称列表
- */
+/*
+*
+* get_all_services Worker cache name
+ * @returns {Promise<string[]>} cache_name_list
+*/
 export const getCacheNames = async () => {
   if (!('caches' in window)) {
     return [];
@@ -20,9 +22,9 @@ export const getCacheNames = async () => {
 };
 
 /**
- * 获取指定缓存中的所有URL
- * @param {string} cacheName 缓存名称
- * @returns {Promise<string[]>} 缓存的URL列表
+ * get_all_urls_in_the_specified_cache
+ * @param {string} cacheName cache_name
+ * @returns {Promise<string[]>} cached_url_list
  */
 export const getCacheUrls = async (cacheName) => {
   if (!('caches' in window)) {
@@ -34,15 +36,15 @@ export const getCacheUrls = async (cacheName) => {
     const requests = await cache.keys();
     return requests.map(request => request.url);
   } catch (error) {
-    console.error(`获取缓存 ${cacheName} 的URL失败:`, error);
+    console.error(`get_cache ${cacheName} url_failed:`, error);
     return [];
   }
 };
 
 /**
- * 检查特定URL是否已被缓存
- * @param {string} url 要检查的URL
- * @returns {Promise<boolean>} 是否已缓存
+ * check_if_a_specific_url_has_been_cached
+ * @param {string} url url_to_check
+ * @returns {Promise<boolean>} is_it_cached
  */
 export const isUrlCached = async (url) => {
   if (!('caches' in window)) {
@@ -60,17 +62,17 @@ export const isUrlCached = async (url) => {
     }
     return false;
   } catch (error) {
-    console.error(`检查URL ${url} 是否缓存失败:`, error);
+    console.error(`check_url ${url} whether_cache_failed:`, error);
     return false;
   }
 };
 
 /**
- * 获取当前页面所有CDN资源的缓存状态
- * @returns {Promise<Object>} 缓存状态对象
+ * get_the_cache_status_of_all_cdn_resources_on_the_current_page
+ * @returns {Promise<Object>} cache_state_object
  */
 export const checkCdnCacheStatus = async () => {
-  // 从CDN缓存中查找资源
+  // find_resources_from_cdn_cache
   const cdnCaches = ['cdn-stylesheets', 'cdn-scripts'];
   const results = {
     css: [],
@@ -83,7 +85,7 @@ export const checkCdnCacheStatus = async () => {
     try {
       const urls = await getCacheUrls(cacheName);
       
-      // 区分CSS和JS资源
+      // differentiate_css_and_js_resources
       for (const url of urls) {
         if (url.endsWith('.css')) {
           results.css.push({ url, cached: true });
@@ -93,17 +95,18 @@ export const checkCdnCacheStatus = async () => {
         results.totalCached++;
       }
     } catch (error) {
-      console.error(`获取 ${cacheName} 缓存信息失败:`, error);
+      console.error(`get ${cacheName} caching_information_failed:`, error);
     }
   }
   
   return results;
 };
 
-/**
- * 清除所有Service Worker缓存
- * @returns {Promise<boolean>} 是否成功清除
- */
+/*
+*
+* clear_all_services Worker cache
+ * @returns {Promise<boolean>} is_clearing_successful
+*/
 export const clearAllCaches = async () => {
   if (!('caches' in window)) {
     return false;
@@ -122,7 +125,7 @@ export const clearAllCaches = async () => {
 };
 
 /**
- * 将缓存状态输出到控制台
+ * output_cache_status_to_console
  */
 export const logCacheStatus = async () => {
   console.group('Service Worker 缓存状态');
@@ -132,7 +135,7 @@ export const logCacheStatus = async () => {
   
   for (const cacheName of cacheNames) {
     const urls = await getCacheUrls(cacheName);
-    console.group(`缓存: ${cacheName} (${urls.length} 项)`);
+    console.group(`cache: ${cacheName} (${urls.length} item)`);
     urls.forEach(url => console.log(url));
     console.groupEnd();
   }

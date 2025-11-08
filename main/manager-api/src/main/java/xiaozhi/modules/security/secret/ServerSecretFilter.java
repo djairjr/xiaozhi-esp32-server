@@ -20,7 +20,7 @@ import xiaozhi.common.utils.Result;
 import xiaozhi.modules.sys.service.SysParamsService;
 
 /**
- * Config API 过滤器
+ * Config API filter
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class ServerSecretFilter extends AuthenticatingFilter {
 
     @Override
     protected ServerSecretToken createToken(ServletRequest request, ServletResponse response) {
-        // 获取请求token
+        // get_request_token
         String token = getRequestToken((HttpServletRequest) request);
 
         if (StringUtils.isBlank(token)) {
@@ -42,7 +42,7 @@ public class ServerSecretFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        // 对OPTIONS请求放行
+        // release_options_request
         if (((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())) {
             return true;
         }
@@ -51,19 +51,19 @@ public class ServerSecretFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-        // 获取token并校验
+        // get_token_and_verify
         String token = getRequestToken((HttpServletRequest) servletRequest);
         if (StringUtils.isBlank(token)) {
-            // token为空，返回401
-            this.sendUnauthorizedResponse((HttpServletResponse) servletResponse, "服务器密钥不能为空");
+            // token is empty, return_401
+            this.sendUnauthorizedResponse((HttpServletResponse) servletResponse, "Server key cannot be empty");
             return false;
         }
 
-        // 验证token是否匹配
+        // verify_token_matches
         String serverSecret = getServerSecret();
         if (StringUtils.isBlank(serverSecret) || !serverSecret.equals(token)) {
-            // token无效，返回401
-            this.sendUnauthorizedResponse((HttpServletResponse) servletResponse, "无效的服务器密钥");
+            // Token is invalid, return_401
+            this.sendUnauthorizedResponse((HttpServletResponse) servletResponse, "Invalid server key");
             return false;
         }
 
@@ -71,7 +71,7 @@ public class ServerSecretFilter extends AuthenticatingFilter {
     }
 
     /**
-     * 发送未授权响应
+     * send_unauthorized_response
      */
     private void sendUnauthorizedResponse(HttpServletResponse response, String message) {
         response.setContentType("application/json;charset=utf-8");
@@ -82,16 +82,16 @@ public class ServerSecretFilter extends AuthenticatingFilter {
             String json = JsonUtils.toJsonString(new Result<Void>().error(ErrorCode.UNAUTHORIZED, message));
             response.getWriter().print(json);
         } catch (IOException e) {
-            log.error("响应输出失败", e);
+            log.error("Response output failed", e);
         }
     }
 
     /**
-     * 获取请求的token
+     * get_the_requested_token
      */
     private String getRequestToken(HttpServletRequest httpRequest) {
         String token = null;
-        // 从header中获取token
+        // get_token_from_header
         String authorization = httpRequest.getHeader("Authorization");
         if (StringUtils.isNotBlank(authorization) && authorization.startsWith("Bearer ")) {
             token = authorization.replace("Bearer ", "");

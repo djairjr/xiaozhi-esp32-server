@@ -26,12 +26,12 @@ public class SystemInitConfig {
 
     @PostConstruct
     public void init() {
-        // 检查版本号
+        // check_version_number
         String redisVersion = (String) redisUtils.get(RedisKeys.getVersionKey());
         if (!Constant.VERSION.equals(redisVersion)) {
-            // 如果版本不一致，清空Redis
+            // if_the_versions_are_inconsistent，clear_redis
             redisUtils.emptyAll();
-            // 存储新版本号
+            // store_new_version_number
             redisUtils.set(RedisKeys.getVersionKey(), Constant.VERSION);
         }
 

@@ -1,13 +1,13 @@
 const SAMPLE_RATE = 16000;
 const CHANNELS = 1;
-const FRAME_SIZE = 960;  // 对应于60ms帧大小 (16000Hz * 0.06s = 960 samples)
+const FRAME_SIZE = 960;  // corresponds_to_60ms_frame_size (16000Hz * 0.06s = 960 samples)
 const OPUS_APPLICATION = 2049; // OPUS_APPLICATION_AUDIO
 const BUFFER_SIZE = 4096;
 
 let audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
 let mediaStream, mediaSource, audioProcessor;
-let recordedPcmData = []; // 存储原始PCM数据
-let recordedOpusData = []; // 存储Opus编码后的数据
+let recordedPcmData = []; // store_raw_pcm_data
+let recordedOpusData = []; // store_opus_encoded_data
 let opusEncoder, opusDecoder;
 let isRecording = false;
 
@@ -20,15 +20,15 @@ startButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 playButton.addEventListener("click", playRecording);
 
-// 初始化Opus编码器与解码器
+// initialize_opus_encoder_and_decoder
 async function initOpus() {
     if (typeof window.ModuleInstance === 'undefined') {
         if (typeof Module !== 'undefined') {
-            // 尝试使用全局Module
+            // try_using_globalmodule
             window.ModuleInstance = Module;
             console.log('使用全局Module作为ModuleInstance');
         } else {
-            console.error("Opus库未加载，ModuleInstance和Module对象都不存在");
+            console.error("Opus library not loaded, neither ModuleInstance nor Module object exists");
             return false;
         }
     }
@@ -36,7 +36,7 @@ async function initOpus() {
     try {
         const mod = window.ModuleInstance;
         
-        // 创建编码器
+        // create_an_encoder
         opusEncoder = {
             channels: CHANNELS,
             sampleRate: SAMPLE_RATE,
@@ -44,19 +44,19 @@ async function initOpus() {
             maxPacketSize: 4000,
             module: mod,
             
-            // 初始化编码器
+            // initialize_the_encoder
             init: function() {
-                // 获取编码器大小
+                // get_encoder_size
                 const encoderSize = mod._opus_encoder_get_size(this.channels);
-                console.log(`Opus编码器大小: ${encoderSize}字节`);
+                console.log(`Opus编码器大小: ${encoderSize}byte`);
                 
-                // 分配内存
+                // allocate_memory
                 this.encoderPtr = mod._malloc(encoderSize);
                 if (!this.encoderPtr) {
-                    throw new Error("无法分配编码器内存");
+                    throw new Error("Unable to allocate encoder memory");
                 }
                 
-                // 初始化编码器
+                // initialize_the_encoder
                 const err = mod._opus_encoder_init(
                     this.encoderPtr,
                     this.sampleRate,
@@ -71,23 +71,23 @@ async function initOpus() {
                 return true;
             },
             
-            // 编码方法
+            // coding_method
             encode: function(pcmData) {
                 const mod = this.module;
                 
-                // 为PCM数据分配内存
-                const pcmPtr = mod._malloc(pcmData.length * 2); // Int16 = 2字节
+                // allocate_memory_for_pcm_data
+                const pcmPtr = mod._malloc(pcmData.length * 2); // Int16 = 2 bytes
                 
-                // 将数据复制到WASM内存
+                // copy_data_to_wasm_memory
                 for (let i = 0; i < pcmData.length; i++) {
                     mod.HEAP16[(pcmPtr >> 1) + i] = pcmData[i];
                 }
                 
-                // 为Opus编码数据分配内存
+                // allocate_memory_for_opus_encoded_data
                 const maxEncodedSize = this.maxPacketSize;
                 const encodedPtr = mod._malloc(maxEncodedSize);
                 
-                // 编码
+                // coding
                 const encodedBytes = mod._opus_encode(
                     this.encoderPtr,
                     pcmPtr,
@@ -102,20 +102,20 @@ async function initOpus() {
                     throw new Error(`Opus编码失败: ${encodedBytes}`);
                 }
                 
-                // 复制编码后的数据
+                // copy_the_encoded_data
                 const encodedData = new Uint8Array(encodedBytes);
                 for (let i = 0; i < encodedBytes; i++) {
                     encodedData[i] = mod.HEAPU8[encodedPtr + i];
                 }
                 
-                // 释放内存
+                // free_memory
                 mod._free(pcmPtr);
                 mod._free(encodedPtr);
                 
                 return encodedData;
             },
             
-            // 销毁方法
+            // destruction_method
             destroy: function() {
                 if (this.encoderPtr) {
                     this.module._free(this.encoderPtr);
@@ -124,26 +124,26 @@ async function initOpus() {
             }
         };
         
-        // 创建解码器
+        // create_decoder
         opusDecoder = {
             channels: CHANNELS,
             rate: SAMPLE_RATE,
             frameSize: FRAME_SIZE,
             module: mod,
             
-            // 初始化解码器
+            // initialize_decoder
             init: function() {
-                // 获取解码器大小
+                // get_decoder_size
                 const decoderSize = mod._opus_decoder_get_size(this.channels);
-                console.log(`Opus解码器大小: ${decoderSize}字节`);
+                console.log(`Opus解码器大小: ${decoderSize}byte`);
                 
-                // 分配内存
+                // allocate_memory
                 this.decoderPtr = mod._malloc(decoderSize);
                 if (!this.decoderPtr) {
-                    throw new Error("无法分配解码器内存");
+                    throw new Error("Unable to allocate decoder memory");
                 }
                 
-                // 初始化解码器
+                // initialize_decoder
                 const err = mod._opus_decoder_init(
                     this.decoderPtr,
                     this.rate,
@@ -157,25 +157,25 @@ async function initOpus() {
                 return true;
             },
             
-            // 解码方法
+            // decoding_method
             decode: function(opusData) {
                 const mod = this.module;
                 
-                // 为Opus数据分配内存
+                // allocate_memory_for_opus_data
                 const opusPtr = mod._malloc(opusData.length);
                 mod.HEAPU8.set(opusData, opusPtr);
                 
-                // 为PCM输出分配内存
-                const pcmPtr = mod._malloc(this.frameSize * 2); // Int16 = 2字节
+                // allocate_memory_for_pcm_output
+                const pcmPtr = mod._malloc(this.frameSize * 2); // Int16 = 2 bytes
                 
-                // 解码
+                // decoding
                 const decodedSamples = mod._opus_decode(
                     this.decoderPtr,
                     opusPtr,
                     opusData.length,
                     pcmPtr,
                     this.frameSize,
-                    0 // 不使用FEC
+                    0 // not_using_fec
                 );
                 
                 if (decodedSamples < 0) {
@@ -184,20 +184,20 @@ async function initOpus() {
                     throw new Error(`Opus解码失败: ${decodedSamples}`);
                 }
                 
-                // 复制解码后的数据
+                // copy_decoded_data
                 const decodedData = new Int16Array(decodedSamples);
                 for (let i = 0; i < decodedSamples; i++) {
                     decodedData[i] = mod.HEAP16[(pcmPtr >> 1) + i];
                 }
                 
-                // 释放内存
+                // free_memory
                 mod._free(opusPtr);
                 mod._free(pcmPtr);
                 
                 return decodedData;
             },
             
-            // 销毁方法
+            // destruction_method
             destroy: function() {
                 if (this.decoderPtr) {
                     this.module._free(this.decoderPtr);
@@ -206,36 +206,36 @@ async function initOpus() {
             }
         };
         
-        // 初始化编码器和解码器
+        // initialize_encoder_and_decoder
         if (opusEncoder.init() && opusDecoder.init()) {
-            console.log("Opus 编码器和解码器初始化成功。");
+            console.log("Opus encoder and decoder initialized successfully.");
             return true;
         } else {
-            console.error("Opus 初始化失败");
+            console.error("Opus initialization failed");
             return false;
         }
     } catch (error) {
-        console.error("Opus 初始化失败:", error);
+        console.error("Opus initialization failed:", error);
         return false;
     }
 }
 
-// 将Float32音频数据转换为Int16音频数据
+// convert_float32_audio_data_to_int16_audio_data
 function convertFloat32ToInt16(float32Data) {
     const int16Data = new Int16Array(float32Data.length);
     for (let i = 0; i < float32Data.length; i++) {
-        // 将[-1,1]范围转换为[-32768,32767]
+        // will[-1,1]the_range_is_converted_to[-32768,32767]
         const s = Math.max(-1, Math.min(1, float32Data[i]));
         int16Data[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
     }
     return int16Data;
 }
 
-// 将Int16音频数据转换为Float32音频数据
+// convert_int16_audio_data_to_float32_audio_data
 function convertInt16ToFloat32(int16Data) {
     const float32Data = new Float32Array(int16Data.length);
     for (let i = 0; i < int16Data.length; i++) {
-        // 将[-32768,32767]范围转换为[-1,1]
+        // will[-32768,32767]the_range_is_converted_to[-1,1]
         float32Data[i] = int16Data[i] / (int16Data[i] < 0 ? 0x8000 : 0x7FFF);
     }
     return float32Data;
@@ -244,42 +244,42 @@ function convertInt16ToFloat32(int16Data) {
 function startRecording() {
     if (isRecording) return;
     
-    // 确保有权限并且AudioContext是活跃的
+    // make_sure_you_have_permissions_and_the_audiocontext_is_active
     if (audioContext.state === 'suspended') {
         audioContext.resume().then(() => {
-            console.log("AudioContext已恢复");
+            console.log("AudioContext has been restored");
             continueStartRecording();
         }).catch(err => {
-            console.error("恢复AudioContext失败:", err);
-            statusLabel.textContent = "无法激活音频上下文，请再次点击";
+            console.error("Failed to restore AudioContext:", err);
+            statusLabel.textContent = "Unable to activate audio context, please click again";
         });
     } else {
         continueStartRecording();
     }
 }
 
-// 实际开始录音的逻辑
+// the_logic_to_actually_start_recording
 function continueStartRecording() {
-    // 重置录音数据
+    // reset_recording_data
     recordedPcmData = [];
     recordedOpusData = [];
-    window.audioDataBuffer = new Int16Array(0); // 重置缓冲区
+    window.audioDataBuffer = new Int16Array(0); // reset_buffer
     
-    // 初始化Opus
+    // initialize_opus
     initOpus().then(success => {
         if (!success) {
-            statusLabel.textContent = "Opus初始化失败";
+            statusLabel.textContent = "Opus initialization failed";
             return;
         }
         
-        console.log("开始录音，参数：", {
+        console.log("Start recording, parameters:", {
             sampleRate: SAMPLE_RATE,
             channels: CHANNELS,
             frameSize: FRAME_SIZE,
             bufferSize: BUFFER_SIZE
         });
         
-        // 请求麦克风权限
+        // request_microphone_permission
         navigator.mediaDevices.getUserMedia({ 
             audio: {
                 sampleRate: SAMPLE_RATE,
@@ -290,62 +290,62 @@ function continueStartRecording() {
             } 
         })
         .then(stream => {
-            console.log("获取到麦克风流，实际参数：", stream.getAudioTracks()[0].getSettings());
+            console.log("Get the microphone stream, actual parameters:", stream.getAudioTracks()[0].getSettings());
             
-            // 检查流是否有效
+            // check_if_the_stream_is_valid
             if (!stream || !stream.getAudioTracks().length || !stream.getAudioTracks()[0].enabled) {
-                throw new Error("获取到的音频流无效");
+                throw new Error("The audio stream obtained is invalid");
             }
             
             mediaStream = stream;
             mediaSource = audioContext.createMediaStreamSource(stream);
             
-            // 创建ScriptProcessor(虽然已弃用，但兼容性好)
-            // 在降级到ScriptProcessor之前尝试使用AudioWorklet
+            // create_scriptprocessor(although_deprecated，but_good_compatibility)
+            // try_using_audioworklet_before_downgrading_to_scriptprocessor
             createAudioProcessor().then(processor => {
                 if (processor) {
-                    console.log("使用AudioWorklet处理音频");
+                    console.log("Use AudioWorklet to process audio");
                     audioProcessor = processor;
-                    // 连接音频处理链
+                    // connect_the_audio_processing_chain
                     mediaSource.connect(audioProcessor);
                     audioProcessor.connect(audioContext.destination);
                 } else {
-                    console.log("回退到ScriptProcessor");
-                    // 创建ScriptProcessor节点
+                    console.log("Fallback to ScriptProcessor");
+                    // create_scriptprocessor_node
                     audioProcessor = audioContext.createScriptProcessor(BUFFER_SIZE, CHANNELS, CHANNELS);
                     
-                    // 处理音频数据
+                    // process_audio_data
                     audioProcessor.onaudioprocess = processAudioData;
                     
-                    // 连接音频处理链
+                    // connect_the_audio_processing_chain
                     mediaSource.connect(audioProcessor);
                     audioProcessor.connect(audioContext.destination);
                 }
                 
-                // 更新UI
+                // update_ui
                 isRecording = true;
-                statusLabel.textContent = "录音中...";
+                statusLabel.textContent = "Recording...";
                 startButton.disabled = true;
                 stopButton.disabled = false;
                 playButton.disabled = true;
             }).catch(error => {
-                console.error("创建音频处理器失败:", error);
-                statusLabel.textContent = "创建音频处理器失败";
+                console.error("Failed to create audio processor:", error);
+                statusLabel.textContent = "Failed to create audio processor";
             });
         })
         .catch(error => {
-            console.error("获取麦克风失败:", error);
-            statusLabel.textContent = "获取麦克风失败: " + error.message;
+            console.error("Failed to get microphone:", error);
+            statusLabel.textContent = "Failed to get microphone:" + error.message;
         });
     });
 }
 
-// 创建AudioWorklet处理器
+// create_audioworklet_processor
 async function createAudioProcessor() {
     try {
-        // 尝试使用更现代的AudioWorklet API
+        // try_using_the_more_modern_audioworklet API
         if ('AudioWorklet' in window && 'AudioWorkletNode' in window) {
-            // 定义AudioWorklet处理器代码
+            // define_audioworklet_processor_code
             const workletCode = `
                 class OpusRecorderProcessor extends AudioWorkletProcessor {
                     constructor() {
@@ -361,7 +361,7 @@ async function createAudioProcessor() {
                                 this.isRecording = true;
                             } else if (event.data.command === 'stop') {
                                 this.isRecording = false;
-                                // 发送最后的缓冲区
+                                // send_last_buffer
                                 if (this.bufferIndex > 0) {
                                     const finalBuffer = this.buffer.slice(0, this.bufferIndex);
                                     this.port.postMessage({ buffer: finalBuffer });
@@ -373,15 +373,15 @@ async function createAudioProcessor() {
                     process(inputs, outputs) {
                         if (!this.isRecording) return true;
                         
-                        // 获取输入数据
+                        // get_input_data
                         const input = inputs[0][0]; // mono channel
                         if (!input || input.length === 0) return true;
                         
-                        // 将输入数据添加到缓冲区
+                        // add_input_data_to_buffer
                         for (let i = 0; i < input.length; i++) {
                             this.buffer[this.bufferIndex++] = input[i];
                             
-                            // 当缓冲区填满时，发送给主线程
+                            // when_buffer_fills_up，send_to_main_thread
                             if (this.bufferIndex >= this.frameSize) {
                                 this.port.postMessage({ buffer: this.buffer.slice() });
                                 this.bufferIndex = 0;
@@ -395,20 +395,20 @@ async function createAudioProcessor() {
                 registerProcessor('opus-recorder-processor', OpusRecorderProcessor);
             `;
             
-            // 创建Blob URL
+            // create_blob URL
             const blob = new Blob([workletCode], { type: 'application/javascript' });
             const url = URL.createObjectURL(blob);
             
-            // 加载AudioWorklet模块
+            // load_audioworklet_module
             await audioContext.audioWorklet.addModule(url);
             
-            // 创建AudioWorkletNode
+            // create_audioworkletnode
             const workletNode = new AudioWorkletNode(audioContext, 'opus-recorder-processor');
             
-            // 处理从AudioWorklet接收的消息
+            // handle_messages_received_from_audioworklet
             workletNode.port.onmessage = (event) => {
                 if (event.data.buffer) {
-                    // 使用与ScriptProcessor相同的处理逻辑
+                    // use_the_same_processing_logic_as_scriptprocessor
                     processAudioData({
                         inputBuffer: {
                             getChannelData: () => event.data.buffer
@@ -417,84 +417,84 @@ async function createAudioProcessor() {
                 }
             };
             
-            // 启动录音
+            // start_recording
             workletNode.port.postMessage({ command: 'start' });
             
-            // 保存停止函数
+            // save_stop_function
             workletNode.stopRecording = () => {
                 workletNode.port.postMessage({ command: 'stop' });
             };
             
-            console.log("AudioWorklet 音频处理器创建成功");
+            console.log("AudioWorklet audio processor created successfully");
             return workletNode;
         }
     } catch (error) {
-        console.error("创建AudioWorklet失败，将使用ScriptProcessor:", error);
+        console.error("Failed to create AudioWorklet, ScriptProcessor will be used:", error);
     }
     
-    // 如果AudioWorklet不可用或失败，返回null以便回退到ScriptProcessor
+    // if_audioworklet_is_unavailable_or_fails，return_null_to_fallback_to_scriptprocessor
     return null;
 }
 
-// 处理音频数据
+// process_audio_data
 function processAudioData(e) {
-    // 获取输入缓冲区
+    // get_input_buffer
     const inputBuffer = e.inputBuffer;
     
-    // 获取第一个通道的Float32数据
+    // get_the_float32_data_of_the_first_channel
     const inputData = inputBuffer.getChannelData(0);
     
-    // 添加调试信息
+    // add_debugging_information
     const nonZeroCount = Array.from(inputData).filter(x => Math.abs(x) > 0.001).length;
-    console.log(`接收到音频数据: ${inputData.length} 个样本, 非零样本数: ${nonZeroCount}`);
+    console.log(`audio_data_received: ${inputData.length} samples, number_of_nonzero_samples: ${nonZeroCount}`);
     
-    // 如果全是0，可能是麦克风没有正确获取声音
+    // if_all_are_0，maybe_the_microphone_isnt_picking_up_the_sound_correctly
     if (nonZeroCount < 5) {
-        console.warn("警告: 检测到大量静音样本，请检查麦克风是否正常工作");
-        // 继续处理，以防有些样本确实是静音
+        console.warn("Warning: large_number_of_silent_samples_detected, please check if the microphone is working properly");
+        // continue_processing，just_in_case_some_samples_are_indeed_muted
     }
     
-    // 存储PCM数据用于调试
+    // store_pcm_data_for_debugging
     recordedPcmData.push(new Float32Array(inputData));
     
-    // 转换为Int16数据供Opus编码
+    // convert_to_int16_data_for_opus_encoding
     const int16Data = convertFloat32ToInt16(inputData);
     
-    // 如果收集到的数据不是FRAME_SIZE的整数倍，需要进行处理
-    // 创建静态缓冲区来存储不足一帧的数据
+    // if_the_collected_data_is_not_an_integer_multiple_of_frame_size，need_to_be_processed
+    // create_a_static_buffer_to_store_less_than_one_frame_of_data
     if (!window.audioDataBuffer) {
         window.audioDataBuffer = new Int16Array(0);
     }
     
-    // 合并之前缓存的数据和新数据
+    // merge_previously_cached_data_with_new_data
     const combinedData = new Int16Array(window.audioDataBuffer.length + int16Data.length);
     combinedData.set(window.audioDataBuffer);
     combinedData.set(int16Data, window.audioDataBuffer.length);
     
-    // 处理完整帧
+    // process_full_frames
     const frameCount = Math.floor(combinedData.length / FRAME_SIZE);
-    console.log(`可编码的完整帧数: ${frameCount}, 缓冲区总大小: ${combinedData.length}`);
+    console.log(`number_of_complete_frames_that_can_be_encoded: ${frameCount}, total_buffer_size: ${combinedData.length}`);
     
     for (let i = 0; i < frameCount; i++) {
         const frameData = combinedData.subarray(i * FRAME_SIZE, (i + 1) * FRAME_SIZE);
         
         try {
-            console.log(`编码第 ${i+1}/${frameCount} 帧, 帧大小: ${frameData.length}`);
+            console.log(`coding_no ${i+1}/${frameCount} frame, frame_size: ${frameData.length}`);
             const encodedData = opusEncoder.encode(frameData);
             if (encodedData) {
-                console.log(`编码成功: ${encodedData.length} 字节`);
+                console.log(`encoding_successful: ${encodedData.length} byte`);
                 recordedOpusData.push(encodedData);
             }
         } catch (error) {
-            console.error(`Opus编码帧 ${i+1} 失败:`, error);
+            console.error(`Opus编码帧 ${i+1} fail:`, error);
         }
     }
     
-    // 保存剩余不足一帧的数据
+    // save_data_remaining_for_less_than_one_frame
     const remainingSamples = combinedData.length % FRAME_SIZE;
     if (remainingSamples > 0) {
         window.audioDataBuffer = combinedData.subarray(frameCount * FRAME_SIZE);
-        console.log(`保留 ${remainingSamples} 个样本到下一次处理`);
+        console.log(`reserve ${remainingSamples} samples_to_the_next_processing`);
     } else {
         window.audioDataBuffer = new Int16Array(0);
     }
@@ -503,28 +503,28 @@ function processAudioData(e) {
 function stopRecording() {
     if (!isRecording) return;
     
-    // 处理剩余的缓冲数据
+    // process_remaining_buffered_data
     if (window.audioDataBuffer && window.audioDataBuffer.length > 0) {
-        console.log(`停止录音，处理剩余的 ${window.audioDataBuffer.length} 个样本`);
-        // 如果剩余数据不足一帧，可以通过补零的方式凑成一帧
+        console.log(`stop_recording，dispose_of_remaining ${window.audioDataBuffer.length} samples`);
+        // if_the_remaining_data_is_less_than_one_frame，one_frame_can_be_made_up_by_padding_zeros
         if (window.audioDataBuffer.length < FRAME_SIZE) {
             const paddedFrame = new Int16Array(FRAME_SIZE);
             paddedFrame.set(window.audioDataBuffer);
-            // 剩余部分填充为0
+            // the_remaining_part_is_filled_with_0
             for (let i = window.audioDataBuffer.length; i < FRAME_SIZE; i++) {
                 paddedFrame[i] = 0;
             }
             try {
-                console.log(`编码最后一帧(补零): ${paddedFrame.length} 样本`);
+                console.log(`encode_last_frame(zero_padding): ${paddedFrame.length} sample`);
                 const encodedData = opusEncoder.encode(paddedFrame);
                 if (encodedData) {
                     recordedOpusData.push(encodedData);
                 }
             } catch (error) {
-                console.error("最后一帧Opus编码失败:", error);
+                console.error("The last frame Opus encoding failed:", error);
             }
         } else {
-            // 如果数据超过一帧，按正常流程处理
+            // if_the_data_exceeds_one_frame，follow_normal_procedures
             processAudioData({
                 inputBuffer: {
                     getChannelData: () => convertInt16ToFloat32(window.audioDataBuffer)
@@ -534,102 +534,102 @@ function stopRecording() {
         window.audioDataBuffer = null;
     }
     
-    // 如果使用的是AudioWorklet，调用其特定的停止方法
+    // if_you_are_using_audioworklet，call_its_specific_stop_method
     if (audioProcessor && typeof audioProcessor.stopRecording === 'function') {
         audioProcessor.stopRecording();
     }
     
-    // 停止麦克风
+    // stop_microphone
     if (mediaStream) {
         mediaStream.getTracks().forEach(track => track.stop());
     }
     
-    // 断开音频处理链
+    // break_the_audio_processing_chain
     if (audioProcessor) {
         try {
             audioProcessor.disconnect();
             if (mediaSource) mediaSource.disconnect();
         } catch (error) {
-            console.warn("断开音频处理链时出错:", error);
+            console.warn("Error while breaking audio processing chain:", error);
         }
     }
     
-    // 更新UI
+    // update_ui
     isRecording = false;
-    statusLabel.textContent = "已停止录音，收集了 " + recordedOpusData.length + " 帧Opus数据";
+    statusLabel.textContent = "Recording has stopped, collected" + recordedOpusData.length + "Frame Opus data";
     startButton.disabled = false;
     stopButton.disabled = true;
     playButton.disabled = recordedOpusData.length === 0;
     
-    console.log("录制完成:", 
-                "PCM帧数:", recordedPcmData.length, 
-                "Opus帧数:", recordedOpusData.length);
+    console.log("Recording completed:", 
+                "PCM frame number:", recordedPcmData.length, 
+                "Opus frame rate:", recordedOpusData.length);
 }
 
 function playRecording() {
     if (!recordedOpusData.length) {
-        statusLabel.textContent = "没有可播放的录音";
+        statusLabel.textContent = "No recordings available to play";
         return;
     }
     
-    // 将所有Opus数据解码为PCM
+    // decode_all_opus_data_to_pcm
     let allDecodedData = [];
     
     for (const opusData of recordedOpusData) {
         try {
-            // 解码为Int16数据
+            // decoded_to_int16_data
             const decodedData = opusDecoder.decode(opusData);
             
             if (decodedData && decodedData.length > 0) {
-                // 将Int16数据转换为Float32
+                // convert_int16_data_to_float32
                 const float32Data = convertInt16ToFloat32(decodedData);
                 
-                // 添加到总解码数据中
+                // added_to_total_decoded_data
                 allDecodedData.push(...float32Data);
             }
         } catch (error) {
-            console.error("Opus解码失败:", error);
+            console.error("Opus decoding failed:", error);
         }
     }
     
-    // 如果没有解码出数据，返回
+    // if_no_data_is_decoded，return
     if (allDecodedData.length === 0) {
-        statusLabel.textContent = "解码失败，无法播放";
+        statusLabel.textContent = "Decoding failed and cannot be played";
         return;
     }
     
-    // 创建音频缓冲区
+    // create_audio_buffer
     const audioBuffer = audioContext.createBuffer(CHANNELS, allDecodedData.length, SAMPLE_RATE);
     audioBuffer.copyToChannel(new Float32Array(allDecodedData), 0);
     
-    // 创建音频源并播放
+    // create_an_audio_source_and_play_it
     const source = audioContext.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(audioContext.destination);
     source.start();
     
-    // 更新UI
-    statusLabel.textContent = "正在播放...";
+    // update_ui
+    statusLabel.textContent = "Now playing...";
     playButton.disabled = true;
     
-    // 播放结束后恢复UI
+    // restore_ui_after_playback_ends
     source.onended = () => {
-        statusLabel.textContent = "播放完毕";
+        statusLabel.textContent = "Finished playing";
         playButton.disabled = false;
     };
 }
 
-// 模拟服务端返回的Opus数据进行解码播放
+// simulate_the_opus_data_returned_by_the_server_for_decoding_and_playback
 function playOpusFromServer(opusData) {
-    // 这个函数展示如何处理服务端返回的opus数据
-    // opusData应该是一个包含opus帧的数组
+    // this_function_shows_how_to_process_the_opus_data_returned_by_the_server
+    // opusData should be an array containing opus frames
     
     if (!opusDecoder) {
         initOpus().then(success => {
             if (success) {
                 decodeAndPlayOpusData(opusData);
             } else {
-                statusLabel.textContent = "Opus解码器初始化失败";
+                statusLabel.textContent = "Opus decoder initialization failed";
             }
         });
     } else {
@@ -648,12 +648,12 @@ function decodeAndPlayOpusData(opusData) {
                 allDecodedData.push(...float32Data);
             }
         } catch (error) {
-            console.error("服务端Opus数据解码失败:", error);
+            console.error("Server-side Opus data decoding failed:", error);
         }
     }
     
     if (allDecodedData.length === 0) {
-        statusLabel.textContent = "服务端数据解码失败";
+        statusLabel.textContent = "Server data decoding failed";
         return;
     }
     
@@ -665,6 +665,6 @@ function decodeAndPlayOpusData(opusData) {
     source.connect(audioContext.destination);
     source.start();
     
-    statusLabel.textContent = "正在播放服务端数据...";
-    source.onended = () => statusLabel.textContent = "服务端数据播放完毕";
+    statusLabel.textContent = "Playing server data...";
+    source.onended = () => statusLabel.textContent = "Server data playback completed";
 }

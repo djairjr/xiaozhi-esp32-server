@@ -7,11 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
-/**
- * Swagger配置
- * Copyright (c) 人人开源 All rights reserved.
+/*
+*
+* Swagger configuration
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
- */
+*/
 @Configuration
 public class SwaggerConfig {
 
@@ -83,7 +84,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI().info(new Info()
                 .title("xiaozhi-esp32-manager-api")
-                .description("xiaozhi-esp32-manager-api文档")
+                .description("xiaozhi-esp32-manager-api documentation")
                 .version("3.0")
                 .termsOfService("https://127.0.0.1"));
     }

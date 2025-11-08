@@ -5,36 +5,38 @@ import org.apache.commons.lang3.StringUtils;
 import xiaozhi.common.exception.ErrorCode;
 import xiaozhi.common.exception.RenException;
 
-/**
- * SQL过滤
- * Copyright (c) 人人开源 All rights reserved.
+/*
+*
+* SQL filtering
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
- */
+*/
 public class SqlFilter {
 
-    /**
-     * SQL注入过滤
+    /*
+*
+* SQL injection filtering
      *
-     * @param str 待验证的字符串
-     */
+     * @param str string_to_be_verified
+*/
     public static String sqlInject(String str) {
         if (StringUtils.isBlank(str)) {
             return null;
         }
-        // 去掉'|"|;|\字符
+        // Remove '|"|;|\character
         str = StringUtils.replace(str, "'", "");
         str = StringUtils.replace(str, "\"", "");
         str = StringUtils.replace(str, ";", "");
         str = StringUtils.replace(str, "\\", "");
 
-        // 转换成小写
+        // convert_to_lowercase
         str = str.toLowerCase();
 
-        // 非法字符
+        // illegal_characters
         String[] keywords = { "master", "truncate", "insert", "select", "delete", "update", "declare", "alter",
                 "drop" };
 
-        // 判断是否包含非法字符
+        // determine_whether_it_contains_illegal_characters
         for (String keyword : keywords) {
             if (str.contains(keyword)) {
                 throw new RenException(ErrorCode.INVALID_SYMBOL);

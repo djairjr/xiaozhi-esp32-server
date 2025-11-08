@@ -303,7 +303,7 @@ button:disabled {
     border-left: 4px solid #f4b400;
 }
 
-/* 标签页样式 */
+/* Tab style */
 .tabs {
     display: flex;
     margin-bottom: 20px;

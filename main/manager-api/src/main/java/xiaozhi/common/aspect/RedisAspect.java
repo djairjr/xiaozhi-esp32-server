@@ -10,18 +10,20 @@ import lombok.extern.slf4j.Slf4j;
 import xiaozhi.common.exception.ErrorCode;
 import xiaozhi.common.exception.RenException;
 
-/**
- * Redis切面处理类
- * Copyright (c) 人人开源 All rights reserved.
+/*
+*
+* Redis aspect processing class
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
- */
+*/
 @Slf4j
 @Aspect
 @Component
 public class RedisAspect {
-    /**
-     * 是否开启redis缓存 true开启 false关闭
-     */
+    /*
+*
+* whether_to_enable_redis_cache true turns on false turns off
+*/
     @Value("${renren.redis.open}")
     private boolean open;
 

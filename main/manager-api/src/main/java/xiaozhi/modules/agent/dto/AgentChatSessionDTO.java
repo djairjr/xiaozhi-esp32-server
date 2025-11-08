@@ -5,22 +5,22 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * 智能体会话列表DTO
+ * agent_session_list_dto
  */
 @Data
 public class AgentChatSessionDTO {
     /**
-     * 会话ID
+     * session_id
      */
     private String sessionId;
 
     /**
-     * 会话时间
+     * session_time
      */
     private LocalDateTime createdAt;
 
     /**
-     * 聊天条数
+     * number_of_chats
      */
     private Integer chatCount;
 }

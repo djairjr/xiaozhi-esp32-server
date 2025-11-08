@@ -3,26 +3,26 @@ package xiaozhi.modules.agent.dto;
 import lombok.Data;
 
 /**
- * 保存智能体声纹的dto
+ * save_the_dto_of_the_agents_voiceprint
  *
  * @author zjy
  */
 @Data
 public class AgentVoicePrintSaveDTO {
     /**
-     * 关联的智能体id
+     * associated_agent_id
      */
     private String agentId;
     /**
-     * 音频文件id
+     * audio_file_id
      */
     private String audioId;
     /**
-     * 声纹来源的人姓名
+     * the_name_of_the_person_whose_voiceprint_comes_from
      */
     private String sourceName;
     /**
-     * 描述声纹来源的人
+     * person_who_describes_the_source_of_the_voiceprint
      */
     private String introduce;
 }

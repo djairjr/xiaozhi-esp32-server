@@ -7,28 +7,29 @@ import lombok.Data;
 import xiaozhi.common.exception.ErrorCode;
 
 /**
- * 响应数据
- * Copyright (c) 人人开源 All rights reserved.
+ * response_data
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 @Data
-@Schema(description = "响应")
+@Schema(description = "response")
 public class Result<T> implements Serializable {
 
-    /**
-     * 编码：0表示成功，其他值表示失败
-     */
-    @Schema(description = "编码：0表示成功，其他值表示失败")
+    /*
+*
+* coding: 0 indicates success, other_values_indicate_failure
+*/
+    @Schema(description = "Coding: 0 indicates success, other values ​​indicate failure")
     private int code = 0;
     /**
-     * 消息内容
+     * message_content
      */
-    @Schema(description = "消息内容")
+    @Schema(description = "Message content")
     private String msg = "success";
     /**
-     * 响应数据
+     * response_data
      */
-    @Schema(description = "响应数据")
+    @Schema(description = "response data")
     private T data;
 
     public Result<T> ok(T data) {

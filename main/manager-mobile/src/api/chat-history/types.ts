@@ -1,38 +1,38 @@
-// 聊天会话列表项
+// chat_session_list_items
 export interface ChatSession {
   sessionId: string
   createdAt: string
   chatCount: number
 }
 
-// 聊天会话列表响应
+// chat_session_list_response
 export interface ChatSessionsResponse {
   total: number
   list: ChatSession[]
 }
 
-// 聊天消息
+// chat_messages
 export interface ChatMessage {
   createdAt: string
-  chatType: 1 | 2 // 1是用户，2是AI
+  chatType: 1 | 2 // 1 is the user, 2 is the AI
   content: string
   audioId: string | null
   macAddress: string
 }
 
-// 用户消息内容（需要解析JSON）
+// user_message_content（need_to_parse_json）
 export interface UserMessageContent {
   speaker: string
   content: string
 }
 
-// 获取聊天会话列表参数
+// get_chat_session_list_parameters
 export interface GetSessionsParams {
   page: number
   limit: number
 }
 
-// 音频播放相关
+// audio_playback_related
 export interface AudioResponse {
-  data: string // 音频下载ID
+  data: string // audio_download_id
 }

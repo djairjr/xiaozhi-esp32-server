@@ -3,7 +3,7 @@ package xiaozhi.modules.agent.dto;
 import lombok.Data;
 
 /**
- * MCP JSON-RPC 响应 DTO
+ * MCP JSON-RPC response DTO
  */
 @Data
 public class McpJsonRpcResponse {

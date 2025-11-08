@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 分页查询OTA固件信息
+    // query_ota_firmware_information_by_page
     getOtaList(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag`)
@@ -19,7 +19,7 @@ export default {
                 });
             }).send();
     },
-    // 获取单个OTA固件信息
+    // get_single_ota_firmware_information
     getOtaInfo(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag/${id}`)
@@ -35,7 +35,7 @@ export default {
                 });
             }).send();
     },
-    // 保存OTA固件信息
+    // save_ota_firmware_information
     saveOta(entity, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag`)
@@ -52,7 +52,7 @@ export default {
                 });
             }).send();
     },
-    // 更新OTA固件信息
+    // update_ota_firmware_information
     updateOta(id, entity, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag/${id}`)
@@ -69,7 +69,7 @@ export default {
                 });
             }).send();
     },
-    // 删除OTA固件
+    // remove_ota_firmware
     deleteOta(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag/${id}`)
@@ -85,7 +85,7 @@ export default {
                 });
             }).send();
     },
-    // 上传固件文件
+    // upload_firmware_file
     uploadFirmware(file, callback) {
         const formData = new FormData();
         formData.append('file', file);
@@ -104,7 +104,7 @@ export default {
                 });
             }).send();
     },
-    // 获取固件下载链接
+    // get_firmware_download_link
     getDownloadUrl(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/otaMag/getDownloadUrl/${id}`)

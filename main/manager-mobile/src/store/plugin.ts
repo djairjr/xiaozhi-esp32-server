@@ -5,36 +5,36 @@ import { ref } from 'vue'
 export const usePluginStore = defineStore(
   'plugin',
   () => {
-    // 所有可用插件
+    // all_available_plugins
     const allFunctions = ref<PluginDefinition[]>([])
 
-    // 当前智能体的插件配置
+    // the_plugin_configuration_of_the_current_agent
     const currentFunctions = ref<AgentFunction[]>([])
 
-    // 当前编辑的智能体ID
+    // the_currently_edited_agent_id
     const currentAgentId = ref('')
 
-    // 设置所有可用插件
+    // set_up_all_available_plugins
     const setAllFunctions = (functions: PluginDefinition[]) => {
       allFunctions.value = functions
     }
 
-    // 设置当前智能体的插件配置
+    // set_the_plugin_configuration_of_the_current_agent
     const setCurrentFunctions = (functions: AgentFunction[]) => {
       currentFunctions.value = functions
     }
 
-    // 设置当前智能体ID
+    // set_current_agent_id
     const setCurrentAgentId = (agentId: string) => {
       currentAgentId.value = agentId
     }
 
-    // 更新插件配置（用于保存时调用）
+    // update_plugin_configuration（called_when_saving）
     const updateFunctions = (functions: AgentFunction[]) => {
       currentFunctions.value = functions
     }
 
-    // 清空数据
+    // clear_data
     const clear = () => {
       allFunctions.value = []
       currentFunctions.value = []
@@ -53,6 +53,6 @@ export const usePluginStore = defineStore(
     }
   },
   {
-    persist: false, // 不持久化，每次进入页面重新加载
+    persist: false, // not_persistent，reload_every_time_you_enter_the_page
   },
 )

@@ -10,8 +10,8 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
- * JSON 工具类
- * Copyright (c) 人人开源 All rights reserved.
+ * JSON tools
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public class JsonUtils {

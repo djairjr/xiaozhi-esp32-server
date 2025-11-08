@@ -21,18 +21,19 @@ import xiaozhi.common.utils.JsonUtils;
 import xiaozhi.common.utils.MessageUtils;
 import xiaozhi.common.utils.Result;
 
-/**
- * oauth2过滤器
- * Copyright (c) 人人开源 All rights reserved.
+/*
+*
+*oauth2 filter
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
- */
+*/
 public class Oauth2Filter extends AuthenticatingFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(Oauth2Filter.class);
 
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
-        // 获取请求token
+        // get_request_token
         String token = getRequestToken((HttpServletRequest) request);
 
         if (StringUtils.isBlank(token)) {
@@ -54,7 +55,7 @@ public class Oauth2Filter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        // 获取请求token，如果token不存在，直接返回401
+        // get_request_token，if_the_token_does_not_exist，return_401_directly
         String token = getRequestToken((HttpServletRequest) request);
 
         if (StringUtils.isBlank(token)) {
@@ -83,7 +84,7 @@ public class Oauth2Filter extends AuthenticatingFilter {
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
         try {
-            // 使用国际化消息替代直接使用异常消息
+            // use_internationalized_messages_instead_of_using_exception_messages_directly
             Result<Void> r = new Result<Void>().error(ErrorCode.UNAUTHORIZED);
 
             String json = JsonUtils.toJsonString(r);
@@ -95,11 +96,11 @@ public class Oauth2Filter extends AuthenticatingFilter {
     }
 
     /**
-     * 获取请求的token
+     * get_the_requested_token
      */
     private String getRequestToken(HttpServletRequest httpRequest) {
         String token = null;
-        // 从header中获取token
+        // get_token_from_header
         String authorization = httpRequest.getHeader(Constant.AUTHORIZATION);
         if (StringUtils.isNotBlank(authorization) && authorization.startsWith("Bearer ")) {
             token = authorization.replace("Bearer ", "");

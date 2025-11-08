@@ -1,51 +1,51 @@
-## 智控台移动版（manager-mobile）
-基于 uni-app v3 + Vue 3 + Vite 的跨端移动管理端，支持 App（Android & iOS）和微信小程序。
+## Smart console mobile version (manager-mobile)
+Cross-end mobile management terminal based on uni-app v3 + Vue 3 + Vite, supporting App (Android & iOS) and WeChat mini-programs.
 
-### 平台兼容性
+### Platform Compatibility
 
-| H5 | iOS | Android | 微信小程序 |
+| H5 | iOS | Android | WeChat Mini Program |
 | -- | --- | ------- | ---------- | 
 | √  | √   | √       | √          | 
 
-提示：不同 UI 组件在不同平台的适配度略有差异，请以对应组件库文档为准。
+Tip: The adaptability of different UI components on different platforms is slightly different, please refer to the corresponding component library documentation.
 
-### 开发环境要求
+### Development environment requirements
 - Node >= 18
-- pnpm >= 7.30（建议使用项目中声明的 `pnpm@10.x`）
-- 可选：HBuilderX（App 调试/打包）、微信开发者工具（微信小程序）
+- pnpm >= 7.30 (it is recommended to use `pnpm@10.x` declared in the project)
+- Optional: HBuilderX (App debugging/packaging), WeChat developer tools (WeChat applet)
 
-### 快速开始
-1) 配置环境变量
-   - 复制 `env/.env.example` 为 `env/.env.development`
-   - 根据实际情况修改配置项（特别是 `VITE_SERVER_BASEURL`、`VITE_UNI_APPID`、`VITE_WX_APPID`）
+### Quick start
+1) Configure environment variables
+- Copy `env/.env.example` to `env/.env.development`
+- Modify the configuration items according to the actual situation (especially `VITE_SERVER_BASEURL`, `VITE_UNI_APPID`, `VITE_WX_APPID`)
 
-2) 安装依赖
+2) Install dependencies
 
 ```bash
 pnpm i
 ```
 
-3) 本地开发（热更新）
-- h5: `pnpm dev:h5`，然后观察启动日志显示的ip端口号
-- 微信小程序：`pnpm dev:mp` 或 `pnpm dev:mp-weixin`，然后用微信开发者工具导入 `dist/dev/mp-weixin`
-- App：用 HBuilderX 导入 `manager-mobile`，然后参考下面的教程就能运行了
+3) Local development (hot update)
+- h5: `pnpm dev:h5`, and then observe the ip port number displayed in the startup log
+- WeChat applet: `pnpm dev:mp` or `pnpm dev:mp-weixin`, and then use WeChat developer tools to import `dist/dev/mp-weixin`
+- App: Use HBuilderX to import `manager-mobile`, and then refer to the tutorial below to run it
 
-### 环境变量与配置
-项目使用自定义 `env` 目录存放环境文件，按 Vite 规范命名：`.env.development`、`.env.production` 等。
+### Environment variables and configuration
+The project uses a custom `env` directory to store environment files, named according to Vite specifications: `.env.development`, `.env.production`, etc.
 
-关键变量（部分）：
-- VITE_APP_TITLE：应用名称（写入 `manifest.config.ts`）
-- VITE_UNI_APPID：uni-app 应用 appid（App）
-- VITE_WX_APPID：微信小程序 appid（mp-weixin）
-- VITE_FALLBACK_LOCALE：默认语言，如 `zh-Hans`
-- VITE_SERVER_BASEURL：服务端基础地址（HTTP 请求 baseURL）
-- VITE_DELETE_CONSOLE：构建时是否移除 console（`true`/`false`）
-- VITE_SHOW_SOURCEMAP：是否生成 sourcemap（默认关闭）
-- VITE_LOGIN_URL：未登录跳转的登录页路径（路由拦截器使用）
+Key variables (part):
+- VITE_APP_TITLE: application name (write into `manifest.config.ts`)
+- VITE_UNI_APPID: uni-app application appid (App)
+- VITE_WX_APPID: WeChat applet appid (mp-weixin)
+- VITE_FALLBACK_LOCALE: default language, such as `zh-Hans`
+- VITE_SERVER_BASEURL: Server base address (HTTP request baseURL)
+- VITE_DELETE_CONSOLE: Whether to remove console when building (`true`/`false`)
+- VITE_SHOW_SOURCEMAP: whether to generate sourcemap (off by default)
+- VITE_LOGIN_URL: Login page path for non-login jump (used by routing interceptor)
 
-示例（`env/.env.development`）：
+Example (`env/.env.development`):
 ```env
-VITE_APP_TITLE=小智
+VITE_APP_TITLE=Xiao Zhi
 VITE_FALLBACK_LOCALE=zh-Hans
 VITE_UNI_APPID=
 VITE_WX_APPID=
@@ -57,111 +57,111 @@ VITE_SHOW_SOURCEMAP=false
 VITE_LOGIN_URL=/pages/login/index
 ```
 
-说明：
-- `manifest.config.ts` 会从 `env` 读取标题、appid、语言等配置。
+illustrate:
+- `manifest.config.ts` will read the title, appid, language and other configurations from `env`.
 
-### 重要注意事项
-⚠️ **部署前必须修改的配置项：**
+### Important Notes
+⚠️ **Configuration items that must be modified before deployment:**
 
-1. **应用 ID 配置**
-   - `VITE_UNI_APPID`：需要在 [DCloud 开发者中心](https://dev.dcloud.net.cn/) 创建应用并获取 AppID
-   - `VITE_WX_APPID`：需要在 [微信公众平台](https://mp.weixin.qq.com/) 注册小程序并获取 AppID
+1. **Application ID Configuration**
+- `VITE_UNI_APPID`: You need to create an application and obtain the AppID in [DCloud Developer Center](https://dev.dcloud.net.cn/)
+- `VITE_WX_APPID`: You need to register the mini program on [WeChat Public Platform](https://mp.weixin.qq.com/) and obtain the AppID
 
-2. **服务端地址**
-   - `VITE_SERVER_BASEURL`：修改为您的实际服务端地址
+2. **Server address**
+- `VITE_SERVER_BASEURL`: change to your actual server address
 
-3. **应用信息**
-   - `VITE_APP_TITLE`：修改为您的应用名称
-   - 更新 `src/static/logo.png` 等图标资源
+3. **Application Information**
+- `VITE_APP_TITLE`: change to your application name
+- Update icon resources such as `src/static/logo.png`
 
-4. **其他配置**
-   - 检查 `manifest.config.ts` 中的应用配置信息
-   - 根据需要修改 `src/layouts/fg-tabbar/tabbarList.ts` 中的 tabbar 配置
+4. **Other configuration**
+- Check application configuration information in `manifest.config.ts`
+- Modify the tabbar configuration in `src/layouts/fg-tabbar/tabbarList.ts` as needed
 
-### 详细操作指南
+### Detailed operation guide
 
-#### 1. 获取 uni-app AppID
-![生成AppID](../../docs/images/manager-mobile/生成appid.png)
-- 复制生成的 AppID 到环境变量 `VITE_UNI_APPID` 中
+#### 1. Get uni-app AppID
+![Generate AppID](../../docs/images/manager-mobile/generate appid.png)
+- Copy the generated AppID to the environment variable `VITE_UNI_APPID`
 
-#### 2. 本地运行步骤
-![本地运行](../../docs/images/manager-mobile/本地运行.png)
+#### 2. Local running steps
+![Run locally](../../docs/images/manager-mobile/Run locally.png)
 
-**App 本地调试：**
-1. 用 HBuilderX 导入 `manager-mobile` 目录
-2. 重新识别项目
-3. 连接手机或使用模拟器进行真机调试
+**App local debugging:**
+1. Use HBuilderX to import the `manager-mobile` directory
+2. Re-identify the project
+3. Connect to a mobile phone or use an emulator for real device debugging
 
-**项目识别问题解决：**
-![重新识别项目](../../docs/images/manager-mobile/重新识别项目.png)
+**Project identification problem resolution:**
+![Re-identify project](../../docs/images/manager-mobile/Re-identify project.png)
 
-如果 HBuilderX 无法正确识别项目类型：
-- 在项目根目录右键选择"重新识别项目类型"
-- 确保项目被识别为 "uni-app" 项目
+If HBuilderX does not recognize the project type correctly:
+- Right-click on the project root directory and select "Re-identify project type"
+- Make sure the project is recognized as a "uni-app" project
 
-### 路由与鉴权
-- 在 `src/main.ts` 中注册了路由拦截插件 `routeInterceptor`。
-- 黑名单拦截：仅对配置为需要登录的页面进行校验（来源 `@/utils` 的 `getNeedLoginPages`）。
-- 登录判断：基于用户信息（`pinia` 的 `useUserStore`），未登录将跳转到 `VITE_LOGIN_URL`，并附带重定向回原页面的参数。
+### Routing and Authentication
+- The route interception plug-in `routeInterceptor` is registered in `src/main.ts`.
+- Blacklist interception: Only verify pages configured to require login (source `getNeedLoginPages` of `@/utils`).
+- Login judgment: Based on user information (`useUserStore` of `pinia`), if not logged in, it will jump to `VITE_LOGIN_URL`, with parameters for redirecting back to the original page.
 
-### 网络请求
-- 基于 `alova` + `@alova/adapter-uniapp`，统一在 `src/http/request/alova.ts` 创建实例。
-- `baseURL` 读取环境配置（`getEnvBaseUrl`），可通过 `method.config.meta.domain` 动态切换域名。
-- 认证：默认从本地 `token`（`uni.getStorageSync('token')`）注入 `Authorization` 头，缺失则重定向登录。
-- 响应：统一处理 `statusCode !== 200` 的 HTTP 错误与业务 `code !== 0` 的错误；`401` 会清除 token 并跳转登录。
+### Network request
+- Based on `alova` + `@alova/adapter-uniapp`, create instances in `src/http/request/alova.ts` uniformly.
+- `baseURL` reads the environment configuration (`getEnvBaseUrl`) and can dynamically switch domain names through `method.config.meta.domain`.
+- Authentication: By default, the `Authorization` header is injected from the local `token` (`uni.getStorageSync('token')`). If it is missing, the login will be redirected.
+- Response: Unified processing of `statusCode !== 200` HTTP errors and business `code !== 0` errors; `401` will clear the token and jump to login.
 
-### 构建与发布
+### Build and release
 
-**微信小程序：**
-1. 确保已配置正确的 `VITE_WX_APPID`
-2. 运行 `pnpm build:mp`，产物在 `dist/build/mp-weixin`
-3. 用微信开发者工具导入项目目录，并上传代码
-4. 在微信公众平台提交审核
+**WeChat Mini Program:**
+1. Make sure the correct `VITE_WX_APPID` is configured
+2. Run `pnpm build:mp`, the product is in `dist/build/mp-weixin`
+3. Use WeChat developer tools to import the project directory and upload the code
+4. Submit for review on WeChat public platform
 
 **Android & iOS App：**
 
-#### 3. App 打包发行步骤
+#### 3. App packaging and distribution steps
 
-**步骤一：准备打包**
-![打包发行步骤1](../../docs/images/manager-mobile/打包发行步骤1.png)
+**Step 1: Prepare to pack**
+![Packaging and publishing steps 1](../../docs/images/manager-mobile/Packaging and publishing steps 1.png)
 
-1. 确保已配置正确的 `VITE_UNI_APPID`
-2. 运行 `pnpm build:app`，产物在 `dist/build/app`
-3. 用 HBuilderX 导入项目目录
-4. 在 HBuilderX 中点击"发行" → "原生App-云打包"
+1. Make sure the correct `VITE_UNI_APPID` is configured
+2. Run `pnpm build:app`, the product is in `dist/build/app`
+3. Use HBuilderX to import the project directory
+4. Click "Release" → "Native App-Cloud Packaging" in HBuilderX
 
-**步骤二：配置打包参数**
-![打包发行步骤2](../../docs/images/manager-mobile/打包发行步骤2.png)
+**Step 2: Configure packaging parameters**
+![Packaging and publishing step 2](../../docs/images/manager-mobile/Packaging and publishing step 2.png)
 
-1. **应用图标和启动图**：上传应用图标和启动页面图片
-2. **应用版本号**：设置版本号和版本名称
-3. **签名证书**：
-   - Android：上传 keystore 证书文件
-   - iOS：配置开发者证书和描述文件
-4. **包名配置**：设置应用的包名（Bundle ID）
-5. **打包类型**：选择测试包或正式包
-6. 点击"打包"开始云打包流程
+1. **Application icon and startup image**: Upload the application icon and startup page image
+2. **Application version number**: Set the version number and version name
+3. **Signature Certificate**:
+- Android: Upload keystore certificate file
+- iOS: Configure developer certificates and profiles
+4. **Package name configuration**: Set the application package name (Bundle ID)
+5. **Packaging type**: Select test package or official package
+6. Click "Package" to start the cloud packaging process
 
-**发布到应用商店：**
-- **Android**：将生成的 APK 文件上传到各大 Android 应用市场
-- **iOS**：将生成的 IPA 文件通过 App Store Connect 上传到 App Store（需要 Apple 开发者账号）
+**Publish to App Store:**
+- **Android**: Upload the generated APK file to major Android application markets
+- **iOS**: Upload the generated IPA file to the App Store via App Store Connect (requires Apple developer account)
 
-### 约定与工程化
-- 页面与分包：由 `@uni-helper/vite-plugin-uni-pages` 与 `pages.config.ts` 统一生成；tabbar 配置在 `src/layouts/fg-tabbar/tabbarList.ts`。
-- 组件与 hooks 自动导入：见 `vite.config.ts` 中 `unplugin-auto-import` 与 `@uni-helper/vite-plugin-uni-components`。
-- 样式：使用 UnoCSS 与 `src/style/index.scss`。
-- 状态管理：`pinia` + `pinia-plugin-persistedstate`。
-- 代码规范：内置 `eslint`、`husky`、`lint-staged`，提交前自动格式化（`lint-staged`）。
+### Convention and Engineering
+- Pages and subpackaging: generated by `@uni-helper/vite-plugin-uni-pages` and `pages.config.ts`; tabbar is configured in `src/layouts/fg-tabbar/tabbarList.ts`.
+- Automatic import of components and hooks: see `unplugin-auto-import` and `@uni-helper/vite-plugin-uni-components` in `vite.config.ts`.
+- Style: Use UnoCSS with `src/style/index.scss`.
+- State management: `pinia` + `pinia-plugin-persistedstate`.
+- Code specifications: built-in `eslint`, `husky`, `lint-staged`, automatic formatting before submission (`lint-staged`).
 
-### 常用脚本
+### Commonly used scripts
 ```bash
-# 开发
-pnpm dev:mp        # 等价 dev:mp-weixin
+# develop
+pnpm dev:mp # Equivalent to dev:mp-weixin
 
-# 构建
-pnpm build:mp      # 等价 build:mp-weixin
+# Build
+pnpm build:mp # Equivalent to build:mp-weixin
 
-# 其他
+# other
 pnpm type-check
 pnpm lint && pnpm lint:fix
 ```

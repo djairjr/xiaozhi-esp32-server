@@ -11,35 +11,35 @@ import lombok.EqualsAndHashCode;
 import xiaozhi.common.entity.BaseEntity;
 
 /**
- * 字典类型
+ * dictionary_type
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_dict_type")
 public class SysDictTypeEntity extends BaseEntity {
     /**
-     * 字典类型编码
+     * dictionary_type_encoding
      */
     private String dictType;
     /**
-     * 字典名称
+     * dictionary_name
      */
     private String dictName;
     /**
-     * 备注
+     * remark
      */
     private String remark;
     /**
-     * 排序
+     * sort
      */
     private Integer sort;
     /**
-     * 更新者
+     * updater
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updater;
     /**
-     * 更新时间
+     * update_time
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;

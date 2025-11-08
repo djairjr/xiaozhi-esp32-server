@@ -14,10 +14,11 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import xiaozhi.common.exception.RenException;
 
-/**
- * hibernate-validator校验工具类
- * 参考文档：http://docs.jboss.org/hibernate/validator/6.0/reference/en-US/html_single/
- */
+/*
+*
+* hibernate-validator verification tool class
+ * reference_documentation：http://docs.jboss.org/hibernate/validator/6.0/reference/en-US/html_single/
+*/
 public class ValidatorUtils {
 
     private static ResourceBundleMessageSource getMessageSource() {
@@ -28,10 +29,10 @@ public class ValidatorUtils {
     }
 
     /**
-     * 校验对象
+     * verification_object
      *
-     * @param object 待校验对象
-     * @param groups 待校验的组
+     * @param object object_to_be_verified
+     * @param groups group_to_be_verified
      */
     public static void validateEntity(Object object, Class<?>... groups)
             throws RenException {
@@ -48,9 +49,9 @@ public class ValidatorUtils {
     }
 
     /**
-     * 国际手机号正则表达式
-     * 要求必须带国际区号，格式：+[国家代码][手机号]
-     * 例如：
+     * international_mobile_phone_number_regular_expression
+     * international_dial_code_is_required，format：+[country_code][phone_number]
+     * for_example：
      * - +8613800138000
      * - +12345678900
      * - +447123456789
@@ -58,11 +59,11 @@ public class ValidatorUtils {
     private static final String INTERNATIONAL_PHONE_REGEX = "^\\+[1-9]\\d{0,3}[1-9]\\d{4,14}$";
 
     /**
-     * 校验手机号是否有效
-     * 要求必须带国际区号，格式：+[国家代码][手机号]
-     * 例如：+8613800138000
+     * verify_whether_the_mobile_phone_number_is_valid
+     * international_dial_code_is_required，format：+[country_code][phone_number]
+     * for_example：+8613800138000
      * 
-     * @param phone 手机号
+     * @param phone phone_number
      * @return boolean
      */
     public static boolean isValidPhone(String phone) {
@@ -70,7 +71,7 @@ public class ValidatorUtils {
             return false;
         }
 
-        // 验证必须带国际区号的手机号格式
+        // verify_the_mobile_phone_number_format_that_must_include_an_international_area_code
         Pattern pattern = Pattern.compile(INTERNATIONAL_PHONE_REGEX);
         return pattern.matcher(phone).matches();
     }

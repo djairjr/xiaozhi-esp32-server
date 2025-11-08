@@ -7,36 +7,36 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "模型供应器/商")
+@Schema(description = "model provider/vendor")
 public class ModelConfigBodyDTO {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "模型ID,未填写将自动生成")
+    @Schema(description = "Model ID, if not filled in, it will be automatically generated")
     private String id;
 
-    @Schema(description = "模型编码(如AliLLM、DoubaoTTS)")
+    @Schema(description = "Model encoding (such_as_alillm, DoubaoTTS)")
     private String modelCode;
 
-    @Schema(description = "模型名称")
+    @Schema(description = "Model name")
     private String modelName;
 
-    @Schema(description = "是否默认配置(0否 1是)")
+    @Schema(description = "Is it the default configuration (0 no 1 yes)")
     private Integer isDefault;
 
-    @Schema(description = "是否启用")
+    @Schema(description = "Whether to enable")
     private Integer isEnabled;
 
-    @Schema(description = "模型配置(JSON格式)")
+    @Schema(description = "Model configuration (JSON format)")
     private JSONObject configJson;
 
-    @Schema(description = "官方文档链接")
+    @Schema(description = "Official document link")
     private String docLink;
 
-    @Schema(description = "备注")
+    @Schema(description = "Remark")
     private String remark;
 
-    @Schema(description = "排序")
+    @Schema(description = "sort")
     private Integer sort;
 }

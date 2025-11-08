@@ -15,86 +15,87 @@ import xiaozhi.modules.device.vo.UserShowDeviceListVO;
 public interface DeviceService extends BaseService<DeviceEntity> {
 
     /**
-     * 检查设备是否激活
+     * check_if_the_device_is_activated
      */
     DeviceReportRespDTO checkDeviceActive(String macAddress, String clientId,
             DeviceReportReqDTO deviceReport);
 
     /**
-     * 获取用户指定智能体的设备列表，
+     * get_the_device_list_of_the_userspecified_agent，
      */
     List<DeviceEntity> getUserDevices(Long userId, String agentId);
 
     /**
-     * 解绑设备
+     * unbind_device
      */
     void unbindDevice(Long userId, String deviceId);
 
     /**
-     * 设备激活
+     * device_activation
      */
     Boolean deviceActivation(String agentId, String activationCode);
 
     /**
-     * 删除此用户的所有设备
+     * delete_all_devices_for_this_user
      * 
-     * @param userId 用户id
+     * @param userId user_id
      */
     void deleteByUserId(Long userId);
 
     /**
-     * 删除指定智能体关联的所有设备
+     * delete_all_devices_associated_with_the_specified_agent
      * 
-     * @param agentId 智能体id
+     * @param agentId agent_id
      */
     void deleteByAgentId(String agentId);
 
     /**
-     * 获取指定用户的设备数量
+     * get_the_number_of_devices_of_a_specified_user
      * 
-     * @param userId 用户id
-     * @return 设备数量
+     * @param userId user_id
+     * @return number_of_devices
      */
     Long selectCountByUserId(Long userId);
 
     /**
-     * 分页获取全部设备信息
+     * get_all_device_information_in_pages
      *
-     * @param dto 分页查找参数
-     * @return 用户列表分页数据
+     * @param dto pagination_search_parameters
+     * @return user_list_pagination_data
      */
     PageData<UserShowDeviceListVO> page(DevicePageUserDTO dto);
 
-    /**
-     * 根据MAC地址获取设备信息
+    /*
+*
+     * get_device_information_based_on_mac_address
      * 
-     * @param macAddress MAC地址
-     * @return 设备信息
-     */
+* @param macAddress MAC address
+     * @return device_information
+*/
     DeviceEntity getDeviceByMacAddress(String macAddress);
 
     /**
-     * 根据设备ID获取激活码
+     * get_activation_code_based_on_device_id
      * 
-     * @param deviceId 设备ID
-     * @return 激活码
+     * @param deviceId device_id
+     * @return activation_code
      */
     String geCodeByDeviceId(String deviceId);
 
     /**
-     * 获取这个智能体设备理的最近的最后连接时间
-     * @param agentId 智能体id
-     * @return 返回设备最近的最后连接时间
+     * get_the_most_recent_last_connection_time_for_this_smart_device
+     * @param agentId agent_id
+     * @return returns_the_devices_most_recent_last_connection_time
      */
     Date getLatestLastConnectionTime(String agentId);
 
     /**
-     * 手动添加设备
+     * add_device_manually
      */
     void manualAddDevice(Long userId, DeviceManualAddDTO dto);
 
     /**
-     * 更新设备连接信息
+     * update_device_connection_information
      */
     void updateDeviceConnectionInfo(String agentId, String deviceId, String appVersion);
 

@@ -1,7 +1,7 @@
 package xiaozhi.common.utils;
 
 /**
- * 返回响应体工具类
+ * return_response_body_tool_class
  */
 public class ResultUtils
 {

@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 智能体配置模板表
+ * agent_configuration_template_table
  * 
  * @TableName ai_agent_template
  */
@@ -19,107 +19,109 @@ import lombok.Data;
 @Data
 public class AgentTemplateEntity implements Serializable {
     /**
-     * 智能体唯一标识
+     * agent_unique_identifier
      */
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     /**
-     * 智能体编码
+     * agent_coding
      */
     private String agentCode;
 
     /**
-     * 智能体名称
+     * agent_name
      */
     private String agentName;
 
     /**
-     * 语音识别模型标识
+     * speech_recognition_model_identification
      */
     private String asrModelId;
 
     /**
-     * 语音活动检测标识
+     * voice_activity_detection_logo
      */
     private String vadModelId;
 
     /**
-     * 大语言模型标识
+     * large_language_model_identifier
      */
     private String llmModelId;
 
-    /**
-     * VLLM模型标识
-     */
+    /*
+*
+* VLLM model identification
+*/
     private String vllmModelId;
 
     /**
-     * 语音合成模型标识
+     * speech_synthesis_model_identification
      */
     private String ttsModelId;
 
     /**
-     * 音色标识
+     * timbre_identity
      */
     private String ttsVoiceId;
 
     /**
-     * 记忆模型标识
+     * memory_model_identifier
      */
     private String memModelId;
 
     /**
-     * 意图模型标识
+     * intent_model_identifier
      */
     private String intentModelId;
 
-    /**
-     * 聊天记录配置（0不记录 1仅记录文本 2记录文本和语音）
-     */
+    /*
+*
+* chat_history_configuration (0 does not record 1 records text only 2 records text and voice)
+*/
     private Integer chatHistoryConf;
 
     /**
-     * 角色设定参数
+     * character_setting_parameters
      */
     private String systemPrompt;
 
     /**
-     * 总结记忆
+     * summary_memory
      */
     private String summaryMemory;
     /**
-     * 语言编码
+     * language_encoding
      */
     private String langCode;
 
     /**
-     * 交互语种
+     * interactive_language
      */
     private String language;
 
     /**
-     * 排序权重
+     * sorting_weight
      */
     private Integer sort;
 
     /**
-     * 创建者 ID
+     * creator ID
      */
     private Long creator;
 
     /**
-     * 创建时间
+     * creation_time
      */
     private Date createdAt;
 
     /**
-     * 更新者 ID
+     * updater ID
      */
     private Long updater;
 
     /**
-     * 更新时间
+     * update_time
      */
     private Date updatedAt;
 

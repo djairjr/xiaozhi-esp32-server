@@ -5,23 +5,23 @@ import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 /**
- * 查询所有设备的DTO
+ * query_the_dto_of_all_devices
  * 
  * @author zjy
  * @since 2025-3-21
  */
 @Data
-@Schema(description = "查询所有设备的DTO")
+@Schema(description = "Query the DTO of all devices")
 public class DevicePageUserDTO {
 
-    @Schema(description = "设备关键词")
+    @Schema(description = "Equipment keywords")
     private String keywords;
 
-    @Schema(description = "页数")
+    @Schema(description = "Number of pages")
     @Min(value = 0, message = "{page.number}")
     private String page;
 
-    @Schema(description = "显示列数")
+    @Schema(description = "Display number of columns")
     @Min(value = 0, message = "{limit.number}")
     private String limit;
 }

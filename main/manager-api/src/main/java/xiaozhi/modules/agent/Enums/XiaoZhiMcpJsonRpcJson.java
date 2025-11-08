@@ -7,16 +7,16 @@ import java.util.Map;
 
 
 /**
- * 小智MCP JSON-RPC 请求json
+ * xiaozhi_mcp JSON-RPC request_json
  */
 public class XiaoZhiMcpJsonRpcJson {
-    //小智初始化mcp请求json
+    // Xiaozhi initializes mcp request json
     private static final String INITIALIZE_JSON;
-    //小智mcp初始化成功，返回通知请求json
+    // Xiaozhi mcp initialized successfully, return_notification_request_json
     private static final String NOTIFICATIONS_INITIALIZED_JSON;
-    //小智mcp获取mcp工具集合请求json
+    // Xiaozhi mcp gets mcp tool collection request json
     private static final String TOOLS_LIST_REQUEST;
-    // 延迟加载
+    // lazy_loading
     static {
         INITIALIZE_JSON = JsonUtils.toJsonString(new JsonRpcTwo("initialize",
                 Map.of(

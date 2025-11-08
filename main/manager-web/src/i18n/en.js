@@ -6,7 +6,7 @@ export default {
   'login.requiredMobile': 'Please enter a valid mobile phone number',
   'login.loginSuccess': 'Login successful!',
 
-  // HeaderBar组件文本
+  // HeaderBar component text
   'header.smartManagement': 'Agents',
   'header.modelConfig': 'Models',
   'header.voiceCloneManagement': 'Voice Clone',
@@ -16,7 +16,7 @@ export default {
   'header.paramDictionary': 'More',
   'header.paramManagement': 'Params Management',
   'header.dictManagement': 'Dict Management',
-  'header.agentTemplate': 'Default Role Templates', // 添加这一行
+  'header.agentTemplate': 'Default Role Templates', // add_this_line
   'header.searchHistory': 'Search History',
   'header.clearHistory': 'Clear History',
   'header.providerManagement': 'Provider Management',

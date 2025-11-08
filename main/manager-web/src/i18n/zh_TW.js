@@ -1,12 +1,12 @@
 export default {
-  // 登錄頁面相關提示文本
+  // login_page_related_prompt_text
   'login.requiredUsername': '用戶名不能為空',
   'login.requiredPassword': '密碼不能為空',
   'login.requiredCaptcha': '驗證碼不能為空',
   'login.requiredMobile': '請輸入正確的手機號碼',
   'login.loginSuccess': '登錄成功！',
 
-  // HeaderBar组件文本
+  // HeaderBar component text
   'header.smartManagement': '智能體管理',
   'header.modelConfig': '模型配置',
   'header.userManagement': '用戶管理',
@@ -25,7 +25,7 @@ export default {
   'header.logout': '退出登錄',
   'header.searchPlaceholder': '輸入名稱搜索..',
 
-  // McpToolCallDialog组件文本
+  // McpToolCallDialog component text
   'mcpToolCall.title': '工具調用',
   'mcpToolCall.execute': '執行',
   'mcpToolCall.chooseFunction': '1、選擇功能',
@@ -48,7 +48,7 @@ export default {
   'mcpToolCall.noResultYet': '暫無執行結果',
   'mcpToolCall.loadingToolList': '正在獲取工具列表...',
 
-  // 工具名稱
+  // tool_name
   'mcpToolCall.toolName.getDeviceStatus': '查看設備狀態',
   'mcpToolCall.toolName.setVolume': '設置音量',
   'mcpToolCall.toolName.setBrightness': '設置亮度',
@@ -62,7 +62,7 @@ export default {
   'mcpToolCall.toolName.previewImage': '預覽圖片',
   'mcpToolCall.toolName.setDownloadUrl': '設置下載地址',
 
-  // 工具分類
+  // tool_classification
   'mcpToolCall.category.audio': '音頻',
   'mcpToolCall.category.display': '顯示',
   'mcpToolCall.category.camera': '拍攝',
@@ -70,7 +70,7 @@ export default {
   'mcpToolCall.category.assets': '資源',
   'mcpToolCall.category.deviceInfo': '設備資訊',
 
-  // 表格分類和屬性
+  // table_classification_and_attributes
   'mcpToolCall.table.audioSpeaker': '音頻揚聲器',
   'mcpToolCall.table.screen': '螢幕',
   'mcpToolCall.table.network': '網路',
@@ -85,7 +85,7 @@ export default {
   'mcpToolCall.table.displayInfo': '顯示資訊',
   'mcpToolCall.table.deviceInfo': '設備資訊',
   'mcpToolCall.table.systemInfo': '系統資訊',
-  // 表格列標題
+  // table_column_headers
   'mcpToolCall.table.component': '組件',
   'mcpToolCall.table.property': '屬性',
   'mcpToolCall.table.value': '值',
@@ -122,21 +122,21 @@ export default {
   'mcpToolCall.prop.quality': '品質',
   'mcpToolCall.prop.question': '問題',
 
-  // 工具幫助文本
-  'mcpToolCall.help.getDeviceStatus': '查看設備的當前運行狀態，包括音量、螢幕、電池等資訊。',
-  'mcpToolCall.help.setVolume': '調整設備的音量大小，請輸入0-100之間的數值。',
-  'mcpToolCall.help.setBrightness': '調整設備螢幕的亮度，請輸入0-100之間的數值。',
+  // tool_help_text
+  'mcpToolCall.help.getDeviceStatus': '查看設備的當前運行狀態，including_volume、screen、電池等資訊。',
+  'mcpToolCall.help.setVolume': '調整設備的音量大小，please_enter_0-100之間的數值。',
+  'mcpToolCall.help.setBrightness': '調整設備螢幕的亮度，please_enter_0-100之間的數值。',
   'mcpToolCall.help.setTheme': '切換設備螢幕的顯示主題，可以選擇淺色或深色模式。',
   'mcpToolCall.help.takePhoto': '使用設備攝像頭拍攝照片並進行識別分析，請輸入要詢問的問題。',
-  'mcpToolCall.help.getSystemInfo': '獲取設備的系統資訊，包括硬體規格、軟體版本等。',
+  'mcpToolCall.help.getSystemInfo': '獲取設備的系統資訊，includes_hardware_specifications、軟體版本等。',
   'mcpToolCall.help.reboot': '重啟設備，執行後設備將重新啟動。',
   'mcpToolCall.help.upgradeFirmware': '從指定URL下載並升級設備固件，升級後設備會自動重啟。',
-  'mcpToolCall.help.getScreenInfo': '獲取螢幕的詳細資訊，如解析度、尺寸等參數。',
+  'mcpToolCall.help.getScreenInfo': '獲取螢幕的詳細資訊，such_as_resolution、尺寸等參數。',
   'mcpToolCall.help.snapshot': '對當前螢幕進行截圖並上傳到指定URL。',
   'mcpToolCall.help.previewImage': '在設備螢幕上預覽指定URL的圖片。',
   'mcpToolCall.help.setDownloadUrl': '設置設備資源文件的下載地址。',
 
-  // 其他文本
+  // other_text
   'mcpToolCall.text.strong': '強',
   'mcpToolCall.text.medium': '中',
   'mcpToolCall.text.weak': '弱',
@@ -156,7 +156,7 @@ export default {
   'mcpToolCall.text.getFailed': '獲取失敗',
   'mcpToolCall.text.getSuccessFormatError': '獲取成功，但數據格式異常',
 
-  // 字典數據對話框相關
+  // dictionary_data_dialog_box_related
   'dictDataDialog.addDictData': '新增字典數據',
   'dictDataDialog.dictLabel': '字典標籤',
   'dictDataDialog.dictLabelPlaceholder': '請輸入字典標籤',
@@ -166,7 +166,7 @@ export default {
   'dictDataDialog.requiredDictLabel': '請輸入字典標籤',
   'dictDataDialog.requiredDictValue': '請輸入字典值',
 
-  // 字典類型對話框相關
+  // dictionary_type_dialog_box_related
   'dictTypeDialog.addDictType': '新增字典類型',
   'dictTypeDialog.dictName': '字典類型名稱',
   'dictTypeDialog.dictNamePlaceholder': '請輸入字典類型名稱',
@@ -175,7 +175,7 @@ export default {
   'dictTypeDialog.requiredDictName': '請輸入字典類型名稱',
   'dictTypeDialog.requiredDictType': '請輸入字典類型編碼',
 
-  // 音頻編輯對話框相關
+  // audio_editing_dialog_box_related
   'editVoiceDialog.voiceCode': '音色編碼',
   'editVoiceDialog.voiceCodePlaceholder': '請輸入音色編碼',
   'editVoiceDialog.voiceName': '音色名稱',
@@ -191,9 +191,9 @@ export default {
   'editVoiceDialog.requiredVoiceCode': '請輸入音色編碼',
   'editVoiceDialog.requiredVoiceName': '請輸入音色名稱',
 
-  // 固件對話框相關
+  // firmware_dialog_related
   'firmwareDialog.firmwareName': '固件名稱',
-  'firmwareDialog.firmwareNamePlaceholder': '請輸入固件名稱(板子+版本號)',
+  'firmwareDialog.firmwareNamePlaceholder': '請輸入固件名稱(board+版本號)',
   'firmwareDialog.firmwareType': '固件類型',
   'firmwareDialog.firmwareTypePlaceholder': '請選擇固件類型',
   'firmwareDialog.version': '版本號',
@@ -201,20 +201,20 @@ export default {
   'firmwareDialog.firmwareFile': '固件文件',
   'firmwareDialog.clickUpload': '點擊上傳',
   'firmwareDialog.uploadTip': '只能上傳固件文件(.bin/.apk)，且不超過100MB',
-  'firmwareDialog.uploadHint': '溫馨提示：請上傳合併前的xiaozhi.bin文件，而不是合併後的merged-binary.bin文件',
+  'firmwareDialog.uploadHint': '溫馨提示：please_upload_xiaozhi_before_merging.bin文件，instead_of_merged-binary.bin文件',
   'firmwareDialog.remark': '備註',
   'firmwareDialog.remarkPlaceholder': '請輸入備註信息',
-  'firmwareDialog.requiredFirmwareName': '請輸入固件名稱(板子+版本號)',
+  'firmwareDialog.requiredFirmwareName': '請輸入固件名稱(board+版本號)',
   'firmwareDialog.requiredFirmwareType': '請選擇固件類型',
   'firmwareDialog.requiredVersion': '請輸入版本號',
-  'firmwareDialog.versionFormatError': '版本號格式不正確，請輸入x.x.x格式',
+  'firmwareDialog.versionFormatError': '版本號格式不正確，please_enter_x.x.x格式',
   'firmwareDialog.requiredFirmwareFile': '請上傳固件文件',
   'firmwareDialog.invalidFileType': '只能上傳.bin/.apk格式的固件文件!',
   'firmwareDialog.invalidFileSize': '固件文件大小不能超過100MB!',
   'firmwareDialog.uploadSuccess': '固件文件上傳成功',
   'firmwareDialog.uploadFailed': '文件上傳失敗',
 
-  // 聲紋對話框相關
+  // voiceprint_dialog_box_related
   'voicePrintDialog.addSpeaker': '添加說話人',
   'voicePrintDialog.voicePrintVector': '聲紋向量',
   'voicePrintDialog.selectVoiceMessage': '請選擇一條語言消息',
@@ -228,7 +228,7 @@ export default {
   'voicePrintDialog.requiredName': '請輸入姓名',
   'voicePrintDialog.requiredAudioVector': '請選擇音頻向量',
 
-  // 聲紋頁面相關
+  // voiceprint_page_related
   'voicePrint.pageTitle': '聲紋識別',
   'voicePrint.name': '姓名',
   'voicePrint.description': '描述',
@@ -252,7 +252,7 @@ export default {
   'voicePrint.closeOperation': '操作已關閉',
   'voicePrint.loading': '拼命加載中',
 
-  // 手動添加設備對話框相關
+  // manually_add_device_dialog_box_related
   'manualAddDeviceDialog.title': '手動添加設備',
   'manualAddDeviceDialog.deviceType': '設備型號',
   'manualAddDeviceDialog.deviceTypePlaceholder': '請選擇設備型號',
@@ -263,17 +263,17 @@ export default {
   'manualAddDeviceDialog.confirm': '確定',
   'manualAddDeviceDialog.cancel': '取消',
   'manualAddDeviceDialog.requiredMacAddress': '請輸入Mac地址',
-  'manualAddDeviceDialog.invalidMacAddress': '請輸入正確的Mac地址格式，例如：00:1A:2B:3C:4D:5E',
+  'manualAddDeviceDialog.invalidMacAddress': '請輸入正確的Mac地址格式，for_example：00:1A:2B:3C:4D:5E',
   'manualAddDeviceDialog.requiredDeviceType': '請選擇設備型號',
   'manualAddDeviceDialog.requiredFirmwareVersion': '請輸入固件版本',
   'manualAddDeviceDialog.getFirmwareTypeFailed': '獲取固件類型失敗',
   'manualAddDeviceDialog.addSuccess': '設備添加成功',
   'manualAddDeviceDialog.addFailed': '添加失敗',
 
-  // AddModelDialog組件相關
+  // AddModelDialog component related
   'addModelDialog.requiredSupplier': '請選擇供應器',
 
-  // 註冊頁面相關
+  // registration_page_related
   'register.title': '建立帳號',
   'register.welcome': '歡迎使用小智慧AI',
   'register.usernamePlaceholder': '請輸入用戶名',
@@ -307,7 +307,7 @@ export default {
   'register.confirmPasswordRequired': '確認密碼不能為空',
   'register.sendCaptcha': '獲取驗證碼',
 
-  // 參數對話框相關
+  // parameter_dialog_related
   'paramDialog.paramCode': '參數編碼',
   'paramDialog.paramCodePlaceholder': '請輸入參數編碼',
   'paramDialog.paramValue': '參數值',
@@ -327,7 +327,7 @@ export default {
   'paramDialog.arrayType': '陣列(array)',
   'paramDialog.jsonType': 'JSON物件(json)',
 
-  // 登录页面文本
+  // login_page_text
   'login.title': '登錄',
   'login.welcome': 'WELCOME TO LOGIN',
   'login.username': '用戶名',
@@ -349,7 +349,7 @@ export default {
   'login.privacyPolicy': '《隱私政策》',
   'login.registerAccount': '註冊賬號',
 
-  // 忘记密码页面文本
+  // forgot_password_page_text
   'retrievePassword.title': '重置密碼',
   'retrievePassword.welcome': '密碼找回',
   'retrievePassword.subtitle': '找回密碼',
@@ -379,7 +379,7 @@ export default {
   'retrievePassword.passwordUpdateSuccess': '密碼修改成功',
   'retrievePassword.agreeTo': '重置即同意',
 
-  // 修改密码页面文本
+  // change_password_page_text
   'changePassword.title': '修改密碼',
   'changePassword.oldPasswordLabel': '舊密碼：',
   'changePassword.oldPasswordPlaceholder': '請輸入舊密碼',
@@ -395,7 +395,7 @@ export default {
   'changePassword.passwordChangedSuccessfully': '密碼修改成功，請重新登錄',
   'changePassword.changeFailed': '密碼修改失敗',
 
-  // 设备管理页面文本
+  // device_management_page_text
   'device.management': '設備管理',
   'device.add': '添加設備',
   'device.edit': '編輯設備',
@@ -446,16 +446,16 @@ export default {
   'device.online': '在線',
   'device.offline': '離線',
 
-  // 消息提示
+  // message_prompt
   'message.success': '操作成功',
   'message.error': '操作失敗',
   'message.warning': '警告',
   'message.info': '提示',
 
-  // 缓存相关
+  // cache_related
   'cache.viewer': '緩存查看器',
 
-  // 聊天历史对话框相关
+  // chat_history_dialog_box_related
   'chatHistory.with': '與',
   'chatHistory.dialogTitle': '的聊天記錄',
   'chatHistory.loading': '加載中...',
@@ -492,8 +492,8 @@ export default {
   'cache.noCachedResourcesDesc': 'Service Worker可能尚未完成初始化或緩存尚未建立。請刷新頁面或等待一會後再試。',
   'cache.cdnCacheStatus': 'CDN資源緩存狀態',
   'cache.totalCachedResources': '共發現 {count} 個緩存資源',
-  'cache.jsResources': 'JavaScript 資源 ({count})',
-  'cache.cssResources': 'CSS 資源 ({count})',
+  'cache.jsResources': 'JavaScript resources ({count})',
+  'cache.cssResources': 'CSS resources ({count})',
   'cache.cached': '已緩存',
   'cache.notCached': '未緩存',
   'cache.refreshStatus': '刷新緩存狀態',
@@ -504,21 +504,21 @@ export default {
   'cache.clearFailed': '清除緩存失敗',
   'cache.clearCanceled': '已取消清除',
 
-  // 通用按钮
+  // universal_button
   'button.ok': '確定',
   'button.cancel': '取消',
   'button.save': '保存',
   'button.close': '關閉',
 
-  // 系统信息
+  // system_information
   'system.name': '小智服務',
 
-  // 声纹相关
+  // voiceprint_related
   'voiceprint.management': '聲紋管理',
   'voiceprint.add': '添加聲紋',
   'voiceprint.delete': '刪除聲紋',
 
-  // 字典管理頁面文本
+  // dictionary_management_page_text
   'dictManagement.pageTitle': '字典管理',
   'dictManagement.searchPlaceholder': '請輸入字典值標籤查詢',
   'dictManagement.search': '搜索',
@@ -535,7 +535,7 @@ export default {
   'dictManagement.batchDeleteDictType': '批量刪除字典類型',
   'dictManagement.addDictData': '新增字典數據',
   'dictManagement.batchDeleteDictData': '批量刪除字典數據',
-  'dictManagement.itemsPerPage': '{items}條/頁',
+  'dictManagement.itemsPerPage': '{items}article/頁',
   'dictManagement.firstPage': '首頁',
   'dictManagement.prevPage': '上一頁',
   'dictManagement.nextPage': '下一頁',
@@ -554,7 +554,7 @@ export default {
   'dictManagement.confirmBatchDeleteDictData': '確定要刪除選中的{count}個字典數據嗎?',
   'dictManagement.getDictDataFailed': '獲取字典數據失敗',
 
-  // 用户信息
+  // user_information
   'user.info': '用戶信息',
   'user.username': '用戶名',
   'user.mobile': '手機號',
@@ -578,7 +578,7 @@ export default {
   'user.deleting': '正在刪除中...',
   'user.deleteSuccess': '成功刪除{count}個用戶',
   'user.deleteFailed': '刪除失敗，請重試',
-  'user.partialDelete': '成功刪除{successCount}個用戶，{failCount}個刪除失敗',
+  'user.partialDelete': '成功刪除{successCount}users，{failCount}個刪除失敗',
   'user.deleteError': '刪除過程中發生錯誤',
   'user.deleteCancelled': '已取消刪除',
   'user.confirmResetPassword': '重置後將會生成新密碼，是否繼續？',
@@ -587,13 +587,13 @@ export default {
   'user.confirmDeleteUser': '確定要刪除該用戶嗎？',
   'user.deleteUserSuccess': '刪除成功',
   'user.operationFailed': '操作失敗，請重試',
-  'user.confirmStatusChange': '確定要{action}選中的{count}個用戶嗎？',
+  'user.confirmStatusChange': '確定要{action}selected{count}個用戶嗎？',
   'user.statusChangeSuccess': '成功{action}{count}個用戶',
   'user.invalidUserId': '存在無效的用戶ID',
   'user.searchPhone': '請輸入手機號碼查詢',
   'user.search': '搜索',
 
-  // 字段管理頁面文本
+  // field_management_page_text
   'providerManagement.categoryFilter': '類別篩選',
   'providerManagement.searchPlaceholder': '請輸入供應器名稱查詢',
   'providerManagement.category': '類別',
@@ -603,7 +603,7 @@ export default {
   'providerManagement.confirmDelete': '確定要刪除選中的{count}個供應器嗎？',
   'providerManagement.viewFields': '查看字段',
 
-  // 公共文本
+  // public_text
   'common.all': '全部',
   'common.search': '搜索',
   'common.name': '名稱',
@@ -614,7 +614,7 @@ export default {
   'common.selectAll': '全選',
   'common.deselectAll': '取消全選',
   'common.add': '新增',
-  'common.perPage': '{number}條/頁',
+  'common.perPage': '{number}article/頁',
   'common.firstPage': '首頁',
   'common.prevPage': '上一頁',
   'common.nextPage': '下一頁',
@@ -633,12 +633,12 @@ export default {
   'common.cancel': '取消',
   'common.sensitive': '敏感',
 
-  // 語言切換
+  // language_switch
   'language.zhCN': '中文简体',
   'language.zhTW': '中文繁體',
   'language.en': 'English',
 
-  // 首頁文本
+  // home_text
   'home.addAgent': '添加智能體',
   'home.greeting': '你好小智',
   'home.wish': '讓我們度過美好的一天！',
@@ -652,13 +652,13 @@ export default {
   'home.noConversation': '暫未對話',
   'home.justNow': '剛剛',
   'home.minutesAgo': '{minutes}分鐘前',
-  'home.hoursAgo': '{hours}小時{minutes}分鐘前',
+  'home.hoursAgo': '{hours}hours{minutes}分鐘前',
   'home.confirmDeleteAgent': '確定要刪除該智能體嗎？',
   'home.deleteSuccess': '刪除成功',
   'home.deleteFailed': '刪除失敗',
-  'home.enableMemory': '請先在「配置角色」介面開啟記憶',
+  'home.enableMemory': '請先在「configure_role」介面開啟記憶',
 
-  // 參數管理頁面文本
+  // parameter_management_page_text
   'paramManagement.pageTitle': '參數管理',
   'paramManagement.searchPlaceholder': '請輸入參數編碼或備註查詢',
   'paramManagement.search': '搜索',
@@ -693,7 +693,7 @@ export default {
   'paramManagement.updateFailed': '更新失敗',
   'paramManagement.addFailed': '新增失敗',
 
-  // 服務端管理頁面文本
+  // server_management_page_text
   'serverSideManager.pageTitle': '服務端管理',
   'serverSideManager.wsAddress': 'ws地址',
   'serverSideManager.operation': '操作',
@@ -709,7 +709,7 @@ export default {
   'serverSideManager.restartSuccess': '重啟成功',
   'serverSideManager.updateConfigSuccess': '更新配置成功',
 
-  // 添加智能體對話框文本
+  // add_agent_dialog_text
   'addAgentDialog.title': '添加智能體',
   'addAgentDialog.agentName': '智能體名稱',
   'addAgentDialog.placeholder': '請輸入智能體名稱..',
@@ -718,9 +718,9 @@ export default {
   'addAgentDialog.nameRequired': '請輸入智能體名稱',
   'addAgentDialog.addSuccess': '添加成功',
 
-  // 角色配置頁面文本
+  // role_configuration_page_text
   'roleConfig.title': '角色配置',
-  'roleConfig.restartNotice': '保存配置後，需要重啟設備，新的配置才會生效。',
+  'roleConfig.restartNotice': '保存配置後，need_to_restart_the_device，新的配置才會生效。',
   'roleConfig.saveConfig': '保存配置',
   'roleConfig.reset': '重置',
   'roleConfig.agentName': '助手暱稱',
@@ -738,8 +738,8 @@ export default {
   'roleConfig.intent': '意圖識別(Intent)',
   'roleConfig.voiceType': '聲音音色(Voice)',
   'roleConfig.pleaseEnterContent': '請輸入內容',
-  'roleConfig.pleaseEnterLangCode': '請輸入語言編碼，如：zh_TW',
-  'roleConfig.pleaseEnterLangName': '請輸入交互語種，如：繁體中文',
+  'roleConfig.pleaseEnterLangCode': '請輸入語言編碼，like：zh_TW',
+  'roleConfig.pleaseEnterLangName': '請輸入交互語種，like：繁體中文',
   'roleConfig.pleaseSelect': '請選擇',
   'roleConfig.editFunctions': '編輯功能',
   'roleConfig.reportText': '上報文字',
@@ -755,7 +755,7 @@ export default {
   'roleConfig.fetchModelsFailed': '獲取模型列表失敗',
   'roleConfig.fetchPluginsFailed': '獲取插件列表失敗',
 
-  // 功能管理對話框文本
+  // function_management_dialog_text
   'functionDialog.title': '功能管理',
   'functionDialog.unselectedFunctions': '未選功能',
   'functionDialog.selectedFunctions': '已選功能',
@@ -783,7 +783,7 @@ export default {
   'functionDialog.jsonFormatError': '的字段格式錯誤：JSON格式有誤',
   'functionDialog.defaultValue': '默認值',
 
-  // 模型配置頁面文本
+  // model_configuration_page_text
   'modelConfig.searchPlaceholder': '請輸入模型名稱查詢',
   'modelConfig.search': '搜索',
   'modelConfig.vad': '語言活動檢測',
@@ -826,14 +826,14 @@ export default {
   'modelConfig.disableSuccess': '禁用成功',
   'modelConfig.operationFailed': '操作失敗',
   'modelConfig.setDefaultSuccess': '設置默認模型成功',
-  'modelConfig.itemsPerPage': '{items}條/頁',
+  'modelConfig.itemsPerPage': '{items}article/頁',
   'modelConfig.firstPage': '首頁',
   'modelConfig.prevPage': '上一頁',
   'modelConfig.nextPage': '下一頁',
   'modelConfig.totalRecords': '共{total}條記錄',
   'modelConfig.loading': '拼命加載中',
 
-  // 模型配置對話框文本
+  // model_configuration_dialog_text
   'modelConfigDialog.addModel': '添加模型',
   'modelConfigDialog.editModel': '修改模型',
   'modelConfigDialog.duplicateModel': '建立副本',
@@ -856,10 +856,10 @@ export default {
   'modelConfigDialog.remark': '備註',
   'modelConfigDialog.enterRemark': '請輸入模型備註',
   'modelConfigDialog.callInfo': '調用信息',
-  'modelConfigDialog.enterJsonExample': '請輸入JSON格式變量(示例:{"key":"value"})',
+  'modelConfigDialog.enterJsonExample': '請輸入JSON格式變量(example:{"key":"value"})',
   'modelConfigDialog.save': '保存',
 
-  // TTS模型配置文本
+  // TTS model configuration text
   'ttsModel.select': '選擇',
   'ttsModel.voiceCode': '音色編碼',
   'ttsModel.voiceName': '音色名稱',
@@ -892,7 +892,7 @@ export default {
   'ttsModel.operationFailed': '操作失敗',
   'ttsModel.operationClosed': '操作已關閉',
 
-  // OTA管理頁面文本
+  // OTA management page text
   'otaManagement.firmwareManagement': '固件管理',
   'otaManagement.searchPlaceholder': '請輸入固件名稱查詢',
   'otaManagement.search': '搜索',
@@ -912,7 +912,7 @@ export default {
   'otaManagement.addNew': '新增',
   'otaManagement.addFirmware': '新增固件',
   'otaManagement.editFirmware': '編輯固件',
-  'otaManagement.itemsPerPage': '{items}條/頁',
+  'otaManagement.itemsPerPage': '{items}article/頁',
   'otaManagement.firstPage': '首頁',
   'otaManagement.prevPage': '上一頁',
   'otaManagement.nextPage': '下一頁',
@@ -932,7 +932,7 @@ export default {
   'otaManagement.addFailed': '新增失敗',
   'otaManagement.fetchFirmwareListFailed': '獲取固件列表失敗',
 
-  // 字段管理頁面模型類型翻譯
+  // field_management_page_model_type_translation
   'providerManagement.all': '全部',
   'providerManagement.modelType.ASR': '語音識別',
   'providerManagement.modelType.TTS': '語音合成',
@@ -943,7 +943,7 @@ export default {
   'providerManagement.modelType.VAD': '語音活動檢測',
   'providerManagement.modelType.Plugin': '插件工具',
 
-  // Provider Dialog 翻譯
+  // Provider Dialog translation
   'providerDialog.category': '類別',
   'providerDialog.selectCategory': '請選擇類別',
   'providerDialog.code': '編碼',
@@ -981,7 +981,7 @@ export default {
   'providerDialog.confirmBatchDeleteFields': '確定要刪除選中的{count}個字段嗎？',
   'providerDialog.batchDeleteFieldsSuccess': '成功刪除{count}個字段',
 
-  // 預設角色管理頁面文本
+  // default_role_management_page_text
   'agentTemplateManagement.title': '預設角色管理',
   'agentTemplateManagement.templateName': '模板名稱',
   'agentTemplateManagement.action': '操作',
@@ -1007,7 +1007,7 @@ export default {
   'agentTemplateManagement.batchDeleteFailed': '模板批次刪除失敗',
   'agentTemplateManagement.deleteBackendError': '刪除失敗，請檢查後端服務是否正常',
 
-  // 模板快速配置
+  // template_quick_configuration
   'templateQuickConfig.title': '模組快速設定',
   'templateQuickConfig.agentSettings.agentName': '助手暱稱',
   'templateQuickConfig.agentSettings.agentNamePlaceholder': '請輸入助手暱稱',
@@ -1026,7 +1026,7 @@ export default {
   'info': '提示',
   'common.networkError': '網路請求失敗',
 
-  // SM2加密相關錯誤消息
+  // SM2 encryption related error messages
   'sm2.publicKeyNotConfigured': 'SM2公鑰未配置，請聯繫管理員',
   'sm2.encryptionFailed': '密碼加密失敗',
   'sm2.keyGenerationFailed': '金鑰對生成失敗',
@@ -1035,7 +1035,7 @@ export default {
   'sm2.publicKeyRetry': '正在重試獲取公鑰...',
   'sm2.publicKeyRetryFailed': '公鑰獲取重試失敗',
 
-  // 音色資源管理
+  // sound_resource_management
   'voiceClone.title': '音色克隆',
   'voiceResource.title': '音色資源',
   'voiceClone.platformName': '平台名稱',
@@ -1092,7 +1092,7 @@ export default {
   'voiceClone.stepUpload': '準備音頻',
   'voiceClone.stepEdit': '音頻編輯',
   'voiceClone.dragOrClick': '將音頻文件拖到此處，或點擊上傳',
-  'voiceClone.uploadTip': '支持所有主流音頻格式，選區時長需要在8-60秒之間',
+  'voiceClone.uploadTip': '支持所有主流音頻格式，the_duration_of_the_selection_needs_to_be_within_8-60秒之間',
   'voiceClone.editTip1': '請確認上傳音頻是否滿意',
   'voiceClone.editTip2': '您可以試聽並裁剪音頻，如果不滿意可以返回重新錄製或上傳',
   'voiceClone.selectedDuration': '已選擇有效片段：{duration}秒',

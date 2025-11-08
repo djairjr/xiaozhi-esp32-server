@@ -17,7 +17,7 @@ import xiaozhi.modules.agent.service.AgentMcpAccessPointService;
 import xiaozhi.modules.agent.service.AgentService;
 import xiaozhi.modules.security.user.SecurityUser;
 
-@Tag(name = "智能体Mcp接入点管理")
+@Tag(name = "Intelligent Mcp access point management")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/agent/mcp")
@@ -26,39 +26,39 @@ public class AgentMcpAccessPointController {
     private final AgentService agentService;
 
     /**
-     * 获取智能体的Mcp接入点地址
+     * get_the_agents_mcp_access_point_address
      * 
-     * @param audioId 智能体id
-     * @return 返回错误提醒或者Mcp接入点地址
+     * @param audioId agent_id
+     * @return return_error_reminder_or_mcp_access_point_address
      */
-    @Operation(summary = "获取智能体的Mcp接入点地址")
+    @Operation(summary = "Get the agent's Mcp access point address")
     @GetMapping("/address/{agentId}")
     @RequiresPermissions("sys:role:normal")
     public Result<String> getAgentMcpAccessAddress(@PathVariable("agentId") String agentId) {
-        // 获取当前用户
+        // get_current_user
         UserDetail user = SecurityUser.getUser();
 
-        // 检查权限
+        // check_permissions
         if (!agentService.checkAgentPermission(agentId, user.getId())) {
-            return new Result<String>().error("没有权限查看该智能体的MCP接入点地址");
+            return new Result<String>().error("You do not have permission to view the MCP access point address of this agent.");
         }
         String agentMcpAccessAddress = agentMcpAccessPointService.getAgentMcpAccessAddress(agentId);
         if (agentMcpAccessAddress == null) {
-            return new Result<String>().ok("请联系管理员进入参数管理配置mcp接入点地址");
+            return new Result<String>().ok("Please contact the administrator to enter parameter management to configure the mcp access point address.");
         }
         return new Result<String>().ok(agentMcpAccessAddress);
     }
 
-    @Operation(summary = "获取智能体的Mcp工具列表")
+    @Operation(summary = "Get the agent's Mcp tool list")
     @GetMapping("/tools/{agentId}")
     @RequiresPermissions("sys:role:normal")
     public Result<List<String>> getAgentMcpToolsList(@PathVariable("agentId") String agentId) {
-        // 获取当前用户
+        // get_current_user
         UserDetail user = SecurityUser.getUser();
 
-        // 检查权限
+        // check_permissions
         if (!agentService.checkAgentPermission(agentId, user.getId())) {
-            return new Result<List<String>>().error("没有权限查看该智能体的MCP工具列表");
+            return new Result<List<String>>().error("Do not have permission to view the MCP tool list of this agent");
         }
         List<String> agentMcpToolsList = agentMcpAccessPointService.getAgentMcpToolsList(agentId);
         return new Result<List<String>>().ok(agentMcpToolsList);

@@ -17,8 +17,8 @@ import xiaozhi.common.utils.MessageUtils;
 import xiaozhi.common.utils.Result;
 
 /**
- * 异常处理器
- * Copyright (c) 人人开源 All rights reserved.
+ * exception_handler
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 @Slf4j
@@ -27,7 +27,7 @@ import xiaozhi.common.utils.Result;
 public class RenExceptionHandler {
 
     /**
-     * 处理自定义异常
+     * handle_custom_exceptions
      */
     @ExceptionHandler(RenException.class)
     public Result<Void> handleRenException(RenException ex) {

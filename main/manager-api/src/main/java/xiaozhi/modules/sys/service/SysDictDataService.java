@@ -11,59 +11,59 @@ import xiaozhi.modules.sys.vo.SysDictDataItem;
 import xiaozhi.modules.sys.vo.SysDictDataVO;
 
 /**
- * 数据字典
+ * data_dictionary
  */
 public interface SysDictDataService extends BaseService<SysDictDataEntity> {
 
     /**
-     * 分页查询数据字典信息
+     * query_data_dictionary_information_by_page
      *
-     * @param params 查询参数，包含分页信息和查询条件
-     * @return 返回数据字典的分页查询结果
+     * @param params query_parameters，contains_paging_information_and_query_conditions
+     * @return returns_the_paginated_query_results_of_the_data_dictionary
      */
     PageData<SysDictDataVO> page(Map<String, Object> params);
 
     /**
-     * 根据ID获取数据字典实体
+     * get_data_dictionary_entity_based_on_id
      *
-     * @param id 数据字典实体的唯一标识
-     * @return 返回数据字典实体的详细信息
+     * @param id the_unique_identifier_of_the_data_dictionary_entity
+     * @return returns_details_of_a_data_dictionary_entity
      */
     SysDictDataVO get(Long id);
 
     /**
-     * 保存新的数据字典项
+     * save_new_data_dictionary_entry
      *
-     * @param dto 数据字典项的保存数据传输对象
+     * @param dto saved_data_transfer_object_for_data_dictionary_items
      */
     void save(SysDictDataDTO dto);
 
     /**
-     * 更新数据字典项
+     * update_data_dictionary_entry
      *
-     * @param dto 数据字典项的更新数据传输对象
+     * @param dto update_data_transfer_object_for_data_dictionary_items
      */
     void update(SysDictDataDTO dto);
 
     /**
-     * 删除数据字典项
+     * delete_data_dictionary_entry
      *
-     * @param ids 要删除的数据字典项的ID数组
+     * @param ids array_of_ids_of_data_dictionary_items_to_delete
      */
     void delete(Long[] ids);
 
     /**
-     * 根据字典类型ID删除对应的字典数据
+     * delete_the_corresponding_dictionary_data_according_to_the_dictionary_type_id
      *
-     * @param dictTypeId 字典类型ID
+     * @param dictTypeId dictionary_type_id
      */
     void deleteByTypeId(Long dictTypeId);
 
     /**
-     * 根据字典类型获取字典数据列表
+     * get_dictionary_data_list_based_on_dictionary_type
      *
-     * @param dictType 字典类型
-     * @return 返回字典数据列表
+     * @param dictType dictionary_type
+     * @return return_dictionary_data_list
      */
     List<SysDictDataItem> getDictDataByType(String dictType);
 

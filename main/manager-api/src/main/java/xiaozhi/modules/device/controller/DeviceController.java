@@ -37,7 +37,7 @@ import xiaozhi.modules.device.service.DeviceService;
 import xiaozhi.modules.security.user.SecurityUser;
 import xiaozhi.modules.sys.service.SysParamsService;
 
-@Tag(name = "设备管理")
+@Tag(name = "Device management")
 @RestController
 @RequestMapping("/device")
 public class DeviceController {
@@ -57,7 +57,7 @@ public class DeviceController {
     }
 
     @PostMapping("/bind/{agentId}/{deviceCode}")
-    @Operation(summary = "绑定设备")
+    @Operation(summary = "Bind device")
     @RequiresPermissions("sys:role:normal")
     public Result<Void> bindDevice(@PathVariable String agentId, @PathVariable String deviceCode) {
         deviceService.deviceActivation(agentId, deviceCode);
@@ -65,13 +65,13 @@ public class DeviceController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "注册设备")
+    @Operation(summary = "Register device")
     public Result<String> registerDevice(@RequestBody DeviceRegisterDTO deviceRegisterDTO) {
         String macAddress = deviceRegisterDTO.getMacAddress();
         if (StringUtils.isBlank(macAddress)) {
-            return new Result<String>().error(ErrorCode.NOT_NULL, "mac地址不能为空");
+            return new Result<String>().error(ErrorCode.NOT_NULL, "mac address cannot be empty");
         }
-        // 生成六位验证码
+        // generate_sixdigit_verification_code
         String code = String.valueOf(Math.random()).substring(2, 8);
         String key = RedisKeys.getDeviceCaptchaKey(code);
         String existsMac = null;
@@ -84,7 +84,7 @@ public class DeviceController {
     }
 
     @GetMapping("/bind/{agentId}")
-    @Operation(summary = "获取已绑定设备")
+    @Operation(summary = "Get bound devices")
     @RequiresPermissions("sys:role:normal")
     public Result<List<DeviceEntity>> getUserDevices(@PathVariable String agentId) {
         UserDetail user = SecurityUser.getUser();
@@ -93,79 +93,79 @@ public class DeviceController {
     }
 
     @PostMapping("/bind/{agentId}")
-    @Operation(summary = "设备在线接口")
+    @Operation(summary = "Device online interface")
     @RequiresPermissions("sys:role:normal")
     public Result<String> forwardToMqttGateway(@PathVariable String agentId, @RequestBody String requestBody) {
         try {
-            // 从系统参数中获取MQTT网关地址
+            // get_mqtt_gateway_address_from_system_parameters
             String mqttGatewayUrl = sysParamsService.getValue("server.mqtt_manager_api", true);
             if (StringUtils.isBlank(mqttGatewayUrl) || "null".equals(mqttGatewayUrl)) {
                 return new Result<>();
             }
 
-            // 获取当前用户的设备列表
+            // get_the_current_users_device_list
             UserDetail user = SecurityUser.getUser();
             List<DeviceEntity> devices = deviceService.getUserDevices(user.getId(), agentId);
 
-            // 构建deviceIds数组
+            // build_deviceids_array
             java.util.List<String> deviceIds = new java.util.ArrayList<>();
             for (DeviceEntity device : devices) {
                 String macAddress = device.getMacAddress() != null ? device.getMacAddress() : "unknown";
                 String groupId = device.getBoard() != null ? device.getBoard() : "GID_default";
 
-                // 替换冒号为下划线
+                // replace_colon_with_underscore
                 groupId = groupId.replace(":", "_");
                 macAddress = macAddress.replace(":", "_");
 
-                // 构建mqtt客户端ID格式：groupId@@@macAddress@@@macAddress
+                // build_mqtt_client_id_format：groupId@@@macAddress@@@macAddress
                 String mqttClientId = groupId + "@@@" + macAddress + "@@@" + macAddress;
                 deviceIds.add(mqttClientId);
             }
 
-            // 构建完整的URL
+            // build_the_complete_url
             String url = "http://" + mqttGatewayUrl + "/api/devices/status";
 
-            // 设置请求头
+            // set_request_header
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
 
-            // 生成Bearer令牌
+            // generate_bearer_token
             String token = generateBearerToken();
             if (token == null) {
-                return new Result<String>().error("令牌生成失败");
+                return new Result<String>().error("Token generation failed");
             }
             headers.set("Authorization", "Bearer " + token);
 
-            // 构建请求体JSON
+            // build_request_body_json
             String jsonBody = "{\"clientIds\":" + objectMapper.writeValueAsString(deviceIds) + "}";
             HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
 
-            // 发送POST请求
+            // send_post_request
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
-            // 返回响应
+            // return_response
             return new Result<String>().ok(response.getBody());
         } catch (Exception e) {
-            return new Result<String>().error("转发请求失败: " + e.getMessage());
+            return new Result<String>().error("Forward request failed:" + e.getMessage());
         }
     }
 
     private String generateBearerToken() {
         try {
-            // 获取当前日期，格式为yyyy-MM-dd
+            // get_current_date，the_format_is_yyyy-MM-dd
             String dateStr = java.time.LocalDate.now()
                     .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-            // 获取MQTT签名密钥
+            // get_mqtt_signing_key
             String signatureKey = sysParamsService.getValue("server.mqtt_signature_key", false);
             if (StringUtils.isBlank(signatureKey)) {
                 return null;
             }
 
-            // 将日期字符串与MQTT_SIGNATURE_KEY连接
+            // concatenate_date_string_with_mqtt_signature_key
             String tokenContent = dateStr + signatureKey;
 
-            // 对连接后的字符串进行SHA256哈希计算
+            // perform_sha256_hash_calculation_on_the_concatenated_strings
             String token = org.apache.commons.codec.digest.DigestUtils.sha256Hex(tokenContent);
 
             return token;
@@ -175,7 +175,7 @@ public class DeviceController {
     }
 
     @PostMapping("/unbind")
-    @Operation(summary = "解绑设备")
+    @Operation(summary = "Unbind device")
     @RequiresPermissions("sys:role:normal")
     public Result<Void> unbindDevice(@RequestBody DeviceUnBindDTO unDeviveBind) {
         UserDetail user = SecurityUser.getUser();
@@ -184,16 +184,16 @@ public class DeviceController {
     }
 
     @PutMapping("/update/{id}")
-    @Operation(summary = "更新设备信息")
+    @Operation(summary = "Update device information")
     @RequiresPermissions("sys:role:normal")
     public Result<Void> updateDeviceInfo(@PathVariable String id, @Valid @RequestBody DeviceUpdateDTO deviceUpdateDTO) {
         DeviceEntity entity = deviceService.selectById(id);
         if (entity == null) {
-            return new Result<Void>().error("设备不存在");
+            return new Result<Void>().error("Device does not exist");
         }
         UserDetail user = SecurityUser.getUser();
         if (!entity.getUserId().equals(user.getId())) {
-            return new Result<Void>().error("设备不存在");
+            return new Result<Void>().error("Device does not exist");
         }
         BeanUtils.copyProperties(deviceUpdateDTO, entity);
         deviceService.updateById(entity);
@@ -201,7 +201,7 @@ public class DeviceController {
     }
 
     @PostMapping("/manual-add")
-    @Operation(summary = "手动添加设备")
+    @Operation(summary = "Add device manually")
     @RequiresPermissions("sys:role:normal")
     public Result<Void> manualAddDevice(@RequestBody @Valid DeviceManualAddDTO dto) {
         UserDetail user = SecurityUser.getUser();

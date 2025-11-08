@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 音色表实体类
+ * tone_table_entity_class
  * 
  * @author zjy
  * @since 2025-3-21
@@ -19,52 +19,52 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("ai_tts_voice")
-@Schema(description = "音色信息")
+@Schema(description = "timbre information")
 public class TimbreEntity {
 
     @Schema(description = "id")
     private String id;
 
-    @Schema(description = "语言")
+    @Schema(description = "language")
     private String languages;
 
-    @Schema(description = "音色名称")
+    @Schema(description = "Voice name")
     private String name;
 
-    @Schema(description = "备注")
+    @Schema(description = "Remark")
     private String remark;
 
-    @Schema(description = "参考音频路径")
+    @Schema(description = "Reference audio path")
     private String referenceAudio;
 
-    @Schema(description = "參考文本")
+    @Schema(description = "Reference text")
     private String referenceText;
 
-    @Schema(description = "排序")
+    @Schema(description = "sort")
     private long sort;
 
-    @Schema(description = "对应 TTS 模型主键")
+    @Schema(description = "Corresponds to TTS model primary key")
     private String ttsModelId;
 
-    @Schema(description = "音色编码")
+    @Schema(description = "timbre encoding")
     private String ttsVoice;
 
-    @Schema(description = "音频播放地址")
+    @Schema(description = "Audio playback address")
     private String voiceDemo;
 
-    @Schema(description = "更新者")
+    @Schema(description = "Updater")
     @TableField(fill = FieldFill.UPDATE)
     private Long updater;
 
-    @Schema(description = "更新时间")
+    @Schema(description = "Update time")
     @TableField(fill = FieldFill.UPDATE)
     private Date updateDate;
 
-    @Schema(description = "创建者")
+    @Schema(description = "Creator")
     @TableField(fill = FieldFill.INSERT)
     private Long creator;
 
-    @Schema(description = "创建时间")
+    @Schema(description = "creation time")
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
 

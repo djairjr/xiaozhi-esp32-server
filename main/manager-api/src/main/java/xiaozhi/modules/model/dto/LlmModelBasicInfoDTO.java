@@ -3,9 +3,10 @@ package xiaozhi.modules.model.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * LLM的模型的基础展示数据
- */
+/*
+*
+*Basic display data of LLM model
+*/
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class LlmModelBasicInfoDTO extends ModelBasicInfoDTO{

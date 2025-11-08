@@ -37,7 +37,7 @@ class WebSocketServer:
 
         auth_config = self.config["server"].get("auth", {})
         self.auth_enable = auth_config.get("enabled", False)
-        # 设备白名单
+        # Device whitelist
         self.allowed_devices = set(auth_config.get("allowed_devices", []))
         secret_key = self.config["server"]["auth_key"]
         expire_seconds = auth_config.get("expire_seconds", None)
@@ -56,19 +56,19 @@ class WebSocketServer:
     async def _handle_connection(self, websocket):
         headers = dict(websocket.request.headers)
         if headers.get("device-id", None) is None:
-            # 尝试从 URL 的查询参数中获取 device-id
+            # Try to get the device-id from the query parameters of the URL
             from urllib.parse import parse_qs, urlparse
 
-            # 从 WebSocket 请求中获取路径
+            # Get path from WebSocket request
             request_path = websocket.request.path
             if not request_path:
-                self.logger.bind(tag=TAG).error("无法获取请求路径")
+                self.logger.bind(tag=TAG).error("Unable to get request path")
                 await websocket.close()
                 return
             parsed_url = urlparse(request_path)
             query_params = parse_qs(parsed_url.query)
             if "device-id" not in query_params:
-                await websocket.send("端口正常，如需测试连接，请使用test_page.html")
+                await websocket.send("The port is normal. If you need to test the connection, please use test_page.html")
                 await websocket.close()
                 return
             else:
@@ -80,15 +80,15 @@ class WebSocketServer:
                     "authorization"
                 ][0]
 
-        """处理新连接，每次创建独立的ConnectionHandler"""
-        # 先认证，后建立连接
+        """To handle new connections, create a separate ConnectionHandler each time"""
+        # Authentication first, then establishing connection
         try:
             await self._handle_auth(websocket)
         except AuthenticationError:
-            await websocket.send("认证失败")
+            await websocket.send("Authentication failed")
             await websocket.close()
             return
-        # 创建ConnectionHandler时传入当前server实例
+        # Pass in the current server instance when creating ConnectionHandler
         handler = ConnectionHandler(
             self.config,
             self._vad,
@@ -96,63 +96,62 @@ class WebSocketServer:
             self._llm,
             self._memory,
             self._intent,
-            self,  # 传入server实例
+            self,  # Pass in server instance
         )
         self.active_connections.add(handler)
         try:
             await handler.handle_connection(websocket)
         except Exception as e:
-            self.logger.bind(tag=TAG).error(f"处理连接时出错: {e}")
+            self.logger.bind(tag=TAG).error(f"Error while processing connection: {e}")
         finally:
-            # 确保从活动连接集合中移除
+            # Make sure to remove it from the active connection collection
             self.active_connections.discard(handler)
-            # 强制关闭连接（如果还没有关闭的话）
+            # Forcefully close the connection (if it's not already closed)
             try:
-                # 安全地检查WebSocket状态并关闭
+                # Safely check WebSocket status and close
                 if hasattr(websocket, "closed") and not websocket.closed:
                     await websocket.close()
                 elif hasattr(websocket, "state") and websocket.state.name != "CLOSED":
                     await websocket.close()
                 else:
-                    # 如果没有closed属性，直接尝试关闭
+                    # If there is no closed attribute, try to close it directly.
                     await websocket.close()
             except Exception as close_error:
                 self.logger.bind(tag=TAG).error(
-                    f"服务器端强制关闭连接时出错: {close_error}"
+                    f"An error occurred when the server forcefully closed the connection: {close_error}"
                 )
 
     async def _http_response(self, websocket, request_headers):
-        # 检查是否为 WebSocket 升级请求
+        # Check if it is a WebSocket upgrade request
         if request_headers.headers.get("connection", "").lower() == "upgrade":
-            # 如果是 WebSocket 请求，返回 None 允许握手继续
+            # If it is a WebSocket request, return None to allow the handshake to continue.
             return None
         else:
-            # 如果是普通 HTTP 请求，返回 "server is running"
+            # If it is a normal HTTP request, "server is running" is returned.
             return websocket.respond(200, "Server is running\n")
 
     async def update_config(self) -> bool:
-        """更新服务器配置并重新初始化组件
+        """Update server configuration and reinitialize components
 
         Returns:
-            bool: 更新是否成功
-        """
+            bool: whether the update was successful"""
         try:
             async with self.config_lock:
-                # 重新获取配置
+                # Retrieve configuration
                 new_config = get_config_from_api(self.config)
                 if new_config is None:
-                    self.logger.bind(tag=TAG).error("获取新配置失败")
+                    self.logger.bind(tag=TAG).error("Failed to get new configuration")
                     return False
-                self.logger.bind(tag=TAG).info(f"获取新配置成功")
-                # 检查 VAD 和 ASR 类型是否需要更新
+                self.logger.bind(tag=TAG).info(f"Obtain new configuration successfully")
+                # Check if VAD and ASR types need to be updated
                 update_vad = check_vad_update(self.config, new_config)
                 update_asr = check_asr_update(self.config, new_config)
                 self.logger.bind(tag=TAG).info(
-                    f"检查VAD和ASR类型是否需要更新: {update_vad} {update_asr}"
+                    f"Check whether VAD and ASR types need to be updated: {update_vad} {update_asr}"
                 )
-                # 更新配置
+                # Update configuration
                 self.config = new_config
-                # 重新初始化组件
+                # Reinitialize the component
                 modules = initialize_modules(
                     self.logger,
                     new_config,
@@ -164,7 +163,7 @@ class WebSocketServer:
                     "Intent" in new_config["selected_module"],
                 )
 
-                # 更新组件实例
+                # Update component instance
                 if "vad" in modules:
                     self._vad = modules["vad"]
                 if "asr" in modules:
@@ -175,29 +174,29 @@ class WebSocketServer:
                     self._intent = modules["intent"]
                 if "memory" in modules:
                     self._memory = modules["memory"]
-                self.logger.bind(tag=TAG).info(f"更新配置任务执行完毕")
+                self.logger.bind(tag=TAG).info(f"The update configuration task is completed")
                 return True
         except Exception as e:
-            self.logger.bind(tag=TAG).error(f"更新服务器配置失败: {str(e)}")
+            self.logger.bind(tag=TAG).error(f"Failed to update server configuration: {str(e)}")
             return False
 
     async def _handle_auth(self, websocket):
-        # 先认证，后建立连接
+        # Authentication first, then establishing connection
         if self.auth_enable:
             headers = dict(websocket.request.headers)
             device_id = headers.get("device-id", None)
             client_id = headers.get("client-id", None)
             if self.allowed_devices and device_id in self.allowed_devices:
-                # 如果属于白名单内的设备，不校验token，直接放行
+                # If it is a device in the whitelist, the token will not be verified and the device will be released directly.
                 return
             else:
-                # 否则校验token
+                # Otherwise verify token
                 token = headers.get("authorization", "")
                 if token.startswith("Bearer "):
-                    token = token[7:]  # 移除'Bearer '前缀
+                    token = token[7:]  # Remove 'Bearer' prefix
                 else:
                     raise AuthenticationError("Missing or invalid Authorization header")
-                # 进行认证
+                # Perform certification
                 auth_success = self.auth.verify_token(
                     token, client_id=client_id, username=device_id
                 )

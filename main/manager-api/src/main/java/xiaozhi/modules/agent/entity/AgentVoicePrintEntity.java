@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 智能体声纹表
+ * intelligent_voiceprint_table
  *
  * @author zjy
  */
@@ -19,45 +19,45 @@ import lombok.Data;
 @Data
 public class AgentVoicePrintEntity {
     /**
-     * 主键id
+     * primary_key_id
      */
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
     /**
-     * 关联的智能体id
+     * associated_agent_id
      */
     private String agentId;
     /**
-     * 关联的音频id
+     * associated_audio_id
      */
     private String audioId;
     /**
-     * 声纹来源的人姓名
+     * the_name_of_the_person_whose_voiceprint_comes_from
      */
     private String sourceName;
     /**
-     * 描述声纹来源的人
+     * person_who_describes_the_source_of_the_voiceprint
      */
     private String introduce;
 
     /**
-     * 创建者
+     * creator
      */
     @TableField(fill = FieldFill.INSERT)
     private Long creator;
     /**
-     * 创建时间
+     * creation_time
      */
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
 
     /**
-     * 更新者
+     * updater
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updater;
     /**
-     * 更新时间
+     * update_time
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;

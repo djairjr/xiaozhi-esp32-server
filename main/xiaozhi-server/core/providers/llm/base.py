@@ -12,7 +12,7 @@ class LLMProviderBase(ABC):
 
     def response_no_stream(self, system_prompt, user_prompt, **kwargs):
         try:
-            # 构造对话格式
+            # Construct conversation format
             dialogue = [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -24,7 +24,7 @@ class LLMProviderBase(ABC):
 
         except Exception as e:
             logger.bind(tag=TAG).error(f"Error in Ollama response generation: {e}")
-            return "【LLM服务响应异常】"
+            return "[LLM service response exception]"
     
     def response_with_functions(self, session_id, dialogue, functions=None):
         """

@@ -9,31 +9,31 @@ import xiaozhi.common.dao.BaseDao;
 import xiaozhi.modules.sys.entity.SysParamsEntity;
 
 /**
- * 参数管理
+ * parameter_management
  */
 @Mapper
 public interface SysParamsDao extends BaseDao<SysParamsEntity> {
     /**
-     * 根据参数编码，查询value
+     * coding_according_to_parameters，query_value
      *
-     * @param paramCode 参数编码
-     * @return 参数值
+     * @param paramCode parameter_encoding
+     * @return parameter_value
      */
     String getValueByCode(String paramCode);
 
     /**
-     * 获取参数编码列表
+     * get_parameter_encoding_list
      *
      * @param ids ids
-     * @return 返回参数编码列表
+     * @return return_parameter_encoding_list
      */
     List<String> getParamCodeList(String[] ids);
 
     /**
-     * 根据参数编码，更新value
+     * coding_according_to_parameters，update_value
      *
-     * @param paramCode  参数编码
-     * @param paramValue 参数值
+     * @param paramCode  parameter_encoding
+     * @param paramValue parameter_value
      */
     int updateValueByCode(@Param("paramCode") String paramCode, @Param("paramValue") String paramValue);
 }

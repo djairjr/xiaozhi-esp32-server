@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 分页查询音色资源
+    // query_timbre_resources_by_page
     getVoiceResourceList(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource`)
@@ -19,7 +19,7 @@ export default {
                 });
             }).send();
     },
-    // 获取单个音色资源信息
+    // get_individual_timbre_resource_information
     getVoiceResourceInfo(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource/${id}`)
@@ -35,7 +35,7 @@ export default {
                 });
             }).send();
     },
-    // 保存音色资源
+    // save_tone_resource
     saveVoiceResource(entity, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource`)
@@ -52,7 +52,7 @@ export default {
                 });
             }).send();
     },
-    // 删除音色资源
+    // delete_sound_resources
     deleteVoiceResource(ids, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource/${ids}`)
@@ -68,7 +68,7 @@ export default {
                 });
             }).send();
     },
-    // 根据用户ID获取音色资源列表
+    // get_the_timbre_resource_list_based_on_user_id
     getVoiceResourceByUserId(userId, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource/user/${userId}`)
@@ -84,7 +84,7 @@ export default {
                 });
             }).send();
     },
-    // 获取TTS平台列表
+    // get_tts_platform_list
     getTtsPlatformList(callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceResource/ttsPlatforms`)

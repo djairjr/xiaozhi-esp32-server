@@ -7,7 +7,7 @@ import store from './store'
 import '@/style/index.scss'
 import 'virtual:uno.css'
 
-// 导入国际化相关功能
+// import_internationalization_related_functions
 import { initI18n } from './i18n'
 import { useLangStore } from './store/lang'
 
@@ -17,7 +17,7 @@ export function createApp() {
   app.use(routeInterceptor)
   app.use(VueQueryPlugin)
 
-  // 初始化国际化
+  // initialize_internationalization
   initI18n()
 
   return {

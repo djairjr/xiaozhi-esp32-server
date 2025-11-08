@@ -5,29 +5,29 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 展示智能体声纹列表VO
+ * display_the_agent_voiceprint_list_vo
  */
 @Data
 public class AgentVoicePrintVO {
 
     /**
-     * 主键id
+     * primary_key_id
      */
     private String id;
     /**
-     * 音频文件id
+     * audio_file_id
      */
     private String audioId;
     /**
-     * 声纹来源的人姓名
+     * the_name_of_the_person_whose_voiceprint_comes_from
      */
     private String sourceName;
     /**
-     * 描述声纹来源的人
+     * person_who_describes_the_source_of_the_voiceprint
      */
     private String introduce;
     /**
-     * 创建时间
+     * creation_time
      */
     private Date createDate;
 }

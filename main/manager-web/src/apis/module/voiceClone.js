@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 分页查询音色资源
+    // query_timbre_resources_by_page
     getVoiceCloneList(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceClone`)
@@ -20,7 +20,7 @@ export default {
             }).send();
     },
 
-    // 上传音频文件
+    // upload_audio_files
     uploadVoice(formData, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceClone/upload`)
@@ -38,7 +38,7 @@ export default {
             }).send();
     },
 
-    // 更新音色名称
+    // update_patch_name
     updateName(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceClone/updateName`)
@@ -56,7 +56,7 @@ export default {
             }).send();
     },
 
-    // 获取音频下载ID
+    // get_audio_download_id
     getAudioId(id, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceClone/audio/${id}`)
@@ -73,12 +73,12 @@ export default {
             }).send();
     },
 
-    // 获取音频播放URL
+    // get_audio_playback_url
     getPlayVoiceUrl(uuid) {
         return `${getServiceUrl()}/voiceClone/play/${uuid}`;
     },
 
-    // 复刻音频
+    // replicate_audio
     cloneAudio(params, callback, errorCallback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/voiceClone/cloneAudio`)
@@ -89,7 +89,7 @@ export default {
                 callback(res);
             })
             .fail((res) => {
-                // 业务失败回调
+                // business_failure_callback
                 RequestService.clearRequestTime();
                 if (errorCallback) {
                     errorCallback(res);

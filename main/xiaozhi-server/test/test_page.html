@@ -247,7 +247,7 @@
             正在加载Opus库...
         </div>
 
-        <!-- 添加配置面板 -->
+        <!-- Add configuration panel -->uration panel -->
         <div class="section">
             <h2>
                 设备配置
@@ -261,19 +261,19 @@
                 <div class="control-panel">
                     <div class="config-item">
                         <label for="deviceMac">设备MAC:</label>
-                        <input type="text" id="deviceMac" placeholder="设备MAC地址">
+                        <input type="text" id="deviceMac" placeholder="Device MAC address">
                     </div>
                     <div class="config-item">
                         <label for="deviceName">设备名称:</label>
-                        <input type="text" id="deviceName" value="Web测试设备" placeholder="设备名称">
+                        <input type="text" id="deviceName" value="Web testing equipment" placeholder="Device name">
                     </div>
                     <div class="config-item">
                         <label for="clientId">客户端ID:</label>
-                        <input type="text" id="clientId" value="web_test_client" placeholder="客户端ID">
+                        <input type="text" id="clientId" value="web_test_client" placeholder="Client ID">
                     </div>
                     <div class="config-item">
                         <label for="token">认证Token:</label>
-                        <input type="text" id="token" value="your-token1" placeholder="认证Token">
+                        <input type="text" id="token" value="your-token1" placeholder="Authentication Token">
                     </div>
                 </div>
             </div>
@@ -289,8 +289,8 @@
             </h2>
             <div class="connection-controls">
                 <input type="text" id="otaUrl" value="http://127.0.0.1:8002/xiaozhi/ota/"
-                    placeholder="OTA服务器地址，如：http://127.0.0.1:8002/xiaozhi/ota/" />
-                <input type="text" id="serverUrl" value="" readonly disabled placeholder="点击连接按钮后，自动从OTA接口获取" />
+                    placeholder="OTA server address, such as: http://127.0.0.1:8002/xiaozhi/ota/" />
+                <input type="text" id="serverUrl" value="" readonly disabled placeholder="After clicking the connect button, it will be automatically obtained from the OTA interface." />
                 <button id="connectButton">连接</button>
             </div>
         </div>
@@ -303,7 +303,7 @@
 
             <div class="tab-content active" id="textTab">
                 <div class="message-input">
-                    <input type="text" id="messageInput" placeholder="输入消息..." disabled>
+                    <input type="text" id="messageInput" placeholder="Enter message..." disabled>
                     <button id="sendTextButton" disabled>发送</button>
                 </div>
             </div>
@@ -326,7 +326,7 @@
             </div>
         </div>
 
-        <!-- MCP 工具管理区域 -->
+        <!-- MCP tool management area -->ement area -->
         <div class="section">
             <h2>
                 MCP 工具管理
@@ -337,7 +337,7 @@
             </h2>
             <div class="config-panel" id="mcpToolsPanel">
                 <div id="mcpToolsContainer" class="mcp-tools-container">
-                    <!-- 工具列表将动态插入这里 -->
+                    <!-- The tool list will be dynamically inserted here -->ill be dynamically inserted here -->
                 </div>
                 <div style="text-align: center; padding: 15px 0;">
                     <button class="btn" id="addMcpToolBtn" style="background-color: #4caf50;">
@@ -347,7 +347,7 @@
             </div>
         </div>
 
-        <!-- MCP 工具编辑模态框 -->
+        <!-- MCP tool editing modal box -->g modal box -->
         <div id="mcpToolModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; overflow-y: auto;">
             <div style="background-color: white; border-radius: 10px; padding: 25px; width: 90%; max-width: 700px; margin: 50px auto; max-height: 85vh; overflow-y: auto;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0;">
@@ -360,13 +360,13 @@
                 <form id="mcpToolForm">
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333; font-size: 14px;">工具名称 *</label>
-                        <input type="text" id="mcpToolName" placeholder="例如: self.get_device_status" required
+                        <input type="text" id="mcpToolName" placeholder="For example: self.get_device_status" required
                             style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
                     </div>
 
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333; font-size: 14px;">工具描述 *</label>
-                        <textarea id="mcpToolDescription" placeholder="详细描述工具的功能和使用场景..." required
+                        <textarea id="mcpToolDescription" placeholder="Describe the tool's functions and usage scenarios in detail..." required
                             style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; min-height: 80px; resize: vertical;"></textarea>
                     </div>
 
@@ -388,7 +388,7 @@
                             模拟返回结果 (JSON 格式，可选)
                             <span style="font-size: 12px; color: #999; font-weight: normal;">- 留空则返回默认成功消息</span>
                         </label>
-                        <textarea id="mcpMockResponse" placeholder='{"success": true, "data": "执行成功"}'
+                        <textarea id="mcpMockResponse" placeholder='{"success": true, "data": "Executed successfully"}'
                             style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; font-family: 'Courier New', monospace; min-height: 100px; resize: vertical;"></textarea>
                         <div style="font-size: 12px; color: #666; margin-top: 4px;">
                             💡 提示：如果设置了模拟返回结果，工具调用时将返回这个 JSON 对象
@@ -404,7 +404,7 @@
         </div>
     </div>
 
-    <!-- Opus解码库 -->
+    <!-- Opus decoding library -->ng library -->
     <script src="libopus.js"></script>
 
     <script type="module">
@@ -511,7 +511,7 @@
 
         // 启动缓存进程
         async function startAudioBuffering() {
-            log("开始音频缓冲...", 'info');
+            log("Start audio buffering...", 'info');
 
             // 先尝试初始化解码器，以便在播放时已准备好
             initOpusDecoder().catch(error => {
@@ -621,7 +621,7 @@
                         // 分配内存
                         this.decoderPtr = mod._malloc(decoderSize);
                         if (!this.decoderPtr) {
-                            throw new Error("无法分配解码器内存");
+                            throw new Error("Unable to allocate decoder memory");
                         }
 
                         // 初始化解码器
@@ -636,7 +636,7 @@
                             throw new Error(`Opus解码器初始化失败: ${err}`);
                         }
 
-                        log("Opus解码器初始化成功", 'success');
+                        log("Opus decoder initialized successfully", 'success');
                         return true;
                     },
 
@@ -644,7 +644,7 @@
                     decode: function (opusData) {
                         if (!this.decoderPtr) {
                             if (!this.init()) {
-                                throw new Error("解码器未初始化且无法初始化");
+                                throw new Error("Decoder is not initialized and cannot be initialized");
                             }
                         }
 
@@ -702,7 +702,7 @@
 
                 // 初始化解码器
                 if (!opusDecoder.init()) {
-                    throw new Error("Opus解码器初始化失败");
+                    throw new Error("Opus decoder initialization failed");
                 }
 
                 return opusDecoder;
@@ -1154,7 +1154,7 @@
                     // 5秒超时
                     const timeout = setTimeout(() => {
                         log('等待hello响应超时', 'error');
-                        log('提示: 请尝试点击"测试认证"按钮进行连接排查', 'info');
+                        log('提示: 请尝试点击"Testing and certification"按钮进行连接排查', 'info');
                         resolve(false);
                     }, 5000);
 
@@ -1908,19 +1908,19 @@
                         <div>
                             <label class="mcp-small-label">最小值</label>
                             <input type="number" class="mcp-small-input" value="${prop.minimum !== undefined ? prop.minimum : ''}" 
-                                placeholder="可选" onchange="updateMcpProperty(${index}, 'minimum', this.value ? parseFloat(this.value) : undefined)">
+                                placeholder="Optional" onchange="updateMcpProperty(${index}, 'minimum', this.value ? parseFloat(this.value) : undefined)">
                         </div>
                         <div>
                             <label class="mcp-small-label">最大值</label>
                             <input type="number" class="mcp-small-input" value="${prop.maximum !== undefined ? prop.maximum : ''}" 
-                                placeholder="可选" onchange="updateMcpProperty(${index}, 'maximum', this.value ? parseFloat(this.value) : undefined)">
+                                placeholder="Optional" onchange="updateMcpProperty(${index}, 'maximum', this.value ? parseFloat(this.value) : undefined)">
                         </div>
                     </div>
                     ` : ''}
                     <div class="mcp-property-row-full">
                         <label class="mcp-small-label">参数描述</label>
                         <input type="text" class="mcp-small-input" value="${prop.description || ''}" 
-                            placeholder="可选" onchange="updateMcpProperty(${index}, 'description', this.value)">
+                            placeholder="Optional" onchange="updateMcpProperty(${index}, 'description', this.value)">
                     </div>
                     <label class="mcp-checkbox-label">
                         <input type="checkbox" ${prop.required ? 'checked' : ''} 

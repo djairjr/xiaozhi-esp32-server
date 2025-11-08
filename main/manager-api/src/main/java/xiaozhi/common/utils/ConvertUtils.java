@@ -9,8 +9,8 @@ import org.springframework.beans.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 转换工具类
- * Copyright (c) 人人开源 All rights reserved.
+ * conversion_tool_class
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 @Slf4j

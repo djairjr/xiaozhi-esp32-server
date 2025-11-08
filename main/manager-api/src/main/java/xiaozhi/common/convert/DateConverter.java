@@ -13,8 +13,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * 日期转换
- * Copyright (c) 人人开源 All rights reserved.
+ * date_conversion
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 @Component
@@ -53,11 +53,11 @@ public class DateConverter implements Converter<String, Date> {
     }
 
     /**
-     * 格式化日期
+     * format_date
      *
-     * @param dateStr String 字符型日期
-     * @param format  String 格式
-     * @return Date 日期
+     * @param dateStr String character_date
+     * @param format  String format
+     * @return Date date
      */
     public Date parseDate(String dateStr, String format) {
         Date date = null;

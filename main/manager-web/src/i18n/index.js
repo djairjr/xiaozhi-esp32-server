@@ -6,7 +6,7 @@ import en from './en';
 
 Vue.use(VueI18n);
 
-// 从本地存储获取语言设置，如果没有则使用浏览器语言或默认语言
+// get_language_settings_from_local_storage，if_not_then_use_browser_language_or_default_language
 const getDefaultLanguage = () => {
   const savedLang = localStorage.getItem('userLanguage');
   if (savedLang) {
@@ -34,10 +34,10 @@ const i18n = new VueI18n({
 
 export default i18n;
 
-// 提供一个方法来切换语言
+// provide_a_way_to_switch_languages
 export const changeLanguage = (lang) => {
   i18n.locale = lang;
   localStorage.setItem('userLanguage', lang);
-  // 通知组件语言已更改
+  // notification_component_language_has_changed
   Vue.prototype.$eventBus.$emit('languageChanged', lang);
 };

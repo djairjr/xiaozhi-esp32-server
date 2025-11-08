@@ -12,67 +12,67 @@ import xiaozhi.modules.voiceclone.dto.VoiceCloneResponseDTO;
 import xiaozhi.modules.voiceclone.entity.VoiceCloneEntity;
 
 /**
- * 声音克隆管理
+ * sound_clone_management
  */
 public interface VoiceCloneService extends BaseService<VoiceCloneEntity> {
 
     /**
-     * 分页查询
+     * page_query
      */
     PageData<VoiceCloneEntity> page(Map<String, Object> params);
 
     /**
-     * 保存声音克隆
+     * save_sound_clone
      */
     void save(VoiceCloneDTO dto);
 
     /**
-     * 批量删除
+     * batch_delete
      */
     void delete(String[] ids);
 
     /**
-     * 根据用户ID查询声音克隆列表
+     * query_the_list_of_sound_clones_based_on_user_id
      * 
-     * @param userId 用户ID
-     * @return 声音克隆列表
+     * @param userId user_id
+     * @return sound_clone_list
      */
     List<VoiceCloneEntity> getByUserId(Long userId);
 
     /**
-     * 分页查询带模型名称和用户名称的声音克隆列表
+     * paginated_query_for_sound_clone_list_with_model_name_and_user_name
      */
     PageData<VoiceCloneResponseDTO> pageWithNames(Map<String, Object> params);
 
     /**
-     * 根据ID查询带模型名称和用户名称的声音克隆信息
+     * query_sound_clone_information_with_model_name_and_user_name_based_on_id
      */
     VoiceCloneResponseDTO getByIdWithNames(String id);
 
     /**
-     * 根据用户ID查询带模型名称的声音克隆列表
+     * query_the_list_of_sound_clones_with_model_name_based_on_user_id
      */
     List<VoiceCloneResponseDTO> getByUserIdWithNames(Long userId);
 
     /**
-     * 上传音频文件
+     * upload_audio_files
      */
     void uploadVoice(String id, MultipartFile voiceFile) throws Exception;
 
     /**
-     * 更新声音克隆名称
+     * update_sound_clone_names
      */
     void updateName(String id, String name);
 
     /**
-     * 获取音频数据
+     * get_audio_data
      */
     byte[] getVoiceData(String id);
 
     /**
-     * 克隆音频，调用火山引擎进行语音复刻训练
+     * clone_audio，call_the_volcano_engine_for_voice_reproduction_training
      * 
-     * @param cloneId 语音克隆记录ID
+     * @param cloneId voice_clone_record_id
      */
     void cloneAudio(String cloneId);
 }

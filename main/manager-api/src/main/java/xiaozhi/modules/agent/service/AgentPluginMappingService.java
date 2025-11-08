@@ -6,14 +6,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import xiaozhi.modules.agent.entity.AgentPluginMapping;
 
-/**
- * @description 针对表【ai_agent_plugin_mapping(Agent与插件的唯一映射表)】的数据库操作Service
+/*
+*
+* @description for_table【ai_agent_plugin_mapping (unique mapping table between Agent and plug-in)】database_operation_service
  * @createDate 2025-05-25 22:33:17
- */
+*/
 public interface AgentPluginMappingService extends IService<AgentPluginMapping> {
 
     /**
-     * 根据智能体id获取插件参数
+     * get_plugin_parameters_based_on_agent_id
      * 
      * @param agentId
      * @return
@@ -21,7 +22,7 @@ public interface AgentPluginMappingService extends IService<AgentPluginMapping> 
     List<AgentPluginMapping> agentPluginParamsByAgentId(String agentId);
 
     /**
-     * 根据智能体id删除插件参数
+     * delete_plugin_parameters_based_on_agent_id
      * 
      * @param agentId
      */

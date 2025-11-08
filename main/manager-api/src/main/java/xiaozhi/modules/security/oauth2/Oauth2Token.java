@@ -4,7 +4,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * token
- * Copyright (c) 人人开源 All rights reserved.
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public class Oauth2Token implements AuthenticationToken {

@@ -1,8 +1,8 @@
 /**
- * by 菲鸽 on 2024-03-06
- * 路由拦截，通常也是登录拦截
- * 可以设置路由白名单，或者黑名单，看业务需要选哪一个
- * 我这里应为大部分都可以随便进入，所以使用黑名单
+ * by feige on 2024-03-06
+ * route_interception，usually_login_blocking
+ * routing_whitelist_can_be_set，or_blacklist，which_one_to_choose_depends_on_your_business_needs
+ * i_think_most_of_the_people_here_can_enter_freely，so_use_blacklist
  */
 import { useUserStore } from '@/store'
 import { needLoginPages as _needLoginPages, getLastPage, getNeedLoginPages } from '@/utils'
@@ -17,16 +17,16 @@ function isLogined() {
 
 const isDev = import.meta.env.DEV
 
-// 黑名单登录拦截器 - （适用于大部分页面不需要登录，少部分页面需要登录）
+// blacklist_login_blocker - （applicable_to_most_pages_and_does_not_require_login，a_few_pages_require_login）
 const navigateToInterceptor = {
-  // 注意，这里的url是 '/' 开头的，如 '/pages/index/index'，跟 'pages.json' 里面的 path 不同
-  // 增加对相对路径的处理，BY 网友 @ideal
+  // notice, the URL here starts with '/', such as '/pages/index/index', which is different from the path in 'pages.json'
+  // add_handling_of_relative_paths，BY netizen @ideal
   invoke({ url }: { url: string }) {
     // console.log(url) // /pages/route-interceptor/index?name=feige&age=30
     let path = url.split('?')[0]
     console.log('页面变动')
 
-    // 处理相对路径
+    // handling_relative_paths
     if (!path.startsWith('/')) {
       const currentPath = getLastPage().route
       const normalizedCurrentPath = currentPath.startsWith('/') ? currentPath : `/${currentPath}`
@@ -35,7 +35,7 @@ const navigateToInterceptor = {
     }
 
     let needLoginPages: string[] = []
-    // 为了防止开发时出现BUG，这里每次都获取一下。生产环境可以移到函数外，性能更好
+    // in_order_to_prevent_bugs_from_occurring_during_development，get_it_here_every_time。production_environment_can_be_moved_outside_the_function，better_performance
     if (isDev) {
       needLoginPages = getNeedLoginPages()
     }

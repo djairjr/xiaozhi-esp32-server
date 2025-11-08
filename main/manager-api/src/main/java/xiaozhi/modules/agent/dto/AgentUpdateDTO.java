@@ -7,75 +7,76 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * 智能体更新DTO
- * 专用于更新智能体，id字段是必需的，用于标识要更新的智能体
- * 其他字段均为非必填，只更新提供的字段
- */
+/*
+*
+ * agent_update_dto
+* dedicated_to_updating_agents, id field is required, used_to_identify_the_agent_to_be_updated
+ * all_other_fields_are_optional，only_update_provided_fields
+*/
 @Data
-@Schema(description = "智能体更新对象")
+@Schema(description = "Agent update object")
 public class AgentUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "智能体编码", example = "AGT_1234567890", nullable = true)
+    @Schema(description = "agent coding", example = "AGT_1234567890", nullable = true)
     private String agentCode;
 
-    @Schema(description = "智能体名称", example = "客服助手", nullable = true)
+    @Schema(description = "Agent name", example = "Customer service assistant", nullable = true)
     private String agentName;
 
-    @Schema(description = "语音识别模型标识", example = "asr_model_02", nullable = true)
+    @Schema(description = "Speech recognition model identification", example = "asr_model_02", nullable = true)
     private String asrModelId;
 
-    @Schema(description = "语音活动检测标识", example = "vad_model_02", nullable = true)
+    @Schema(description = "Voice activity detection logo", example = "vad_model_02", nullable = true)
     private String vadModelId;
 
-    @Schema(description = "大语言模型标识", example = "llm_model_02", nullable = true)
+    @Schema(description = "Large language model identifier", example = "llm_model_02", nullable = true)
     private String llmModelId;
 
-    @Schema(description = "VLLM模型标识", example = "vllm_model_02", required = false)
+    @Schema(description = "VLLM model identification", example = "vllm_model_02", required = false)
     private String vllmModelId;
 
-    @Schema(description = "语音合成模型标识", example = "tts_model_02", required = false)
+    @Schema(description = "Speech synthesis model identification", example = "tts_model_02", required = false)
     private String ttsModelId;
 
-    @Schema(description = "音色标识", example = "voice_02", nullable = true)
+    @Schema(description = "timbre identity", example = "voice_02", nullable = true)
     private String ttsVoiceId;
 
-    @Schema(description = "记忆模型标识", example = "mem_model_02", nullable = true)
+    @Schema(description = "memory model identifier", example = "mem_model_02", nullable = true)
     private String memModelId;
 
-    @Schema(description = "意图模型标识", example = "intent_model_02", nullable = true)
+    @Schema(description = "Intent model identifier", example = "intent_model_02", nullable = true)
     private String intentModelId;
 
-    @Schema(description = "插件函数信息", nullable = true)
+    @Schema(description = "Plug-in function information", nullable = true)
     private List<FunctionInfo> functions;
 
-    @Schema(description = "角色设定参数", example = "你是一个专业的客服助手，负责回答用户问题并提供帮助", nullable = true)
+    @Schema(description = "Character setting parameters", example = "You are a professional customer service assistant responsible for answering user questions and providing assistance", nullable = true)
     private String systemPrompt;
 
-    @Schema(description = "总结记忆", example = "构建可生长的动态记忆网络，在有限空间内保留关键信息的同时，智能维护信息演变轨迹\n"
-            + "根据对话记录，总结user的重要信息，以便在未来的对话中提供更个性化的服务", nullable = true)
+    @Schema(description = "Summary memory", example = "Build a growable dynamic memory network, retain_critical_information_in_a_limited_space, evolution_track_of_intelligent_maintenance_information\n"
+            + "Summarize_important_information_about_the_user based on conversation history to provide more personalized service in future conversations", nullable = true)
     private String summaryMemory;
 
-    @Schema(description = "聊天记录配置（0不记录 1仅记录文本 2记录文本和语音）", example = "3", nullable = true)
+    @Schema(description = "Chat record configuration (0 does not record, 1 records text only, 2 records text and voice)", example = "3", nullable = true)
     private Integer chatHistoryConf;
 
-    @Schema(description = "语言编码", example = "zh_CN", nullable = true)
+    @Schema(description = "language encoding", example = "zh_CN", nullable = true)
     private String langCode;
 
-    @Schema(description = "交互语种", example = "中文", nullable = true)
+    @Schema(description = "interactive language", example = "Chinese", nullable = true)
     private String language;
 
-    @Schema(description = "排序", example = "1", nullable = true)
+    @Schema(description = "sort", example = "1", nullable = true)
     private Integer sort;
 
     @Data
-    @Schema(description = "插件函数信息")
+    @Schema(description = "Plug-in function information")
     public static class FunctionInfo implements Serializable {
-        @Schema(description = "插件ID", example = "plugin_01")
+        @Schema(description = "Plugin ID", example = "plugin_01")
         private String pluginId;
 
-        @Schema(description = "函数参数信息", nullable = true)
+        @Schema(description = "Function parameter information", nullable = true)
         private HashMap<String, Object> paramInfo;
 
         private static final long serialVersionUID = 1L;

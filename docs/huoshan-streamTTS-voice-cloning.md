@@ -1,56 +1,56 @@
-# 智控台 火山双流式语音合成+音色克隆配置教程
+# Intelligent console Volcano dual-stream speech synthesis + tone cloning configuration tutorial
 
-本教程分为4个阶段：准备阶段、配置阶段、克隆阶段、使用阶段。主要是介绍通过智控台配置火山双流式语音合成+音色克隆的过程。
+This tutorial is divided into 4 stages: preparation stage, configuration stage, cloning stage, and usage stage. It mainly introduces the process of configuring the Volcano dual-stream speech synthesis + tone cloning through the intelligent console.
 
-## 第一阶段：准备阶段
-超级管理员先预先把火山引擎服务开通好，获取到App Id，Access Token。默认火上引擎会赠送一个音色资源。这个音色资源需要把它复制到本项目里。
+## The first stage: preparation stage
+The super administrator first activates the Volcano Engine service in advance and obtains the App ID and Access Token. By default, Huoshang Engine will give away a sound resource. This sound resource needs to be copied to this project.
 
-如果你想克隆多个音色，需要购买开通多个音色资源。只要把每个音色资源的声音ID(S_xxxxx)复制到本项目。然后分配给系统的账号使用即可。以下是详细步骤：
+If you want to clone multiple timbres, you need to purchase and activate multiple timbre resources. Just copy the sound ID (S_xxxxx) of each sound resource to this project. Then use the account assigned to the system. Here are the detailed steps:
 
-### 1.开通火山引擎服务
-访问 https://console.volcengine.com/speech/app  在应用管理创建应用，勾选语音合成大模型和声音复刻大模型。
+### 1. Activate the volcano engine service
+Visit https://console.volcengine.com/speech/app, create an application in the application management, and check the speech synthesis model and the sound reproduction model.
 
-### 2.获取音色资源ID
-访问 https://console.volcengine.com/speech/service/9999 复制三项内容，分别是App Id，Access Token以及声音ID(S_xxxxx)。如图
+### 2. Get the timbre resource ID
+Visit https://console.volcengine.com/speech/service/9999 and copy three items, namely App Id, Access Token and Sound ID (S_xxxxx). As shown in the picture
 
-![获取音色资源](images/image-clone-integration-01.png)
+![Get sound resources](images/image-clone-integration-01.png)
 
-## 第二阶段：配置火山引擎服务
+## Phase 2: Configure the Volcano Engine Service
 
-### 1.填写火山引擎配置
+### 1. Fill in the volcano engine configuration
 
-使用超级管理员账号登录智控台，点击顶部【模型配置】，再点击模型配置页面左侧的【语音合成】，搜索找到“火山双流式语音合成”，点击修改，将你火山引擎的`App Id`填入到【应用ID】字段里，将`Access Token`填入到【访问令牌】字段里。然后保存。
+Use the super administrator account to log in to the intelligent console, click [Model Configuration] at the top, then click [Speech Synthesis] on the left side of the model configuration page, search for "Volcano Dual-Stream Speech Synthesis", click Modify, fill in the `App Id' of your Volcano engine into the [Application ID] field, and fill in the `Access Token` into the [Access Token] field. Then save.
 
-### 2.将音色资源ID分配给系统账号
+### 2. Assign the timbre resource ID to the system account
 
-使用超级管理员账号登录智控台，点击顶部【音色克隆】、【音色资源】。
+Log in to the smart console with a super administrator account and click [Tone Clone] and [Tone Resources] at the top.
 
-点击新增按钮，在【平台名称】选择“火山双流式语音合成”；
+Click the Add button and select "Volcano Dual-Stream Speech Synthesis" in [Platform Name];
 
-在【音色资源ID】填入你火山引擎的声音资源ID(S_xxxxx)，填入后按回车；
+Fill in the sound resource ID (S_xxxxx) of your volcano engine in [Sound Resource ID], fill in and press Enter;
 
-在【归属账号】选择你要分配给的系统账号，你可以分配给你自己。然后点击保存
+In [Attribution Account], select the system account you want to assign to. You can assign it to yourself. Then click save
 
-## 第三阶段：克隆阶段
+## The third stage: cloning stage
 
-如果登录后，点击顶部【音色克隆】》【音色克隆】，显示【您的账号暂无音色资源请联系管理员分配音色资源】，说明你在第二阶段还没有把音色资源ID分配给这个账号。那就是回到第二阶段，分配音色资源给对应的账号。
+If after logging in, click [Tone Clone] and [Tone Clone] at the top, and it displays [Your account currently has no tone resources, please contact the administrator to allocate tone resources], it means that you have not assigned the tone resource ID to this account in the second stage. That is to return to the second stage and allocate timbre resources to the corresponding accounts.
 
-如果登录后，点击顶部【音色克隆】》【音色克隆】，能看到对应的音色列表。请继续。
+If you log in, click [Tone Clone] and [Tone Clone] at the top to see the corresponding tone list. Please continue.
 
-在列表里会看到对应的音色列表。选择其中一个音色资源，点击【上传音频】按钮。上传后，可以试听一下声音或者截取某段声音。确认后点击【上传音频】按钮。
-![上传音频](images/image-clone-integration-02.png)
+You will see the corresponding tone list in the list. Select one of the sound resources and click the [Upload Audio] button. After uploading, you can listen to the sound or intercept a certain sound segment. After confirmation, click the [Upload Audio] button.
+![Upload audio](images/image-clone-integration-02.png)
 
-上传音频后，在列表里会看到对应的音色会变成“待复刻”状态。点击【立即复刻】按钮。等1~2秒会返回结果。
+After uploading the audio, you will see in the list that the corresponding timbre will become "to be reproduced". Click the [Replicate Now] button. Wait 1~2 seconds for the result to be returned.
 
-如果复刻失败，请将鼠标放到“错误信息”图标上，会显示失败的原因。
+If the copy fails, please place the mouse on the "Error Message" icon and the reason for the failure will be displayed.
 
-如果复刻成功，在列表里会看到对应的音色会变成“训练成功”状态。此时你可以点击【声音名称】栏的修改按钮，修改音色资源的名称，方便后期选择使用。
+If the copy is successful, you will see that the corresponding tone in the list will change to "Training Successful" status. At this time, you can click the modify button in the [Sound Name] column to modify the name of the sound resource to facilitate later selection and use.
 
-## 第四阶段：使用阶段
+## The fourth stage: use stage
 
-点击顶部【智能体管理】，选择任意一个智能体，点击【配置角色】按钮。
+Click [Agent Management] at the top, select any agent, and click the [Configure Role] button.
 
-语音合成(TTS)选择“火山双流式语音合成”。在列表里，找到名字带有“克隆音色”的音色资源（如图），选择它，点击保存。
-![选择音色](images/image-clone-integration-03.png)
+For speech synthesis (TTS), select "Volcano dual-stream speech synthesis". In the list, find the sound resource with the name "Clone Sound" (as shown in the picture), select it, and click Save.
+![Select tone](images/image-clone-integration-03.png)
 
-接下来，可以唤醒小智和它对话。
+Next, you can wake up Xiaozhi and talk to it.

@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <!-- Opus解码库 - 这个库会设置一个全局Module变量 -->
+    <!-- Opus decoding library - this library will set a global Module variable -->rary will set a global Module variable -->
     <script>
         // 定义全局变量以跟踪库加载状态
         window.opusLoaded = false;
@@ -119,10 +119,10 @@
         document.getElementById("showDebug").addEventListener("click", function() {
             if (debugInfo.style.display === "none" || !debugInfo.style.display) {
                 debugInfo.style.display = "block";
-                this.textContent = "隐藏调试信息";
+                this.textContent = "Hide debugging information";
             } else {
                 debugInfo.style.display = "none";
-                this.textContent = "显示调试信息";
+                this.textContent = "Show debugging information";
             }
         });
         
@@ -143,7 +143,7 @@
         // 初始化音频系统
         function initializeAudioSystem() {
             try {
-                log("初始化音频系统...");
+                log("Initializing the audio system...");
                 // 创建临时AudioContext来触发用户授权
                 const tempContext = new (window.AudioContext || window.webkitAudioContext)({
                     sampleRate: 16000,
@@ -164,10 +164,10 @@
                     oscillator.stop();
                     // 关闭上下文
                     tempContext.close().then(() => {
-                        log("音频系统初始化成功", "success");
-                        updateScriptStatus("音频系统已激活", "success");
+                        log("Audio system initialization successful", "success");
+                        updateScriptStatus("Audio system is activated", "success");
                         document.getElementById("initAudio").disabled = true;
-                        document.getElementById("initAudio").textContent = "音频已初始化";
+                        document.getElementById("initAudio").textContent = "Audio has been initialized";
                         window.audioContextReady = true;
                         
                         // 如果Opus已加载，启用开始录音按钮
@@ -177,8 +177,8 @@
                     });
                 }, 200);
             } catch (err) {
-                log("初始化音频系统失败: " + err.message, "error");
-                updateScriptStatus("初始化音频失败: " + err.message, "error");
+                log("Failed to initialize audio system:" + err.message, "error");
+                updateScriptStatus("Failed to initialize audio:" + err.message, "error");
             }
         }
         
@@ -189,13 +189,13 @@
             const testMicBtn = document.getElementById("testMic");
             
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                log("浏览器不支持麦克风访问", "error");
+                log("The browser does not support microphone access", "error");
                 return;
             }
             
-            log("开始麦克风测试...");
+            log("Start microphone test...");
             audioMeter.style.display = "block";
-            testMicBtn.textContent = "停止测试";
+            testMicBtn.textContent = "Stop testing";
             testMicBtn.style.backgroundColor = "#ea4335";
             window.testMicActive = true;
             
@@ -212,7 +212,7 @@
                 } 
             })
             .then(stream => {
-                log("已获取麦克风访问权限", "success");
+                log("Microphone access obtained", "success");
                 
                 // 保存流以便稍后关闭
                 window.testStream = stream;
@@ -256,9 +256,9 @@
                 updateMeter();
             })
             .catch(err => {
-                log("麦克风测试失败: " + err.message, "error");
+                log("Microphone test failed:" + err.message, "error");
                 window.testMicActive = false;
-                testMicBtn.textContent = "测试麦克风";
+                testMicBtn.textContent = "Test microphone";
                 testMicBtn.style.backgroundColor = "#fbbc05";
                 audioMeter.style.display = "none";
             });
@@ -269,9 +269,9 @@
             const audioMeter = document.getElementById("audioMeter");
             const testMicBtn = document.getElementById("testMic");
             
-            log("停止麦克风测试");
+            log("Stop microphone test");
             window.testMicActive = false;
-            testMicBtn.textContent = "测试麦克风";
+            testMicBtn.textContent = "Test microphone";
             testMicBtn.style.backgroundColor = "#fbbc05";
             
             // 停止分析器动画
@@ -298,15 +298,15 @@
             try {
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
                 if (!window.AudioContext) {
-                    throw new Error("浏览器不支持AudioContext");
+                    throw new Error("The browser does not support AudioContext");
                 }
                 
                 // 我们在app.js中会创建AudioContext，这里只检查兼容性
-                log("AudioContext API 可用");
+                log("AudioContext API is available");
                 return true;
             } catch (err) {
-                log("AudioContext初始化失败: " + err.message, "error");
-                updateScriptStatus("AudioContext初始化失败，录音功能不可用", "error");
+                log("AudioContext initialization failed:" + err.message, "error");
+                updateScriptStatus("AudioContext initialization failed and the recording function is unavailable", "error");
                 return false;
             }
         }
@@ -314,12 +314,12 @@
         // 检查麦克风权限
         function checkMicrophonePermission() {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                log("浏览器不支持getUserMedia API", "error");
-                updateScriptStatus("浏览器不支持录音功能", "error");
+                log("The browser does not support the getUserMedia API", "error");
+                updateScriptStatus("The browser does not support the recording function", "error");
                 return false;
             }
             
-            log("getUserMedia API 可用");
+            log("getUserMedia API is available");
             return true;
         }
         
@@ -356,12 +356,12 @@
             try {
                 // 检查Module是否存在（本地库导出的全局变量）
                 if (typeof Module === 'undefined') {
-                    log("Module对象不存在", "error");
+                    log("Module object does not exist", "error");
                     throw new Error('Opus库未加载，Module对象不存在');
                 }
 
                 // 记录Module对象结构以便调试
-                log("Module对象结构: " + Object.keys(Module).join(", "));
+                log("Module object structure:" + Object.keys(Module).join(", "));
 
                 // 尝试使用全局Module函数
                 if (typeof Module._opus_decoder_get_size === 'function') {
@@ -371,7 +371,7 @@
                     
                     // 启用开始录音按钮
                     startButton.disabled = false;
-                    statusLabel.textContent = "待机";
+                    statusLabel.textContent = "standby";
                     
                     // 3秒后隐藏状态
                     setTimeout(() => {
@@ -391,7 +391,7 @@
                     
                     // 启用开始录音按钮
                     startButton.disabled = false;
-                    statusLabel.textContent = "待机";
+                    statusLabel.textContent = "standby";
                     
                     // 3秒后隐藏状态
                     setTimeout(() => {
@@ -404,13 +404,13 @@
                 }
 
                 // 检查是否有其他导出方式
-                log("Module上可用方法: " + Object.getOwnPropertyNames(Module).filter(prop => typeof Module[prop] === 'function').join(", "));
+                log("Available methods on Module:" + Object.getOwnPropertyNames(Module).filter(prop => typeof Module[prop] === 'function').join(", "));
                 
                 if (typeof Module.onRuntimeInitialized === 'function' || typeof Module.onRuntimeInitialized === 'undefined') {
-                    log("Module.onRuntimeInitialized 尚未执行，等待模块初始化完成...");
+                    log("Module.onRuntimeInitialized has not been executed yet, waiting for module initialization to complete...");
                     // Module可能未完成初始化，注册回调
                     Module.onRuntimeInitialized = function() {
-                        log("Opus库运行时初始化完成，重新检查");
+                        log("Opus library runtime initialization completed, recheck");
                         checkOpusLoaded();
                     };
                     return false;
@@ -420,14 +420,14 @@
             } catch (err) {
                 log(`Opus库加载失败: ${err.message}`, "error");
                 updateScriptStatus(`Opus库加载失败: ${err.message}`, 'error');
-                statusLabel.textContent = "错误：Opus库加载失败";
+                statusLabel.textContent = "Error: Opus library failed to load";
                 return false;
             }
         }
         
         // 页面加载完成后检查浏览器能力和Opus库
         window.addEventListener('load', function() {
-            log("页面加载完成，开始初始化...");
+            log("The page is loaded and initialization begins...");
             updateScriptStatus('正在初始化录音环境...', 'info');
             
             // 检查浏览器能力
@@ -435,19 +435,19 @@
             const microphoneSupported = checkMicrophonePermission();
             
             if (!audioContextSupported || !microphoneSupported) {
-                log("浏览器不支持必要API，无法进行录音", "error");
+                log("The browser does not support the necessary API and recording cannot be performed.", "error");
                 updateScriptStatus('浏览器不支持录音功能', 'error');
                 return;
             }
             
-            log("检查环境完成，开始加载Opus库");
+            log("Check the environment is completed and start loading the Opus library");
             updateScriptStatus('正在加载Opus库...', 'info');
             
             // 延迟一小段时间再检查，确保库有时间加载
             setTimeout(function checkAndRetry() {
                 if (!checkOpusLoaded()) {
                     // 如果加载失败，5秒后重试
-                    log("Opus库加载失败，5秒后重试...");
+                    log("Opus library failed to load, try again in 5 seconds...");
                     updateScriptStatus('Opus库加载失败，正在重试...', 'error');
                     setTimeout(checkAndRetry, 5000);
                 }

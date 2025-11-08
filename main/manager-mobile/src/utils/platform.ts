@@ -1,7 +1,7 @@
 /*
- * @Author: 菲鸽
+ * @Author: feige
  * @Date: 2024-03-28 19:13:55
- * @Last Modified by: 菲鸽
+ * @Last Modified by: feige
  * @Last Modified time: 2024-03-28 19:24:55
  */
 export const platform = __UNI_PLATFORM__

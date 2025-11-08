@@ -12,7 +12,7 @@ import xiaozhi.modules.agent.entity.AgentEntity;
 import xiaozhi.modules.agent.vo.AgentInfoVO;
 
 /**
- * 智能体表处理service
+ * intelligent_body_surface_treatment_service
  *
  * @author Goody
  * @version 1.0, 2025/4/30
@@ -20,82 +20,82 @@ import xiaozhi.modules.agent.vo.AgentInfoVO;
  */
 public interface AgentService extends BaseService<AgentEntity> {
     /**
-     * 获取管理员智能体列表
+     * get_the_list_of_administrator_agents
      *
-     * @param params 查询参数
-     * @return 分页数据
+     * @param params query_parameters
+     * @return paginated_data
      */
     PageData<AgentEntity> adminAgentList(Map<String, Object> params);
 
     /**
-     * 根据ID获取智能体
+     * get_the_agent_based_on_id
      *
-     * @param id 智能体ID
-     * @return 智能体实体
+     * @param id agent_id
+     * @return agent_entity
      */
     AgentInfoVO getAgentById(String id);
 
     /**
-     * 插入智能体
+     * insert_agent
      *
-     * @param entity 智能体实体
-     * @return 是否成功
+     * @param entity agent_entity
+     * @return is_it_successful
      */
     boolean insert(AgentEntity entity);
 
     /**
-     * 根据用户ID删除智能体
+     * delete_agent_based_on_user_id
      *
-     * @param userId 用户ID
+     * @param userId user_id
      */
     void deleteAgentByUserId(Long userId);
 
     /**
-     * 获取用户智能体列表
+     * get_the_list_of_user_agents
      *
-     * @param userId 用户ID
-     * @return 智能体列表
+     * @param userId user_id
+     * @return agent_list
      */
     List<AgentDTO> getUserAgents(Long userId);
 
     /**
-     * 根据智能体ID获取设备数量
+     * get_the_number_of_devices_based_on_the_agent_id
      *
-     * @param agentId 智能体ID
-     * @return 设备数量
+     * @param agentId agent_id
+     * @return number_of_devices
      */
     Integer getDeviceCountByAgentId(String agentId);
 
     /**
-     * 根据设备MAC地址查询对应设备的默认智能体信息
+     * query_the_default_agent_information_of_the_corresponding_device_based_on_the_device_mac_address
      *
-     * @param macAddress 设备MAC地址
-     * @return 默认智能体信息，不存在时返回null
+     * @param macAddress device_mac_address
+     * @return default_agent_information，returns_null_if_it_does_not_exist
      */
     AgentEntity getDefaultAgentByMacAddress(String macAddress);
 
     /**
-     * 检查用户是否有权限访问智能体
+     * check_if_the_user_has_permission_to_access_the_agent
      *
-     * @param agentId 智能体ID
-     * @param userId  用户ID
-     * @return 是否有权限
+     * @param agentId agent_id
+     * @param userId  user_id
+     * @return do_you_have_permission
      */
     boolean checkAgentPermission(String agentId, Long userId);
 
     /**
-     * 更新智能体
+     * update_agent
      *
-     * @param agentId 智能体ID
-     * @param dto     更新智能体所需的信息
+     * @param agentId agent_id
+     * @param dto     update_the_information_needed_by_the_agent
      */
     void updateAgentById(String agentId, AgentUpdateDTO dto);
 
     /**
-     * 创建智能体
+     * create_an_agent
      *
-     * @param dto 创建智能体所需的信息
-     * @return 创建的智能体ID
+     * @param dto information_needed_to_create_the_agent
+     * @return created_agent_id
      */
     String createAgent(AgentCreateDTO dto);
 }

@@ -39,7 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
+        registry.addMapping("/*
+*")
                 .allowedOriginPatterns("*")
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
@@ -48,15 +49,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // 特殊用途的转换器
+        // special_purpose_converters
         converters.add(new ByteArrayHttpMessageConverter());
         converters.add(new ResourceHttpMessageConverter());
 
-        // 通用转换器
+        // universal_converter
         converters.add(new StringHttpMessageConverter());
         converters.add(new AllEncompassingFormHttpMessageConverter());
 
-        // JSON 转换器
+        // JSON converter
         converters.add(jackson2HttpMessageConverter());
     }
 
@@ -65,13 +66,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper mapper = new ObjectMapper();
 
-        // 忽略未知属性
+        // ignore_unknown_attributes
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        // 设置时区
+        // set_time_zone
         mapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
-        // 配置Java8日期时间序列化
+        // configure_java8_datetime_serialization
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(java.time.LocalDateTime.class, new LocalDateTimeSerializer(
                 java.time.format.DateTimeFormatter.ofPattern(DateUtils.DATE_TIME_PATTERN)));
@@ -87,11 +88,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 new LocalTimeDeserializer(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
         mapper.registerModule(javaTimeModule);
 
-        // 配置java.util.Date的序列化和反序列化
+// configure_java.util.Date serialization and deserialization
         SimpleDateFormat dateFormat = new SimpleDateFormat(DateUtils.DATE_TIME_PATTERN);
         mapper.setDateFormat(dateFormat);
 
-        // Long类型转String类型
+// Convert Long type to String type
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
@@ -102,7 +103,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
     
     /**
-     * 国际化配置 - 根据请求头中的Accept-Language设置语言环境
+* international_configuration - set the locale according_to_the_accept_in_the_request_header-Language
+*/request_header-Language设置语言环境
      */
     @Bean
     public LocaleResolver localeResolver() {
@@ -114,14 +116,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     return Locale.getDefault();
                 }
                 
-                // 解析Accept-Language请求头中的首选语言
+                // The preferred language in the parseaccept-Language request header
                 String[] languages = acceptLanguage.split(",");
                 if (languages.length > 0) {
-                    // 提取第一个语言代码，去除可能的质量值(q=...)
+                    // extract_the_first_language_code，remove_possible_quality_values(q=...)
                     String[] parts = languages[0].split(";" + "\\s*");
                     String primaryLanguage = parts[0].trim();
                      
-                    // 根据前端发送的语言代码直接创建Locale对象
+                    // create_a_locale_object_directly_based_on_the_language_code_sent_by_the_front_end
                     if (primaryLanguage.equals("zh-CN")) {
                         return Locale.SIMPLIFIED_CHINESE;
                     } else if (primaryLanguage.equals("zh-TW")) {
@@ -129,15 +131,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     } else if (primaryLanguage.equals("en-US")) {
                         return Locale.US;
                     } else if (primaryLanguage.startsWith("zh")) {
-                        // 对于其他中文变体，默认使用简体中文
+                        // for_other_chinese_variants，simplified_chinese_is_used_by_default
                         return Locale.SIMPLIFIED_CHINESE;
                     } else if (primaryLanguage.startsWith("en")) {
-                        // 对于其他英文变体，默认使用美式英语
+                        // for_other_english_variants，defaults_to_american_english
                         return Locale.US;
                     }
                 }
                 
-                // 如果没有匹配的语言，使用默认语言
+                // if_no_matching_language，use_default_language
                 return Locale.getDefault();
             }
         };

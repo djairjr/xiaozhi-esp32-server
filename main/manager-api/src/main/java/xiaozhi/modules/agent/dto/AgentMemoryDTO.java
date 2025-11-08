@@ -6,14 +6,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * 智能体记忆更新DTO
+ * agent_memory_update_dto
  */
 @Data
-@Schema(description = "智能体记忆更新对象")
+@Schema(description = "Agent memory update object")
 public class AgentMemoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "总结记忆", example = "构建可生长的动态记忆网络，在有限空间内保留关键信息的同时，智能维护信息演变轨迹\n" +
-            "根据对话记录，总结user的重要信息，以便在未来的对话中提供更个性化的服务", required = false)
+    @Schema(description = "Summary memory", example = "Build a growable dynamic memory network, retain_critical_information_in_a_limited_space, evolution_track_of_intelligent_maintenance_information\n" +
+            "Summarize_important_information_about_the_user based on conversation history to provide more personalized service in future conversations", required = false)
     private String summaryMemory;
 }

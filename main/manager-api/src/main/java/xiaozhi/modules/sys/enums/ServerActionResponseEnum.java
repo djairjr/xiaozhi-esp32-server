@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * 服务端调用响应枚举
+ * server_call_response_enumeration
  */
 public enum ServerActionResponseEnum {
     SUCCESS("success"), FAIL("fail");

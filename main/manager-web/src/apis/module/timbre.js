@@ -2,7 +2,7 @@ import { getServiceUrl } from '../api';
 import RequestService from '../httpRequest';
 
 export default {
-    // 获取音色
+    // get_timbre
     getVoiceList(params, callback) {
         const queryParams = new URLSearchParams({
             ttsModelId: params.ttsModelId,
@@ -25,7 +25,7 @@ export default {
                 });
             }).send();
     },
-    // 音色保存
+    // sound_save
     saveVoice(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/ttsVoice`)
@@ -51,7 +51,7 @@ export default {
                 });
             }).send();
     },
-    // 音色删除
+    // sound_deletion
     deleteVoice(ids, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/ttsVoice/delete`)
@@ -68,7 +68,7 @@ export default {
                 });
             }).send();
     },
-    // 音色修改
+    // tone_modification
     updateVoice(params, callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/ttsVoice/${params.id}`)

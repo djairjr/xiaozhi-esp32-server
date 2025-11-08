@@ -8,39 +8,41 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
- * 日期处理
- * Copyright (c) 人人开源 All rights reserved.
+ * date_processing
+ * Copyright (c) open_source_for_everyone All rights reserved.
  * Website: https://www.renren.io
  */
 public class DateUtils {
     /**
-     * 时间格式(yyyy-MM-dd)
+     * time_format(yyyy-MM-dd)
      */
     public final static String DATE_PATTERN = "yyyy-MM-dd";
     /**
-     * 时间格式(yyyy-MM-dd HH:mm:ss)
+     * time_format(yyyy-MM-dd HH:mm:ss)
      */
     public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public final static String DATE_TIME_MILLIS_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
 
 
-    /**
-     * 日期格式化 日期格式为：yyyy-MM-dd
+    /*
+*
+     * date_formatting the_date_format_is：yyyy-MM-dd
      *
-     * @param date 日期
-     * @return 返回yyyy-MM-dd格式日期
-     */
+     * @param date date
+* @return returnyyyy-MM-dd format date
+*/
     public static String format(Date date) {
         return format(date, DATE_PATTERN);
     }
 
-    /**
-     * 日期格式化 日期格式为：yyyy-MM-dd
+    /*
+*
+     * date_formatting the_date_format_is：yyyy-MM-dd
      *
-     * @param date    日期
-     * @param pattern 格式，如：DateUtils.DATE_TIME_PATTERN
-     * @return 返回yyyy-MM-dd格式日期
-     */
+     * @param date    date
+     * @param pattern format，like：DateUtils.DATE_TIME_PATTERN
+* @return returnyyyy-MM-dd format date
+*/
     public static String format(Date date, String pattern) {
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(pattern);
@@ -50,11 +52,11 @@ public class DateUtils {
     }
 
     /**
-     * 日期解析
+     * date_parsing
      *
-     * @param date    日期
-     * @param pattern 格式，如：DateUtils.DATE_TIME_PATTERN
-     * @return 返回Date
+     * @param date    date
+     * @param pattern format，like：DateUtils.DATE_TIME_PATTERN
+     * @return return_date
      */
     public static Date parse(String date, String pattern) {
         try {
@@ -78,38 +80,39 @@ public class DateUtils {
         return String.format("%.3f", mills / 1000.0);
     }
 
-    /**
-     * 获取简短的时间字符串：10秒前返回刚刚，多少秒前，几小时前，超过一周返回年月日时分秒
+    /*
+*
+* get_a_short_time_string: returns just 10 seconds ago, how_many_seconds_ago, hours_ago, returns_year_month_day_hour_minute_and_second_if_more_than_one_week_has_passed
      * @param date
      * @return
-     */
+*/
     public static String getShortTime(Date date) {
         if (date == null) {
             return null;
         }
-        // 将 Date 转换为 Instant
+        // will Date convert_to Instant
         LocalDateTime localDateTime = date.toInstant()
-                // 获取系统默认时区
+                // get_the_system_default_time_zone
                 .atZone(ZoneId.systemDefault())
-                // 转换为 LocalDateTime
+                // convert_to LocalDateTime
                 .toLocalDateTime();
-        // 当前时间
+        // current_time
         LocalDateTime now = LocalDateTime.now();
-        // 时间差，单位为秒
+        // time_difference，unit_is_seconds
         long secondsBetween = ChronoUnit.SECONDS.between(localDateTime, now);
 
         if (secondsBetween <= 10) {
-            return "刚刚";
+            return "just";
         } else if (secondsBetween < 60) {
-            return secondsBetween + "秒前";
+            return secondsBetween + "seconds ago";
         } else if (secondsBetween < 60 * 60) {
-            return secondsBetween / 60 + "分钟前";
+            return secondsBetween / 60 + "minutes ago";
         } else if (secondsBetween < 86400) {
-            return secondsBetween / 3600 + "小时前";
+            return secondsBetween / 3600 + "hours ago";
         } else if (secondsBetween < 604800) {
-            return secondsBetween / 86400 + "天前";
+            return secondsBetween / 86400 + "days ago";
         } else {
-            // 超过一周，显示完整日期时间
+            // more_than_a_week，show_full_date_time
             return format(date,DATE_TIME_PATTERN);
         }
     }

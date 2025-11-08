@@ -10,43 +10,44 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * Agent与插件的唯一映射表
+/*
+*
+* Unique mapping table between Agent and plug-in
  * 
  * @TableName ai_agent_plugin_mapping
- */
+*/
 @Data
 @TableName(value = "ai_agent_plugin_mapping")
-@Schema(description = "Agent与插件的唯一映射表")
+@Schema(description = "Unique mapping table between Agent and plug-in")
 public class AgentPluginMapping implements Serializable {
     /**
-     * 主键
+     * primary_key
      */
     @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description = "映射信息主键ID")
+    @Schema(description = "Mapping information primary key ID")
     private Long id;
 
     /**
-     * 智能体ID
+     * agent_id
      */
-    @Schema(description = "智能体ID")
+    @Schema(description = "Agent ID")
     private String agentId;
 
     /**
-     * 插件ID
+     * plugin_id
      */
-    @Schema(description = "插件ID")
+    @Schema(description = "Plugin ID")
     private String pluginId;
 
     /**
-     * 插件参数(Json)格式
+     * plugin_parameters(Json)format
      */
-    @Schema(description = "插件参数(Json)格式")
+    @Schema(description = "Plug-in parameter (Json) format")
     private String paramInfo;
 
-    // 冗余字段，用于方便在根据id查询插件时，对照查出插件的Provider_code,详见dao层xml文件
+    // redundant_fields，used_to_facilitate_querying_plugins_based_on_id，check_the_provider_code_of_the_plugin,see_dao_layer_xml_file_for_details
     @TableField(exist = false)
-    @Schema(description = "插件provider_code, 对应表ai_model_provider")
+    @Schema(description = "Plug-in provider_code, corresponding table ai_model_provider")
     private String providerCode;
 
     @TableField(exist = false)

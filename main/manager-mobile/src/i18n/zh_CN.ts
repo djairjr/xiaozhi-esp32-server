@@ -1,12 +1,12 @@
-// 简体中文语言包
+// simplified_chinese_language_pack
 export default {
   // TabBar
   'tabBar.home': '首页',
   'tabBar.deviceConfig': '配网',
   'tabBar.settings': '系统',
-  // 设置页面标题
+  // set_page_title
   'settings.title': '设置',
-  // 登录页面
+  // login_page
   'login.pageTitle': '登录',
   'login.navigationTitle': '登录',
   'login.fetchConfigError': '获取配置失败:',
@@ -31,7 +31,7 @@ export default {
   'login.captchaError': '图形验证码错误',
   'login.forgotPassword': '忘记密码',
 
-  // 注册页面
+  // registration_page
   'register.pageTitle': '注册',
   'register.createAccount': '创建账户',
   'register.enterUsername': '请输入用户名',
@@ -51,7 +51,7 @@ export default {
   'register.confirm': '确认',
   'register.captchaSendSuccess': '验证码发送成功',
 
-  // 首页
+  // front_page
   'home.pageTitle': '首页',
   'home.createAgent': '创建智能体',
   'home.agentName': '智能体',
@@ -66,7 +66,7 @@ export default {
   'home.delete': '删除',
   'home.createFirstAgent': '点击右下角 + 号创建您的第一个智能体',
   'home.dialogTitle': '创建智能体',
-  'home.inputPlaceholder': '例如：客服助手、语音助理、知识问答',
+  'home.inputPlaceholder': '例如：customer_service_assistant、voice_assistant、知识问答',
   'home.createError': '请输入智能体名称',
   'home.createNow': '立即创建',
   'home.justNow': '刚刚',
@@ -74,7 +74,7 @@ export default {
   'home.hoursAgo': '小时前',
   'home.daysAgo': '天前',
 
-  // Agent页面
+  // Agent page
   'agent.pageTitle': '智能体',
   'agent.roleConfig': '角色配置',
   'agent.deviceManagement': '设备管理',
@@ -87,7 +87,7 @@ export default {
   'agent.largeLanguageModel': '大语言模型',
   'agent.save': '保存',
   'agent.cancel': '取消',
-  // Agent编辑页面
+  // Agent editing page
   'agent.basicInfo': '基础信息',
   'agent.agentName': '助手昵称',
   'agent.inputAgentName': '请输入助手昵称',
@@ -116,7 +116,7 @@ export default {
   'agent.pleaseInputRoleDescription': '请输入角色介绍',
   'agent.pleaseSelect': '请选择',
 
-  // 聊天历史页面
+  // chat_history_page
   'chatHistory.getChatSessions': '获取聊天会话列表',
   'chatHistory.noSelectedAgent': '没有选中的智能体',
   'chatHistory.getChatSessionsFailed': '获取聊天会话列表失败:',
@@ -131,7 +131,7 @@ export default {
   'chatHistory.noMoreData': '没有更多数据了',
   'chatHistory.noChatRecords': '暂无聊天记录',
   'chatHistory.chatRecordsDescription': '与智能体的对话记录会显示在这里',
-  // 聊天详情页面
+  // chat_details_page
   'chatHistory.pageTitle': '聊天详情',
   'chatHistory.assistantName': '智能助手',
   'chatHistory.userName': '用户',
@@ -142,7 +142,7 @@ export default {
   'chatHistory.audioPlayFailed': '音频播放失败',
   'chatHistory.playAudioFailed': '播放音频失败',
 
-  // 设备管理页面
+  // device_management_page
   'device.pageTitle': '设备管理',
   'device.noDevices': '暂无设备',
   'device.macAddress': 'MAC地址',
@@ -176,7 +176,7 @@ export default {
   'device.lastConnection': '最近对话',
   'device.clickToBindFirstDevice': '点击右下角 + 号绑定您的第一个设备',
 
-  // 通用
+  // universal
   'common.success': '成功',
   'common.fail': '失败',
   'common.loading': '加载中...',
@@ -189,7 +189,7 @@ export default {
   'common.unknownError': '未知错误',
   'common.networkError': '网络错误',
 
-  // SM2加密相关错误消息
+  // SM2 encryption related error messages
   'sm2.publicKeyNotConfigured': 'SM2公钥未配置，请联系管理员',
   'sm2.encryptionFailed': '密码加密失败',
   'sm2.keyGenerationFailed': '密钥对生成失败',
@@ -227,20 +227,20 @@ export default {
   'voiceprint.selectVector': '选择声纹向量',
   'voiceprint.voiceprintInterfaceNotConfigured': '声纹接口未配置',
 
-  // 设置页面
+  // settings_page
   'settings.pageTitle': '设置',
   'settings.navigationTitle': '设置',
   'settings.networkSettings': '网络设置',
   'settings.serverApiUrl': '服务端接口地址',
-  'settings.validServerUrl': '请输入有效的服务端地址（以 http 或 https 开头，并以 /xiaozhi 结尾）',
+  'settings.validServerUrl': '请输入有效的服务端地址（by http or https beginning，and_with /xiaozhi 结尾）',
   'settings.saveSettings': '保存设置',
   'settings.resetDefault': '恢复默认',
   'settings.restartApp': '重启应用',
   'settings.restartNow': '立即重启',
   'settings.restartLater': '稍后',
-  // 关于我们
+  // about_us
   'settings.aboutApp': '关于小智智控台',
-  'settings.aboutContent': '小智智控台\n\n基于 Vue.js 3 + uni-app 构建的跨平台移动端管理应用，为小智ESP32智能硬件提供设备管理、智能体配置等功能。\n\n© 2025 xiaozhi-esp32-server {version}',
+  'settings.aboutContent': '小智智控台\n\n基于 Vue.js 3 + uni-app crossplatform_mobile_management_application_built，provide_device_management_for_xiaozhi_esp32_smart_hardware、agent_configuration_and_other_functions。\n\n© 2025 xiaozhi-esp32-server {version}',
   'settings.restartSuccess': '已保存，可稍后手动重启应用',
   'settings.serverUrlSavedAndCacheCleared': '服务端地址已保存，缓存已清除',
   'settings.resetToDefaultAndCacheCleared': '已恢复默认设置，缓存已清除',
@@ -258,14 +258,14 @@ export default {
   'settings.aboutUs': '关于我们',
   'settings.appVersion': '应用版本与团队信息',
   'settings.confirmClear': '确认清除',
-  'settings.confirmClearMessage': '确定要清除所有缓存吗？这将删除所有数据包括登录状态，需要重新登录。',
+  'settings.confirmClearMessage': '确定要清除所有缓存吗？this_will_delete_all_data_including_login_status，需要重新登录。',
   'settings.cacheCleared': '缓存清除成功，即将跳转到登录页',
   'settings.languageSettings': '语言设置',
   'settings.language': '语言',
   'settings.selectLanguage': '选择语言',
   'settings.languageChanged': '语言切换成功',
 
-  // 重置密码页面
+  // reset_password_page
   'retrievePassword.title': '重置密码',
   'retrievePassword.subtitle': '通过手机号找回您的账户密码',
   'retrievePassword.mobileRequired': '请输入手机号码',
@@ -286,7 +286,7 @@ export default {
   'retrievePassword.resetButton': '重置密码',
   'retrievePassword.goToLogin': '返回登录',
 
-  // 消息提示
+  // message_prompt
   'message.loginSuccess': '登录成功！',
   'message.loginFail': '登录失败',
   'message.registerSuccess': '注册成功',
@@ -306,7 +306,7 @@ export default {
   'message.passwordError': '账号或密码错误',
   'message.phoneRegistered': '此手机号码已经注册过',
 
-  // Agent工具页面
+  // Agent tool page
   'agent.tools.pageTitle': 'Agent工具',
   'agent.tools.unselected': '未选',
   'agent.tools.selected': '已选',
@@ -333,7 +333,7 @@ export default {
   'agent.tools.mcpEndpoint': 'MCP接入点',
   'agent.tools.eachLineOneItem': '每行输入一个项目',
 
-  // 设备配置页面
+  // device_configuration_page
   'deviceConfig.pageTitle': '设备配置',
   'deviceConfig.wifiConfig': 'WiFi配网',
   'deviceConfig.ultrasonicConfig': '超声波配网',
@@ -374,7 +374,7 @@ export default {
   'deviceConfig.ultrasonicConfigInstructions': '超声波配网说明',
   'deviceConfig.ensureWifiNetworkSelectedAndPasswordEntered': '确保已选择WiFi网络并输入密码',
   'deviceConfig.clickGenerateAndPlaySoundWave': '点击生成并播放声波，系统会将配网信息编码为音频',
-  'deviceConfig.bringPhoneCloseToXiaozhiDevice': '将手机靠近xiaozhi设备（距离1-2米）',
+  'deviceConfig.bringPhoneCloseToXiaozhiDevice': '将手机靠近xiaozhi设备（distance_1-2米）',
   'deviceConfig.duringAudioPlaybackXiaozhiWillReceive': '音频播放时，xiaozhi会接收并解码配网信息',
   'deviceConfig.afterConfigSuccessDeviceWillConnect': '配网成功后设备会自动连接WiFi网络',
   'deviceConfig.usesAfskModulation': '使用AFSK调制技术，通过1800Hz和1500Hz频率传输数据',
@@ -397,7 +397,7 @@ export default {
   'deviceConfig.ultrasonicAudioPlaybackEnded': '超声波音频播放结束',
   'deviceConfig.audioPlaybackFailed': '音频播放失败',
   'deviceConfig.audioResourceBusy': '音频资源繁忙，请稍后重试',
-  'deviceConfig.audioFormatNotSupported': '音频格式不支持，可能是data URI问题',
+  'deviceConfig.audioFormatNotSupported': '音频格式不支持，may_be_data URI问题',
   'deviceConfig.audioFileError': '音频文件错误',
   'deviceConfig.cleaningUpAudioContext': '清理音频上下文',
   'deviceConfig.cleaningUpAudioContextFailed': '清理音频上下文失败',

@@ -3,7 +3,7 @@ package xiaozhi.common.utils;
 import org.springframework.stereotype.Component;
 
 /**
- * 获取配置文件信息
+ * get_configuration_file_information
  * Copyright xin-nan.com
  */
 @Component

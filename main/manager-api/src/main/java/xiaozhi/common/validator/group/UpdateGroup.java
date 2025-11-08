@@ -1,7 +1,7 @@
 package xiaozhi.common.validator.group;
 
 /**
- * 修改 Group
+ * revise Group
  */
 public interface UpdateGroup {
 

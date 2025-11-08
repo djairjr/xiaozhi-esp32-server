@@ -5,7 +5,7 @@ import type {
 } from './types'
 import { http } from '@/http/request/alova'
 
-// 获取声纹列表
+// get_voiceprint_list
 export function getVoicePrintList(agentId: string) {
   return http.Get<VoicePrint[]>(`/agent/voice-print/list/${agentId}`, {
     meta: {
@@ -18,7 +18,7 @@ export function getVoicePrintList(agentId: string) {
   })
 }
 
-// 获取语音对话记录（用于选择声纹向量）
+// get_voice_conversation_records（used_to_select_voiceprint_vectors）
 export function getChatHistory(agentId: string) {
   return http.Get<ChatHistory[]>(`/agent/${agentId}/chat-history/user`, {
     meta: {
@@ -31,7 +31,7 @@ export function getChatHistory(agentId: string) {
   })
 }
 
-// 新增说话人
+// add_new_speaker
 export function createVoicePrint(data: CreateSpeakerData) {
   return http.Post<null>('/agent/voice-print', data, {
     meta: {
@@ -41,7 +41,7 @@ export function createVoicePrint(data: CreateSpeakerData) {
   })
 }
 
-// 删除声纹
+// delete_voiceprint
 export function deleteVoicePrint(id: string) {
   return http.Delete<null>(`/agent/voice-print/${id}`, {
     meta: {
@@ -51,7 +51,7 @@ export function deleteVoicePrint(id: string) {
   })
 }
 
-// 更新声纹信息
+// update_voiceprint_information
 export function updateVoicePrint(data: VoicePrint) {
   return http.Put<null>('/agent/voice-print', data, {
     meta: {
